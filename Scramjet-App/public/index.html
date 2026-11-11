@@ -1021,7 +1021,7 @@
         }
 
         function tryLoadVideo(bg, video, myToken) {
-            const url = bg.src;
+            const url = '/api/background/' + bg.id;
             const remember = workingStrategy[bg.id];
             const direct       = { name: 'direct',        url, policy: null };
             const directNoRef  = { name: 'direct-noref',  url, policy: 'no-referrer' };
@@ -1030,7 +1030,7 @@
             const sjUrl = getScramjetUrl(url);
             const scramjetS = sjUrl ? { name: 'scramjet', url: sjUrl } : null;
 
-            const all = [directNoRef, direct, allorigins, corsproxy, scramjetS].filter(Boolean);
+            const all = [directNoRef, direct];
             if (remember) {
                 const idx = all.findIndex(s => s.name === remember);
                 if (idx > 0) all.unshift(all.splice(idx, 1)[0]);
@@ -1232,7 +1232,7 @@
                 if (b.type === 'video') {
                     return `<div class="ob-card" data-bg="${b.id}" onclick="obSelect('bg','${b.id}')">
                         <div class="ob-preview" style="background:${b.gradient || '#1a1028'}">
-                            <video src="${b.src}" autoplay muted loop playsinline referrerpolicy="no-referrer" onerror="this.style.display='none'"></video>
+                            <video src="/api/background/${b.id}" autoplay muted loop playsinline referrerpolicy="no-referrer" onerror="this.style.display='none'"></video>
                             <span class="badge">motion</span>
                         </div>
                         <div class="name">${b.name}</div>
