@@ -986,7 +986,7 @@
             if (!layer || !video) return;
 
             bgLoadToken++;
-            const myToken = bgLoadToken;
+            const myToken = bgLoadToken; video.dataset.bgId = bg.id;
 
             try { video.pause(); } catch (e) {}
             video.onloadeddata = null;
@@ -1038,7 +1038,7 @@
 
             let i = 0;
             const next = async () => {
-                if (myToken !== bgLoadToken) return;
+                if (myToken !== bgLoadToken || video.dataset.bgId !== bg.id) return;
                 if (i >= all.length) {
                     console.warn('[noxveil] ✗ all routes failed for', bg.name, '—', url);
                     video.classList.remove('visible');
@@ -1048,7 +1048,7 @@
                 const s = all[i++];
                 console.log('[noxveil] → trying', bg.name, 'via', s.name);
                 const ok = await attemptVideoSrc(video, s.url, s.policy, myToken);
-                if (myToken !== bgLoadToken) return;
+                if (myToken !== bgLoadToken || video.dataset.bgId !== bg.id) return;
                 if (ok) {
                     console.log('[noxveil] ✓ loaded', bg.name, 'via', s.name);
                     workingStrategy[bg.id] = s.name;
