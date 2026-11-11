@@ -2265,7 +2265,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             generateGames();
-            ensureProxy();
+            // Proxy starts on demand when the first tab is opened.
             loadSettings();
             settings.bg = settings.bg || 'violet';
             settings.cloak = settings.cloak || 'classroom';
