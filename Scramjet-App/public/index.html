@@ -489,6 +489,7 @@
         /* ===== ONBOARDING ===== */
         #onboarding { position: fixed; inset: 0; z-index: 999999999; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(90deg,rgba(8,12,10,.78),rgba(8,12,10,.35)),url('/intro-cover.jpg') center/cover; transition: opacity .35s, visibility .35s; }
         #onboarding.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        body.motion-background #onboarding { background: linear-gradient(90deg,rgba(8,12,10,.70),rgba(8,12,10,.28)); }
         .ob-shell { width: 100%; max-width: 760px; border-radius: 18px; padding: 36px; display: flex; flex-direction: column; gap: 26px; max-height: calc(100vh - 48px); overflow-y: auto; background:rgba(15,20,17,.82); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(12px); }
         .ob-progress { display: flex; justify-content: center; gap: 8px; }
         .ob-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.12); transition: all .25s; }
@@ -651,10 +652,10 @@
                 <h2 class="section-title" style="margin:28px 0 14px">cloud gaming</h2>
                 <p class="section-meta" style="margin-bottom:16px">Opens the provider directly. Availability and accounts vary by service.</p>
                 <div class="arcade-grid">
-                    <div class="arcade-card glass" onclick="window.open('https://www.xbox.com/en-US/play/','_blank','noopener')"><div class="arcade-icon">XB</div><div class="arcade-name">Xbox Cloud Gaming</div><div class="arcade-desc">Stream supported Xbox games in a browser.</div></div>
-                    <div class="arcade-card glass" onclick="window.open('https://play.geforcenow.com/','_blank','noopener')"><div class="arcade-icon">N</div><div class="arcade-name">GeForce NOW</div><div class="arcade-desc">Stream games from supported PC game stores.</div></div>
-                    <div class="arcade-card glass" onclick="window.open('https://luna.amazon.com/','_blank','noopener')"><div class="arcade-icon">L</div><div class="arcade-name">Amazon Luna</div><div class="arcade-desc">Amazon’s cloud gaming service.</div></div>
-                    <div class="arcade-card glass" onclick="window.open('https://cloud.boosteroid.com/','_blank','noopener')"><div class="arcade-icon">B</div><div class="arcade-name">Boosteroid</div><div class="arcade-desc">Cloud gaming in a browser where available.</div></div>
+                    <div class="arcade-card glass" onclick="directLoad('https://www.xbox.com/en-US/play/')"><div class="arcade-icon">XB</div><div class="arcade-name">Xbox Cloud Gaming</div><div class="arcade-desc">Stream supported Xbox games in a browser.</div></div>
+                    <div class="arcade-card glass" onclick="directLoad('https://play.geforcenow.com/')"><div class="arcade-icon">N</div><div class="arcade-name">GeForce NOW</div><div class="arcade-desc">Stream games from supported PC game stores.</div></div>
+                    <div class="arcade-card glass" onclick="directLoad('https://luna.amazon.com/')"><div class="arcade-icon">L</div><div class="arcade-name">Amazon Luna</div><div class="arcade-desc">Amazon’s cloud gaming service.</div></div>
+                    <div class="arcade-card glass" onclick="directLoad('https://cloud.boosteroid.com/')"><div class="arcade-icon">B</div><div class="arcade-name">Boosteroid</div><div class="arcade-desc">Cloud gaming in a browser where available.</div></div>
                 </div>
             </div>
         </div>
@@ -997,11 +998,13 @@
             video.style.display = 'none';
 
             if (bg.type === 'css') {
+                document.body.classList.remove('motion-background');
                 if (ambient) ambient.classList.remove('hidden');
                 paintGradient(layer, STATIC_GRADIENTS[bg.cls] || STATIC_GRADIENTS['bg-violet']);
                 return;
             }
 
+            document.body.classList.add('motion-background');
             if (ambient) ambient.classList.add('hidden');
             paintGradient(layer, bg.gradient || STATIC_GRADIENTS['bg-violet']);
 
@@ -1128,13 +1131,35 @@
         async function generateLink() {
             const status = document.getElementById('linkgen-status');
             const output = document.getElementById('linkgen-output');
-            const target = getDeploymentUrl();
-            if (!target) {
+            const button = document.getElementById('linkgen-btn');
+            const current = getDeploymentUrl();
+            if (!current) {
                 status.textContent = 'Open the hosted site first to create a share link.';
                 return;
             }
-            output.value = target;
-            status.textContent = 'Share link ready.';
+
+            const target = new URL(current);
+            target.search = '';
+            target.hash = '';
+            target.searchParams.set('share', crypto.randomUUID());
+            output.value = '';
+            button.disabled = true;
+            status.textContent = 'Creating a new share link…';
+            try {
+                const response = await fetch('/api/shorten', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: target.href })
+                });
+                const result = await response.json();
+                if (!response.ok || !result.url) throw new Error(result.error || 'The short-link service did not return a link.');
+                output.value = result.url;
+                status.textContent = 'New share link ready.';
+            } catch (error) {
+                status.textContent = error.message || 'Could not create a link. Try again in a moment.';
+            } finally {
+                button.disabled = false;
+            }
         }
 
         async function copyGeneratedLink() {
@@ -1207,7 +1232,7 @@
                 if (b.type === 'video') {
                     return `<div class="ob-card" data-bg="${b.id}" onclick="obSelect('bg','${b.id}')">
                         <div class="ob-preview" style="background:${b.gradient || '#1a1028'}">
-                            <video src="${b.src}" autoplay muted loop playsinline onerror="this.style.display='none'"></video>
+                            <video src="${b.src}" autoplay muted loop playsinline referrerpolicy="no-referrer" onerror="this.style.display='none'"></video>
                             <span class="badge">motion</span>
                         </div>
                         <div class="name">${b.name}</div>
@@ -2071,19 +2096,13 @@
             settings.cloak = settings.cloak || 'classroom';
             if (!BGS.find(b => b.id === settings.bg)) settings.bg = 'violet';
             if (!CLOAKS.find(c => c.id === settings.cloak)) settings.cloak = 'classroom';
-            // show intro until finished this browser session
-            let obDone = false;
-            try { obDone = sessionStorage.getItem('nv_ob_done') === '1' || settings.onboarded === true && localStorage.getItem(LS_KEY + '_seen') === '1'; } catch (e) {}
-            if (!obDone) settings.onboarded = false;
+            // Always show the intro on a fresh page load; enter is required to continue.
+            settings.onboarded = false;
             applyAll();
             buildOnboardingGrids();
-            if (settings.onboarded && obDone) {
-                hideOnboarding();
-            } else {
-                showOnboarding();
-                syncOnboardingSelection();
-                showStep(0);
-            }
+            showOnboarding();
+            syncOnboardingSelection();
+            showStep(0);
             refreshLinkgenSource();
             setTimeout(() => applyCloak(settings.cloak), 50);
             setTimeout(() => applyCloak(settings.cloak), 400);
