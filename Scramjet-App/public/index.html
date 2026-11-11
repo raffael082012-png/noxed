@@ -10,7 +10,6 @@
     <script src="/baremux/index.js"></script>
     <link rel="stylesheet" href="index.css" />
     <script src="register-sw.js" defer></script>
-    <script src="search.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
     <script src="https://js.puter.com/v2/"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +18,7 @@
 
     <style>
         :root {
-            --void: #07050c;
+            --void: #101311;
             --surface: rgba(255,255,255,0.055);
             --surface-hi: rgba(255,255,255,0.09);
             --border: rgba(255,255,255,0.09);
@@ -270,7 +269,7 @@
         .openai-fill { fill: #fff; }
 
         /* ===== GAMES & ARCADE ===== */
-        #view-games, #view-arcade { justify-content: flex-start; padding: 48px 40px 40px 110px; }
+        #view-games, #view-library { justify-content: flex-start; padding: 48px 40px 40px 110px; }
         .section-head { width: 100%; max-width: 1320px; display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 26px; }
         .section-title { font-family: var(--font-display); font-size: 2rem; font-weight: 500; letter-spacing: -0.03em; color: #fff; }
         .section-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); }
@@ -488,9 +487,9 @@
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
 
         /* ===== ONBOARDING ===== */
-        #onboarding { position: fixed; inset: 0; z-index: 999999999; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(4,2,8,0.72); backdrop-filter: blur(18px) saturate(160%); transition: opacity .35s, visibility .35s; }
+        #onboarding { position: fixed; inset: 0; z-index: 999999999; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(90deg,rgba(8,12,10,.78),rgba(8,12,10,.35)),url('/intro-cover.jpg') center/cover; transition: opacity .35s, visibility .35s; }
         #onboarding.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .ob-shell { width: 100%; max-width: 760px; border-radius: 28px; padding: 36px; display: flex; flex-direction: column; gap: 26px; max-height: calc(100vh - 48px); overflow-y: auto; }
+        .ob-shell { width: 100%; max-width: 760px; border-radius: 18px; padding: 36px; display: flex; flex-direction: column; gap: 26px; max-height: calc(100vh - 48px); overflow-y: auto; background:rgba(15,20,17,.82); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(12px); }
         .ob-progress { display: flex; justify-content: center; gap: 8px; }
         .ob-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.12); transition: all .25s; }
         .ob-dot.active { width: 22px; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
@@ -499,7 +498,12 @@
         @keyframes obIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .ob-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--text-faint); text-transform: uppercase; }
         .ob-title { font-family: var(--font-display); font-size: 2.2rem; font-weight: 500; letter-spacing: -0.03em; color: #fff; line-height: 1.1; }
-        .ob-title em { font-style: normal; color: var(--accent); }
+        .ob-title em { font-style: normal; color: #b9cdb9; }
+        :root { --accent:#9cb59e; --accent-2:#748f78; --void:#101311; --font-display:'Inter',sans-serif; }
+        .glass { backdrop-filter: blur(10px); }
+        .section-title { letter-spacing:-.02em; text-transform:none; }
+        .game-card,.arcade-card,.linkgen-card,.ai-card { border-radius:12px; box-shadow:none; }
+        .game-card:hover,.arcade-card:hover { transform:translateY(-2px); }
         .ob-desc { font-family: var(--font-body); font-size: 14px; color: var(--text-dim); line-height: 1.6; max-width: 52ch; }
         .ob-grid { display: grid; gap: 10px; }
         .ob-grid.bgs { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
@@ -553,9 +557,9 @@
             <svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
             <span data-i18n="nav_games">games</span>
         </button>
-        <button class="side-btn" id="btn-arcade" onclick="switchView('arcade')">
+        <button class="side-btn" id="btn-library" onclick="switchView('library')">
             <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-            <span>arcade</span>
+            <span>library</span>
         </button>
         <button class="side-btn" id="btn-music" onclick="switchView('music')">
             <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
@@ -621,28 +625,36 @@
             <div class="scroll-wrapper"><div class="games-grid" id="games-grid"></div></div>
         </div>
 
-        <div class="view" id="view-arcade">
+        <div class="view" id="view-library">
             <div class="section-head">
-                <h1 class="section-title">browser arcade</h1>
-                <span class="section-meta">instant play · no install</span>
+                <h1 class="section-title">library</h1>
+                <span class="section-meta">games and cloud services</span>
             </div>
             <div class="scroll-wrapper">
                 <div class="arcade-grid">
-                    <div class="arcade-card glass" onclick="directLoad('https://www.freeplayarena.com')">
-                        <div class="arcade-icon">FP</div>
-                        <div class="arcade-name">FreePlayArena</div>
-                        <div class="arcade-desc">300+ browser games with zero friction. No downloads, no login — just click and play. Built for speed and instant loading.</div>
+                    <div class="arcade-card glass" onclick="directLoad('https://www.coolmathgames.com/')">
+                        <div class="arcade-icon">CM</div>
+                        <div class="arcade-name">Coolmath Games</div>
+                        <div class="arcade-desc">A collection of browser games, puzzles, and strategy titles.</div>
                     </div>
-                    <div class="arcade-card glass" onclick="directLoad('https://elyndra-online.com')">
-                        <div class="arcade-icon">EG</div>
-                        <div class="arcade-name">Elyndra GameZ</div>
-                        <div class="arcade-desc">A catalog of 3,500+ distinct browser games. Action, adventure, racing, puzzle, multiplayer — all playable instantly without installation.</div>
+                    <div class="arcade-card glass" onclick="directLoad('https://poki.com/')">
+                        <div class="arcade-icon">P</div>
+                        <div class="arcade-name">Poki</div>
+                        <div class="arcade-desc">Browse free-to-play games from Poki.</div>
                     </div>
-                    <div class="arcade-card glass" onclick="directLoad('https://playhop.com')">
-                        <div class="arcade-icon">PH</div>
-                        <div class="arcade-name">PlayHop</div>
-                        <div class="arcade-desc">700+ high-quality HTML5 games across every major genre. Built for speed, accessibility, and instant play with zero configuration.</div>
+                    <div class="arcade-card glass" onclick="directLoad('https://www.crazygames.com/')">
+                        <div class="arcade-icon">CG</div>
+                        <div class="arcade-name">CrazyGames</div>
+                        <div class="arcade-desc">A broad catalog of web games across genres.</div>
                     </div>
+                </div>
+                <h2 class="section-title" style="margin:28px 0 14px">cloud gaming</h2>
+                <p class="section-meta" style="margin-bottom:16px">Opens the provider directly. Availability and accounts vary by service.</p>
+                <div class="arcade-grid">
+                    <div class="arcade-card glass" onclick="window.open('https://www.xbox.com/en-US/play/','_blank','noopener')"><div class="arcade-icon">XB</div><div class="arcade-name">Xbox Cloud Gaming</div><div class="arcade-desc">Stream supported Xbox games in a browser.</div></div>
+                    <div class="arcade-card glass" onclick="window.open('https://play.geforcenow.com/','_blank','noopener')"><div class="arcade-icon">N</div><div class="arcade-name">GeForce NOW</div><div class="arcade-desc">Stream games from supported PC game stores.</div></div>
+                    <div class="arcade-card glass" onclick="window.open('https://luna.amazon.com/','_blank','noopener')"><div class="arcade-icon">L</div><div class="arcade-name">Amazon Luna</div><div class="arcade-desc">Amazon’s cloud gaming service.</div></div>
+                    <div class="arcade-card glass" onclick="window.open('https://cloud.boosteroid.com/','_blank','noopener')"><div class="arcade-icon">B</div><div class="arcade-name">Boosteroid</div><div class="arcade-desc">Cloud gaming in a browser where available.</div></div>
                 </div>
             </div>
         </div>
@@ -680,31 +692,8 @@
                     <div class="linkgen-output-row">
                         <input type="text" id="linkgen-source" readonly onclick="this.select()" style="color: var(--text-dim);">
                     </div>
-                    <div class="linkgen-kicker" style="margin-top: 18px;">your school filter</div>
-                    <div class="blocker-grid" id="blocker-grid">
-                        <button type="button" class="blocker-card" data-blocker="goguardian" onclick="selectBlocker('goguardian')">
-                            <span class="bc-name">GoGuardian</span>
-                            <span class="bc-hint">keyword + category</span>
-                        </button>
-                        <button type="button" class="blocker-card" data-blocker="securly" onclick="selectBlocker('securly')">
-                            <span class="bc-name">Securly</span>
-                            <span class="bc-hint">DNS + SSL inspect</span>
-                        </button>
-                        <button type="button" class="blocker-card" data-blocker="lightspeed" onclick="selectBlocker('lightspeed')">
-                            <span class="bc-name">Lightspeed</span>
-                            <span class="bc-hint">filter + relay</span>
-                        </button>
-                        <button type="button" class="blocker-card" data-blocker="blocksi" onclick="selectBlocker('blocksi')">
-                            <span class="bc-name">Blocksi</span>
-                            <span class="bc-hint">chrome + DNS</span>
-                        </button>
-                        <button type="button" class="blocker-card" data-blocker="umbrella" onclick="selectBlocker('umbrella')">
-                            <span class="bc-name">Cisco Umbrella</span>
-                            <span class="bc-hint">DNS layer</span>
-                        </button>
-                    </div>
-                    <div class="linkgen-kicker" style="margin-top: 10px;" data-i18n="links_gen_label">generate a new link</div>
-                    <button class="linkgen-btn primary" onclick="generateLink()" id="linkgen-btn" style="width: 100%; height: 52px; font-size: 13px;" data-i18n="links_generate" disabled>pick a filter first</button>
+                    <div class="linkgen-kicker" style="margin-top: 18px;" data-i18n="links_gen_label">make a share link</div>
+                    <button class="linkgen-btn primary" onclick="generateLink()" id="linkgen-btn" style="width: 100%; height: 52px; font-size: 13px;" data-i18n="links_generate">generate link</button>
                     <div class="linkgen-kicker" style="margin-top: 18px;" data-i18n="links_result">your new link</div>
                     <div class="linkgen-output-row">
                         <input type="text" id="linkgen-output" readonly placeholder="click generate to create one" onclick="this.select()">
@@ -717,9 +706,9 @@
                     <div class="linkgen-status" id="linkgen-status"></div>
                 </div>
                 <div class="linkgen-tips">
-                    <div class="linkgen-tip"><strong>pick your filter first</strong> — each option builds a different link shape aimed at that blocker.</div>
-                    <div class="linkgen-tip"><strong>every generate = a new alias</strong> — fresh short link that still opens this deployment.</div>
-                    <div class="linkgen-tip"><strong>needs http(s)</strong> — host noxveil online first (Cloudflare Pages, Netlify, GitHub Pages). local files can't be shortened.</div>
+                    <div class="linkgen-tip"><strong>Share this address</strong> — the link opens this deployment.</div>
+                    <div class="linkgen-tip"><strong>No shortener required</strong> — copy the direct site address.</div>
+                    <div class="linkgen-tip"><strong>Already online?</strong> — this page must have an http(s) address to share.</div>
                 </div>
             </div>
         </div>
@@ -818,7 +807,7 @@
             <section class="ob-step active" data-step="0">
                 <div class="ob-kicker">welcome</div>
                 <h2 class="ob-title">this is <em>noxveil</em>.</h2>
-                <p class="ob-desc">a quieter layer on top of the noisy web. before you go in, set the room up the way you like — backdrop, type, language, and what the tab should pretend to be.</p>
+                <p class="ob-desc">Choose a backdrop, type style, language, and tab appearance. You can change these choices later in setup.</p>
             </section>
             <section class="ob-step" data-step="1">
                 <div class="ob-kicker">atmosphere</div>
@@ -901,9 +890,9 @@
         ];
 
         const I18N = {
-            en: { nav_web:'web', nav_games:'games', nav_music:'music', nav_links:'links', nav_setup:'setup', search_placeholder:'search the web, or paste a url', games_title:'unblocked games', music_search_placeholder:'track, artist, or mood', music_search_btn:'search', music_status_idle:'press search to begin', links_title:'link generator', links_source:'your noxveil deployment', links_gen_label:'generate a new link', links_generate:'generate new link', links_result:'your new link', links_copy:'copy', links_open:'open in new tab', links_clear:'clear', links_tip_1_title:'every click = a new link', links_tip_1_body:'that opens this noxveil deployment. share it anywhere.', links_tip_2_title:'powered by is.gd', links_tip_2_body:'— a free public URL shortener. no login, no tracking.', links_tip_3_title:'needs http(s)', links_tip_3_body:'— if you opened this from a local file, host it first (Cloudflare Pages, Netlify, GitHub Pages).' },
-            es: { nav_web:'web', nav_games:'juegos', nav_music:'música', nav_links:'enlaces', nav_setup:'ajustes', search_placeholder:'busca en la web o pega una url', games_title:'juegos desbloqueados', music_search_placeholder:'canción, artista o mood', music_search_btn:'buscar', music_status_idle:'presiona buscar para empezar', links_title:'generador de enlaces', links_source:'tu implementación de noxveil', links_gen_label:'genera un nuevo enlace', links_generate:'generar nuevo enlace', links_result:'tu nuevo enlace', links_copy:'copiar', links_open:'abrir en nueva pestaña', links_clear:'limpiar', links_tip_1_title:'cada clic = un enlace nuevo', links_tip_1_body:'que abre esta implementación de noxveil. compártelo donde quieras.', links_tip_2_title:'impulsado por is.gd', links_tip_2_body:'— un acortador de URL público y gratuito. sin login, sin rastreo.', links_tip_3_title:'necesita http(s)', links_tip_3_body:'— si abriste esto desde un archivo local, publícalo primero (Cloudflare Pages, Netlify, GitHub Pages).' },
-            ru: { nav_web:'веб', nav_games:'игры', nav_music:'музыка', nav_links:'ссылки', nav_setup:'настройки', search_placeholder:'поиск в интернете или ссылка', games_title:'разблокированные игры', music_search_placeholder:'трек, исполнитель или настроение', music_search_btn:'поиск', music_status_idle:'нажмите поиск, чтобы начать', links_title:'генератор ссылок', links_source:'ваш экземпляр noxveil', links_gen_label:'создать новую ссылку', links_generate:'создать новую ссылку', links_result:'ваша новая ссылка', links_copy:'копировать', links_open:'открыть в новой вкладке', links_clear:'очистить', links_tip_1_title:'каждый клик = новая ссылка', links_tip_1_body:'которая открывает этот экземпляр noxveil. делитесь где угодно.', links_tip_2_title:'работает на is.gd', links_tip_2_body:'— бесплатный публичный сокращатель URL. без логина, без отслеживания.', links_tip_3_title:'требуется http(s)', links_tip_3_body:'— если вы открыли это из локального файла, сначала разместите онлайн (Cloudflare Pages, Netlify, GitHub Pages).' }
+            en: { nav_web:'web', nav_games:'games', nav_music:'music', nav_links:'links', nav_setup:'setup', search_placeholder:'search the web, or paste a url', games_title:'game collection', music_search_placeholder:'track, artist, or mood', music_search_btn:'search', music_status_idle:'press search to begin', links_title:'link generator', links_source:'your noxveil deployment', links_gen_label:'make a share link', links_generate:'generate link', links_result:'your new link', links_copy:'copy', links_open:'open in new tab', links_clear:'clear', links_tip_1_title:'every click = a new link', links_tip_1_body:'that opens this noxveil deployment. share it anywhere.', links_tip_2_title:'powered by is.gd', links_tip_2_body:'— a free public URL shortener. no login, no tracking.', links_tip_3_title:'needs http(s)', links_tip_3_body:'— if you opened this from a local file, host it first (Cloudflare Pages, Netlify, GitHub Pages).' },
+            es: { nav_web:'web', nav_games:'juegos', nav_music:'música', nav_links:'enlaces', nav_setup:'ajustes', search_placeholder:'busca en la web o pega una url', games_title:'colección de juegos', music_search_placeholder:'canción, artista o mood', music_search_btn:'buscar', music_status_idle:'presiona buscar para empezar', links_title:'generador de enlaces', links_source:'tu implementación de noxveil', links_gen_label:'crear enlace para compartir', links_generate:'generar enlace', links_result:'tu nuevo enlace', links_copy:'copiar', links_open:'abrir en nueva pestaña', links_clear:'limpiar', links_tip_1_title:'cada clic = un enlace nuevo', links_tip_1_body:'que abre esta implementación de noxveil. compártelo donde quieras.', links_tip_2_title:'impulsado por is.gd', links_tip_2_body:'— un acortador de URL público y gratuito. sin login, sin rastreo.', links_tip_3_title:'necesita http(s)', links_tip_3_body:'— si abriste esto desde un archivo local, publícalo primero (Cloudflare Pages, Netlify, GitHub Pages).' },
+            ru: { nav_web:'веб', nav_games:'игры', nav_music:'музыка', nav_links:'ссылки', nav_setup:'настройки', search_placeholder:'поиск в интернете или ссылка', games_title:'каталог игр', music_search_placeholder:'трек, исполнитель или настроение', music_search_btn:'поиск', music_status_idle:'нажмите поиск, чтобы начать', links_title:'генератор ссылок', links_source:'ваш экземпляр noxveil', links_gen_label:'создать ссылку для доступа', links_generate:'создать ссылку', links_result:'ваша новая ссылка', links_copy:'копировать', links_open:'открыть в новой вкладке', links_clear:'очистить', links_tip_1_title:'каждый клик = новая ссылка', links_tip_1_body:'которая открывает этот экземпляр noxveil. делитесь где угодно.', links_tip_2_title:'работает на is.gd', links_tip_2_body:'— бесплатный публичный сокращатель URL. без логина, без отслеживания.', links_tip_3_title:'требуется http(s)', links_tip_3_body:'— если вы открыли это из локального файла, сначала разместите онлайн (Cloudflare Pages, Netlify, GitHub Pages).' }
         };
 
         const DEFAULTS = { bg:'violet', font:'normal', lang:'en', cloak:'classroom', onboarded:false };
@@ -926,7 +915,7 @@
             { name:'Moto X3M', url:'https://motox3m.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/motox3m/motox3m.jpg' },
             { name:'Basketball Stars', url:'https://basketballstars.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/basketballstars/basketballstars.jpg' },
             { name:'Drift Hunters', url:'https://drifthunters.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/drifthunters/drifthunters.jpg' },
-            { name:'Run 3', url:'https://run3.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/run3/run3.jpg' },
+            { name:'Run 3', url:'https://www.coolmathgames.com/0-run-3', cover:'https://www.coolmathgames.com/sites/default/files/Run3_OG-logo.jpg' },
             { name:'OvO', url:'https://ovo.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/ovo/ovo.jpg' },
             { name:'Stickman Hook', url:'https://stickmanhook.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/stickmanhook/stickmanhook.jpg' },
             { name:'Geometry Dash', url:'https://geometrydash.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/geometrydash/geometrydash.jpg' },
@@ -937,7 +926,11 @@
             { name:'Happy Wheels', url:'https://happywheels.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/happywheels/happywheels.jpg' },
             { name:'Krunker', url:'https://krunker.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/krunker/krunker.jpg' },
             { name:'Slither.io', url:'https://slither.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/slitherio/slitherio.jpg' },
-            { name:'Skribbl.io', url:'https://skribbl.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/skribblio/skribblio.jpg' }
+            { name:'Skribbl.io', url:'https://skribbl.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/skribblio/skribblio.jpg' },
+            { name:'Tetris', url:'https://tetris.com/play-tetris', cover:'https://www.datocms-assets.com/145957/1744284280-tetris-mobile.png?auto=format&fit=crop&w=800' },
+            { name:'Chess', url:'https://www.chess.com/play/computer', cover:'https://www.chess.com/bundles/web/images/social/share-play-og.897c84eb.png' },
+            { name:'Agar.io', url:'https://agar.io/', cover:'https://agar.io/img/1200x630.png' },
+            { name:'Little Alchemy 2', url:'https://littlealchemy2.com/', cover:'https://littlealchemy2.com/static/img/little-alchemy-2-fb-thumbnail.jpg' },
         ];
 
         function getCoverFallback(name) {
@@ -1132,164 +1125,16 @@
             el.value = u ? u : "local file — host noxveil online first";
         }
 
-        let selectedBlocker = null;
-
-        const FILTER_PROFILES = {
-            goguardian: {
-                label: 'GoGuardian',
-                // keyword/category filter — hide host behind Google Translate hop
-                build(target) {
-                    return 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(target);
-                },
-                shorteners: ['isgd', 'vgd', 'tinyurl']
-            },
-            securly: {
-                label: 'Securly',
-                // DNS/SSL — Google Docs viewer is usually allowlisted
-                build(target) {
-                    return 'https://docs.google.com/viewer?url=' + encodeURIComponent(target) + '&embedded=true';
-                },
-                shorteners: ['vgd', 'tinyurl', 'isgd']
-            },
-            lightspeed: {
-                label: 'Lightspeed',
-                // relay lists — translate + google url wrapper
-                build(target) {
-                    const hop = 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(target);
-                    return 'https://www.google.com/url?q=' + encodeURIComponent(hop) + '&sa=D&ust=' + Date.now();
-                },
-                shorteners: ['isgd', 'tinyurl']
-            },
-            blocksi: {
-                label: 'Blocksi',
-                // extension filters — docs viewer alternate
-                build(target) {
-                    return 'https://docs.google.com/gview?url=' + encodeURIComponent(target) + '&embedded=true';
-                },
-                shorteners: ['tinyurl', 'vgd', 'isgd']
-            },
-            umbrella: {
-                label: 'Cisco Umbrella',
-                // DNS layer — pure translate hop, minimal surface
-                build(target) {
-                    return 'https://translate.google.com/translate?hl=en&sl=auto&tl=en&u=' + encodeURIComponent(target);
-                },
-                shorteners: ['isgd', 'vgd']
-            }
-        };
-
-        function selectBlocker(id) {
-            selectedBlocker = id;
-            document.querySelectorAll('.blocker-card').forEach(el => {
-                el.classList.toggle('selected', el.getAttribute('data-blocker') === id);
-            });
-            const btn = document.getElementById('linkgen-btn');
-            const profile = FILTER_PROFILES[id];
-            if (btn && profile) {
-                btn.disabled = false;
-                btn.removeAttribute('disabled');
-                btn.textContent = 'generate for ' + profile.label;
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            }
-            const status = document.getElementById('linkgen-status');
-            if (status && profile) status.textContent = 'filter set · ' + profile.label;
-            const output = document.getElementById('linkgen-output');
-            if (output) output.value = '';
-        }
-
         async function generateLink() {
             const status = document.getElementById('linkgen-status');
             const output = document.getElementById('linkgen-output');
-            const btn = document.getElementById('linkgen-btn');
             const target = getDeploymentUrl();
-
-            if (!selectedBlocker || !FILTER_PROFILES[selectedBlocker]) {
-                status.textContent = '✗ pick your school filter first';
-                return;
-            }
             if (!target) {
-                status.textContent = '✗ host noxveil on a real http(s) url first';
+                status.textContent = 'Open the hosted site first to create a share link.';
                 return;
             }
-
-            const profile = FILTER_PROFILES[selectedBlocker];
-            status.textContent = 'building ' + profile.label + ' link…';
-            output.value = '';
-            btn.disabled = true;
-            btn.style.opacity = '0.6';
-
-            // always build a filter-shaped intermediary link (no network needed)
-            let link = profile.build(target);
-
-            // optional: shorten it so the long google/docs url is hidden
-            status.textContent = 'shortening ' + profile.label + ' link…';
-            const shortUrl = await shortenWithProfile(link, profile.shorteners);
-            if (shortUrl) link = shortUrl;
-
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            btn.textContent = 'generate for ' + profile.label;
-
-            output.value = link;
-            status.textContent = shortUrl
-                ? ('✓ ' + profile.label + ' short link ready')
-                : ('✓ ' + profile.label + ' link ready (shortener skipped)');
-        }
-
-        async function shortenWithProfile(url, order) {
-            const chain = order && order.length ? order : ['isgd', 'vgd', 'tinyurl'];
-            for (const name of chain) {
-                try {
-                    const s = await callShortener(name, url);
-                    if (s && /^https?:\/\//i.test(s)) return s;
-                } catch (e) {}
-            }
-            return null;
-        }
-
-        async function callShortener(name, url) {
-            const endpoints = [];
-            if (name === 'isgd') {
-                endpoints.push('https://is.gd/create.php?format=json&url=' + encodeURIComponent(url));
-                endpoints.push('https://is.gd/create.php?format=simple&url=' + encodeURIComponent(url));
-            } else if (name === 'vgd') {
-                endpoints.push('https://v.gd/create.php?format=json&url=' + encodeURIComponent(url));
-                endpoints.push('https://v.gd/create.php?format=simple&url=' + encodeURIComponent(url));
-            } else if (name === 'tinyurl') {
-                endpoints.push('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(url));
-            } else {
-                return null;
-            }
-
-            const proxies = (ep) => [
-                ep,
-                'https://api.allorigins.win/raw?url=' + encodeURIComponent(ep),
-                'https://corsproxy.io/?' + encodeURIComponent(ep)
-            ];
-
-            for (const ep of endpoints) {
-                for (const u of proxies(ep)) {
-                    try {
-                        const ctrl = new AbortController();
-                        const timer = setTimeout(() => ctrl.abort(), 6000);
-                        const r = await fetch(u, { cache: 'no-store', signal: ctrl.signal });
-                        clearTimeout(timer);
-                        if (!r.ok) continue;
-                        const text = (await r.text()).trim();
-                        if (!text) continue;
-                        try {
-                            const j = JSON.parse(text);
-                            const cand = j.shorturl || j.shortUrl || j.result_url || j.result || null;
-                            if (cand && /^https?:\/\//i.test(cand)) return cand;
-                        } catch (e) {}
-                        const m = text.match(/https?:\/\/(?:is\.gd|v\.gd|tinyurl\.com)\/[A-Za-z0-9_-]+/i);
-                        if (m) return m[0];
-                        if (/^https?:\/\/\S+$/i.test(text)) return text.split(/\s/)[0];
-                    } catch (e) {}
-                }
-            }
-            return null;
+            output.value = target;
+            status.textContent = 'Share link ready.';
         }
 
         async function copyGeneratedLink() {
@@ -2117,7 +1962,6 @@
             const input = document.getElementById('ai-input');
             const sendBtn = document.getElementById('ai-send');
             let text = (input.value || '').trim();
-            // refresh snapshot if still sharing
             if (aiStream && aiVideo) {
                 const frame = aiCaptureFrame();
                 if (frame) {
@@ -2129,138 +1973,94 @@
             const snap = aiSnapDataUrl;
             if (!text && !snap) return;
             if (!text && snap) text = 'What do you see on my screen? Describe it and help me with it.';
-
             input.value = '';
             aiAppend('user', text, snap);
             aiBusy = true;
             if (sendBtn) sendBtn.disabled = true;
             const thinking = aiAppend('sys', 'thinking…');
-
-            // build message content (vision if snapshot present)
-            let userContent;
-            if (snap) {
-                userContent = [
-                    { type: 'text', text: text },
-                    { type: 'image_url', image_url: { url: snap } }
-                ];
-            } else {
-                userContent = text;
-            }
+            const userContent = snap ? [
+                { type: 'text', text },
+                { type: 'image_url', image_url: { url: snap } }
+            ] : text;
             aiHistory.push({ role: 'user', content: userContent });
-
+            let botBubble = null;
+            let streamedText = '';
             try {
-                const reply = await aiCallModel(aiHistory);
-                if (thinking && thinking.parentNode) thinking.remove();
-                aiAppend('bot', reply || '(empty reply)');
-                aiHistory.push({ role: 'assistant', content: reply || '' });
-                // one-shot image: clear after send so next msg is clean unless still sharing
+                const reply = await aiCallModel(aiHistory, chunk => {
+                    if (!chunk) return;
+                    if (thinking?.parentNode) thinking.remove();
+                    if (!botBubble) botBubble = aiAppend('bot', '');
+                    streamedText += chunk;
+                    botBubble.textContent = streamedText;
+                });
+                if (thinking?.parentNode) thinking.remove();
+                if (!botBubble) botBubble = aiAppend('bot', reply || '(empty reply)');
+                else if (reply && !streamedText) botBubble.textContent = reply;
+                aiHistory.push({ role: 'assistant', content: reply || streamedText || '' });
                 if (!aiStream) {
                     aiSnapDataUrl = null;
                     document.getElementById('ai-preview-wrap')?.classList.remove('show');
                 }
             } catch (e) {
-                if (thinking && thinking.parentNode) thinking.remove();
-                aiAppend('sys', 'error · ' + (e.message || 'request failed'));
-                aiHistory.pop();
+                if (thinking?.parentNode) thinking.remove();
+                if (streamedText) aiAppend('sys', 'response stopped early');
+                else { aiAppend('sys', 'error · ' + (e.message || 'request failed')); aiHistory.pop(); }
+            } finally {
+                aiBusy = false;
+                if (sendBtn) sendBtn.disabled = false;
             }
-            aiBusy = false;
-            if (sendBtn) sendBtn.disabled = false;
         }
 
-        async function aiCallModel(history) {
-            const ctrl = (ms) => {
-                const c = new AbortController();
-                setTimeout(() => c.abort(), ms);
-                return c;
-            };
-            const extractText = (content) => {
-                if (typeof content === 'string') return content;
-                if (Array.isArray(content)) {
-                    return content.map(p => p.type === 'text' ? p.text : '').filter(Boolean).join('\n') || 'hello';
-                }
-                return 'hello';
-            };
+        async function aiCallModel(history, onChunk) {
+            const extractText = content => typeof content === 'string'
+                ? content
+                : Array.isArray(content) ? content.map(part => part.type === 'text' ? part.text : '').filter(Boolean).join('\n') : '';
             const last = history[history.length - 1];
             const prompt = extractText(last.content);
-            const hasImage = Array.isArray(last.content) && last.content.some(p => p.type === 'image_url');
+            const imagePart = Array.isArray(last.content) && last.content.find(part => part.type === 'image_url');
+            let streamed = '';
 
-            // 1) Puter free AI (fast when script loads)
+            // Stream the first available provider so the reply appears as it is generated.
             try {
-                if (window.puter && puter.ai && typeof puter.ai.chat === 'function') {
-                    const c = ctrl(20000);
-                    const msgs = history.map(h => ({
-                        role: h.role,
-                        content: typeof h.content === 'string' ? h.content : extractText(h.content)
-                    }));
-                    // puter vision: pass image as separate if present
-                    let input = msgs;
-                    if (hasImage) {
-                        const img = last.content.find(p => p.type === 'image_url');
-                        const url = img && img.image_url && img.image_url.url;
-                        if (url) {
-                            const r = await puter.ai.chat(prompt, url, { signal: c.signal });
-                            const text = typeof r === 'string' ? r : (r && (r.message || r.text || r.content)) || JSON.stringify(r);
-                            if (text) return String(text);
+                if (window.puter?.ai && typeof puter.ai.chat === 'function') {
+                    const messages = history.map(message => ({ role: message.role, content: extractText(message.content) }));
+                    const response = imagePart
+                        ? await puter.ai.chat(prompt, imagePart.image_url.url, false, { stream: true, max_tokens: 700 })
+                        : await messages.length > 1 ? puter.ai.chat(messages, false, { stream: true, max_tokens: 700 }) : puter.ai.chat(prompt, { stream: true, max_tokens: 700 });
+                    if (response && typeof response[Symbol.asyncIterator] === 'function') {
+                        for await (const part of response) {
+                            if (part?.type === 'error') throw new Error(part.message || 'AI stream failed');
+                            if (part?.type === 'text' && part.text) { streamed += part.text; onChunk?.(part.text); }
                         }
+                        if (streamed) return streamed;
+                    } else {
+                        const result = typeof response === 'string' ? response : response?.message?.content || response?.text || response?.content || '';
+                        if (result) return String(result);
                     }
-                    const r = await puter.ai.chat(msgs.length > 1 ? msgs : prompt, { signal: c.signal });
-                    const text = typeof r === 'string' ? r : (r && (r.message || r.text || r.content)) || '';
-                    if (text) return String(text);
                 }
-            } catch (e) {}
-
-            // 2) Pollinations POST openai (short timeout)
-            try {
-                const c = ctrl(15000);
-                const r = await fetch('https://text.pollinations.ai/openai', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: [
-                            { role: 'system', content: 'You are a helpful assistant in noxveil. Be concise.' },
-                            ...history.map(h => ({
-                                role: h.role,
-                                content: typeof h.content === 'string' ? h.content : extractText(h.content)
-                            }))
-                        ]
-                    }),
-                    signal: c.signal
-                });
-                if (r.ok) {
-                    const data = await r.json();
-                    const msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-                    if (msg) return msg;
-                }
-            } catch (e) {}
-
-            // 3) Pollinations GET (fast path)
-            try {
-                const c = ctrl(12000);
-                const r = await fetch('https://text.pollinations.ai/' + encodeURIComponent(prompt) + '?model=openai&seed=' + Date.now(), { signal: c.signal });
-                if (r.ok) {
-                    const text = (await r.text()).trim();
-                    if (text) return text;
-                }
-            } catch (e) {}
-
-            // 4) CORS proxies
-            const proxied = [
-                'https://corsproxy.io/?' + encodeURIComponent('https://text.pollinations.ai/' + encodeURIComponent(prompt)),
-                'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://text.pollinations.ai/' + encodeURIComponent(prompt))
-            ];
-            for (const u of proxied) {
-                try {
-                    const c = ctrl(12000);
-                    const r = await fetch(u, { signal: c.signal, cache: 'no-store' });
-                    if (r.ok) {
-                        const text = (await r.text()).trim();
-                        if (text && text.length < 50000) return text;
-                    }
-                } catch (e) {}
+            } catch (error) {
+                if (streamed) throw error;
             }
 
-            throw new Error('failed to fetch — network blocked the AI hosts');
+            // If the streaming provider is unavailable, try the text endpoint with short timeouts.
+            const messages = history.map(message => ({ role: message.role, content: extractText(message.content) }));
+            for (const request of [
+                () => fetch('https://text.pollinations.ai/openai', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model: 'openai', messages }), signal: AbortSignal.timeout(8000)
+                }),
+                () => fetch('https://text.pollinations.ai/' + encodeURIComponent(prompt) + '?model=openai', { signal: AbortSignal.timeout(8000) })
+            ]) {
+                try {
+                    const response = await request();
+                    if (!response.ok) continue;
+                    const text = response.headers.get('content-type')?.includes('application/json')
+                        ? (await response.json()).choices?.[0]?.message?.content
+                        : (await response.text()).trim();
+                    if (text) { onChunk?.(text); return text; }
+                } catch (error) {}
+            }
+            throw new Error('AI service is unavailable right now. Try again shortly.');
         }
 
         window.addEventListener('DOMContentLoaded', () => {
