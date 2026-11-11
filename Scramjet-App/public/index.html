@@ -1030,7 +1030,7 @@
             const sjUrl = getScramjetUrl(url);
             const scramjetS = sjUrl ? { name: 'scramjet', url: sjUrl } : null;
 
-            const all = [direct, directNoRef, allorigins, corsproxy, scramjetS].filter(Boolean);
+            const all = [directNoRef, direct, allorigins, corsproxy, scramjetS].filter(Boolean);
             if (remember) {
                 const idx = all.findIndex(s => s.name === remember);
                 if (idx > 0) all.unshift(all.splice(idx, 1)[0]);
@@ -1933,8 +1933,14 @@
                 aiVideo.muted = true;
                 aiVideo.playsInline = true;
                 await aiVideo.play();
-                await new Promise(r => setTimeout(r, 250));
+                if (aiVideo.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+                    await new Promise(resolve => {
+                        const timeout = setTimeout(resolve, 2000);
+                        aiVideo.addEventListener('loadeddata', () => { clearTimeout(timeout); resolve(); }, { once: true });
+                    });
+                }
                 aiSnapDataUrl = aiCaptureFrame();
+                if (!aiSnapDataUrl) throw new Error('Screen sharing started, but the first frame was not ready. Try sharing again.');
                 const prev = document.getElementById('ai-preview');
                 const wrap = document.getElementById('ai-preview-wrap');
                 if (prev && aiSnapDataUrl) {
@@ -1944,10 +1950,11 @@
                 document.getElementById('ai-stop-share').style.display = 'inline-flex';
                 document.getElementById('ai-share-tab').classList.toggle('live', !!preferCurrentTab);
                 document.getElementById('ai-share-screen').classList.toggle('live', !preferCurrentTab);
-                if (status) status.textContent = preferCurrentTab ? 'sharing tab · snapshot attached to next message' : 'sharing screen · snapshot attached to next message';
+                if (status) status.textContent = preferCurrentTab ? 'tab shared · send a message and I’ll look at the current frame' : 'screen shared · send a message and I’ll look at the current frame';
                 aiStream.getVideoTracks()[0].addEventListener('ended', () => aiStopShare());
             } catch (e) {
-                if (status) status.textContent = 'share cancelled or blocked by browser';
+                aiStopShare(true);
+                if (status) status.textContent = e.message || 'Screen sharing was cancelled or blocked by the browser.';
             }
         }
 
@@ -1972,6 +1979,8 @@
             }
             aiStream = null;
             aiVideo = null;
+            aiSnapDataUrl = null;
+            document.getElementById('ai-preview-wrap')?.classList.remove('show');
             const stop = document.getElementById('ai-stop-share');
             if (stop) stop.style.display = 'none';
             document.getElementById('ai-share-tab')?.classList.remove('live');
@@ -1993,6 +2002,9 @@
                     aiSnapDataUrl = frame;
                     const prev = document.getElementById('ai-preview');
                     if (prev) prev.src = frame;
+                } else {
+                    document.getElementById('ai-share-status').textContent = 'Could not capture the current screen frame. Try sharing again.';
+                    return;
                 }
             }
             const snap = aiSnapDataUrl;
@@ -2049,9 +2061,12 @@
             try {
                 if (window.puter?.ai && typeof puter.ai.chat === 'function') {
                     const messages = history.map(message => ({ role: message.role, content: extractText(message.content) }));
-                    const response = imagePart
-                        ? await puter.ai.chat(prompt, imagePart.image_url.url, false, { stream: true, max_tokens: 700 })
-                        : await messages.length > 1 ? puter.ai.chat(messages, false, { stream: true, max_tokens: 700 }) : puter.ai.chat(prompt, { stream: true, max_tokens: 700 });
+                    const screenImage = imagePart
+                        ? new File([await (await fetch(imagePart.image_url.url)).blob()], 'screen-capture.jpg', { type: 'image/jpeg' })
+                        : null;
+                    const response = screenImage
+                        ? await puter.ai.chat(prompt, screenImage, false, { stream: true, max_tokens: 700 })
+                        : messages.length > 1 ? await puter.ai.chat(messages, false, { stream: true, max_tokens: 700 }) : await puter.ai.chat(prompt, { stream: true, max_tokens: 700 });
                     if (response && typeof response[Symbol.asyncIterator] === 'function') {
                         for await (const part of response) {
                             if (part?.type === 'error') throw new Error(part.message || 'AI stream failed');
@@ -2065,7 +2080,10 @@
                 }
             } catch (error) {
                 if (streamed) throw error;
+                if (imagePart) throw new Error('I could not read the shared screen. Check the capture preview and try sharing again.');
             }
+
+            if (imagePart) throw new Error('Screen reading is unavailable right now. Please try sharing again.');
 
             // If the streaming provider is unavailable, try the text endpoint with short timeouts.
             const messages = history.map(message => ({ role: message.role, content: extractText(message.content) }));
