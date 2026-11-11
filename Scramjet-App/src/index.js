@@ -58,6 +58,36 @@ fastify.register(fastifyStatic, {
 	decorateReply: false,
 });
 
+fastify.post("/api/shorten", async (request, reply) => {
+	let target;
+	try {
+		target = new URL(request.body?.url);
+	} catch {
+		return reply.code(400).send({ error: "Enter a valid site URL." });
+	}
+
+	if (target.protocol !== "https:" || target.hostname !== "noxed-1.onrender.com") {
+		return reply.code(400).send({ error: "Only the hosted Noxveil site can be shortened." });
+	}
+
+	try {
+		const endpoint = new URL("https://is.gd/create.php");
+		endpoint.searchParams.set("format", "json");
+		endpoint.searchParams.set("url", target.href);
+		const response = await fetch(endpoint, { signal: AbortSignal.timeout(8000) });
+		const result = await response.json();
+		if (!response.ok || !result.shorturl) {
+			return reply.code(502).send({
+				error: result.errormessage || "The short-link service could not create a link. Try again shortly.",
+			});
+		}
+		return { url: result.shorturl };
+	} catch (error) {
+		request.log.warn({ err: error }, "Link shortening failed");
+		return reply.code(502).send({ error: "Could not reach the short-link service. Try again shortly." });
+	}
+});
+
 fastify.setNotFoundHandler((res, reply) => {
 	return reply.code(404).type("text/html").sendFile("404.html");
 });
