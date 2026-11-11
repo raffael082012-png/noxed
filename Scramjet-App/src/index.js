@@ -1,4 +1,4 @@
-import { createServer } from "node:http";
+import { createServer } from "node:http"; import { Readable } from "node:stream";
 import { fileURLToPath } from "url";
 import { hostname } from "node:os";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
@@ -58,7 +58,7 @@ fastify.register(fastifyStatic, {
 	decorateReply: false,
 });
 
-fastify.post("/api/shorten", async (request, reply) => {
+const backgroundVideos={video1:"https://motionbgs.com/media/9212/dream-chaser-black-and-white.960x540.mp4",video2:"https://motionbgs.com/media/10270/a-galaxy-within.960x540.mp4",video3:"https://motionbgs.com/media/9243/minecraft-overgrown-cabin.960x540.mp4",video4:"https://motionbgs.com/media/5532/sasuke.960x540.mp4",video5:"https://motionbgs.com/media/9019/naruto-endless-sky.960x540.mp4",video6:"https://motionbgs.com/media/9292/satoru-gojo-shattered-sky.960x540.mp4",video7:"https://motionbgs.com/media/8711/perfect-cell-dragon-ball-z.960x540.mp4",video8:"https://motionbgs.com/media/9251/giyu-tomioka-snow-blossoms.960x540.mp4",video9:"https://motionbgs.com/media/9440/gon-freecss-fishing-day.960x540.mp4",video10:"https://assets.mixkit.co/videos/35321/35321-720.mp4",video11:"https://assets.mixkit.co/videos/35318/35318-720.mp4",video12:"https://assets.mixkit.co/videos/31770/31770-720.mp4",video13:"https://assets.mixkit.co/videos/31497/31497-720.mp4",video14:"https://assets.mixkit.co/videos/44685/44685-720.mp4"};fastify.get("/api/background/:id",async(request,reply)=>{const source=backgroundVideos[request.params.id];if(!source)return reply.code(404).send({error:"Background not found."});try{const headers={};if(request.headers.range)headers.Range=request.headers.range;const response=await fetch(source,{headers,signal:AbortSignal.timeout(30000)});if(!response.ok&&response.status!==206)return reply.code(502).send({error:"Background video is unavailable."});reply.code(response.status);reply.header("Content-Type",response.headers.get("content-type")||"video/mp4");reply.header("Cross-Origin-Resource-Policy","same-origin");reply.header("Accept-Ranges",response.headers.get("accept-ranges")||"bytes");for(const header of ["content-length","content-range"]){const value=response.headers.get(header);if(value)reply.header(header,value);}reply.header("Cache-Control","public, max-age=3600");return reply.send(Readable.fromWeb(response.body));}catch(error){request.log.warn({err:error,id:request.params.id},"Background video proxy failed");return reply.code(502).send({error:"Background video could not be loaded."});}});fastify.post("/api/shorten", async (request, reply) => {
 	let target;
 	try {
 		target = new URL(request.body?.url);
