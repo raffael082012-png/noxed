@@ -30,7 +30,7 @@ const scramjet = new ScramjetController({
 	},
 });
 
-scramjet.init();
+let scramjetInitialized = false;
 
 const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
 
@@ -38,7 +38,7 @@ form.addEventListener("submit", async (event) => {
 	event.preventDefault();
 
 	try {
-		await registerSW();
+		await registerSW(); if (!scramjetInitialized) { await scramjet.init(); scramjetInitialized = true; }
 	} catch (err) {
 		error.textContent = "Failed to register service worker.";
 		errorCode.textContent = err.toString();
