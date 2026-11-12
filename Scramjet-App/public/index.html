@@ -284,6 +284,11 @@
         .game-card:hover { transform: translateY(-4px); border-color: var(--border-hi); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.6); }
         .game-cover { width: 100%; aspect-ratio: 1; object-fit: cover; background: #1a1028; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .game-info { padding: 12px; }
+        .game-tag { display: block; font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-faint); margin-top: 4px; }
+        #game-search { margin-left: auto; margin-right: 16px; height: 34px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-family: var(--font-body); font-size: 12px; outline: none; width: 220px; }
+        #game-search:focus { border-color: rgba(167,139,250,0.5); }
+        body.game-only #float-fullscreen-btn { opacity: 0.18; transition: opacity .2s; }
+        body.game-only #float-fullscreen-btn:hover { opacity: 1; }
         .game-card span { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .arcade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
@@ -616,6 +621,7 @@
         <div class="view" id="view-games">
             <div class="section-head">
                 <h1 class="section-title" data-i18n="games_title">unblocked games</h1>
+                <input id="game-search" type="search" placeholder="search games" oninput="generateGames(this.value)" autocomplete="off">
                 <span class="section-meta" id="game-count">loading...</span>
             </div>
             <div class="scroll-wrapper"><div class="games-grid" id="games-grid"></div></div>
@@ -940,8 +946,31 @@
             { name:'Skribbl.io', url:'https://skribbl.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/skribblio/skribblio.jpg' }
         ];
 
+        // ---- extra games (from bitrunlog.com list + requested) ----
+        // [name, url, flags(f=needs your game files, m=multiplayer), cover]
+        const EXTRA_GAMES = [["Boltz","https://vel.gg/boltz","",""],["Skate 3 (fan browser game)","https://skate.aaddpp.lol/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-skate-3.jpg"],["Quake III Arena (q3js)","https://q3js.com/","m",""],["Zelda II: The Adventure of Link","https://z2rs.com/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-troyedwardsjr-z2rs.jpg"],["BO1 Zombies","https://vel.gg/bsz","",""],["Among Us Web","https://wasm.rip/files/amongus/latest/","",""],["Command & Conquer: Generals Zero Hour","https://generals.wasm.ltd/","fm","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-command-conquer-generals-zero-hour.jpg"],["Command & Conquer: Red Alert 2","https://chronodivide.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-command-conquer-red-alert-2.jpg"],["Counter-Strike 1.6","https://csjs.live/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-counter-strike-1-6.jpg"],["Counter-Strike: Source Bunnyhop","https://bunnyhop.lol/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-counter-strike-source-bunnyhop-bunnyhop-lol.jpg"],["Counter-Strike: Source Surf","http://surfd.net/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-counter-strike-source-surf-surfd.jpg"],["Crash Bash Online","https://crashbash.app/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-crash-bash-online.jpg"],["Diablo (diablo_web)","http://johnimril.github.io/diablo_web/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-diablo.jpg"],["Doom Multiplayer (Silent Space Marine)","https://silentspacemarine.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-doom-multiplayer-silent-space-marine.jpg"],["GTA 3","https://wasm.rip/files/gta3/index.html","",""],["Grand Theft Auto V","https://gta.deloskiyt.pl/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-grand-theft-auto-v.jpg"],["GTA Vice City","https://gta.rabisco.net/","f",""],["Half-Life (pixelsuft)","http://pixelsuft.github.io/hl/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-half-life-pixelsuft.jpg"],["Half-Life and CS 1.6 (WebXash)","http://x8bitrain.github.io/webXash/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-half-life-and-counter-strike-1-6-webxash.jpg"],["Halo: Combat Evolved","https://mitchellhynes.com/halo/halo.html","fm","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-halo-combat-evolved.jpg"],["Halo: Combat Evolved Mobile","https://hcemobile.com/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-halo-combat-evolved-mobile-hcemobile.jpg"],["LEGO Island","https://isle.pizza/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-lego-island.jpg"],["Minecraft 1.8.8 (EaglercraftX)","https://wasmarcade.com/minecraft","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-minecraft-1-8-8-eaglercraftx.jpg"],["Unreal Engine Web Ports","https://unrealcollection.games/","","https://ported2browser.com/storage/covers/unreal-series.webp"],["COD Zombies: Nacht der Untoten","https://zombies.bitcoinsapi.com/","m",""],["NetQuake.io","https://www.netquake.io/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-netquake-io.jpg"],["Pro Evolution Soccer 6","http://pes6.optijuegos.net/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-pro-evolution-soccer-6.jpg"],["Quake II","http://q2.pieter.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-quake-ii.jpg"],["Quake III Arena (pieter)","https://q3.pieter.com/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-quake-iii-arena-q3-pieter-com.jpg"],["QuakeWorld","http://q1.pieter.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-quakeworld.jpg"],["Return to Castle Wolfenstein","http://rtcw.pieter.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-return-to-castle-wolfenstein.jpg"],["RuneScape Classic","https://runescapeclassic.gold/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-runescape-classic.jpg"],["Star Wars Jedi Knight: Jedi Academy","https://jk.q3js.com/","fm","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-star-wars-jedi-knight-jedi-academy.jpg"],["Super Mario 64 Multiplayer","https://olivers.tools/play/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-super-mario-64-multiplayer.jpg"],["Super Mario Zombies","https://smz.fun/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-super-mario-zombies.jpg"],["The Simpsons: Hit & Run","https://shar-wasm.cjoseph.workers.dev/?skipmovie","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-the-simpsons-hit-run.jpg"],["Urban Terror","http://ut.pieter.com/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-urban-terror-listed-as-unreal-tournament.jpg"],["WadCMD (Doom)","https://wadcmd.com/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-wadcmd-doom-in-the-browser.jpg"],["Claude of Duty: Vibe Slops II (froydinger)","https://froydinger.github.io/claude-of-duty/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-claude-of-duty-vibe-slops-ii-froydinger-mirror.jpg"],["Claude of Duty: Vibe Slops II (GoofyAhhBro)","https://goofyahhbro69420.github.io/Black-Ops-2/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-claude-of-duty-vibe-slops-ii-goofyahhbro69420-mirr.jpg"],["Diablo (diabloweb)","https://d07riv.github.io/diabloweb/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-d07riv-diabloweb.jpg"],["Kino der Toten (GoofyAhhBro)","https://goofyahhbro69420.github.io/COD-ZOMBIES/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-kino-der-toten-goofyahhbro69420-mirror.jpg"],["Kino der Toten (theeagler1234)","https://theeagler1234-alt.github.io/kino-der-toten/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-kino-der-toten-theeagler1234-mirror.jpg"],["Teleoperator","https://teleoperator.mindblown.ai/","",""],["Roadster Rally","https://roadster.game/","","https://roadster.game/assets/roadster-rally-social-v1.png"],["Tekken Dark Resurrection","https://tkdr-recomp.pages.dev/","",""],["NFS Underground 2 Online","https://nfsunderground2.site/","","https://ported2browser.com/storage/covers/nfs-underground-2.webp"],["Pro Skimboarder","https://wavedash.com/games/matt-portners-pro-skimboarder","",""],["FIFA Street 2","https://fifastreet2.fun/","",""],["Dragon Ball Budokai Tenkaichi 3","https://dragonballbt3.online/","",""],["Super Mario Kart Remake","https://burnedpopcorn.github.io/SM-Kart-ZX-Web-Port/index.html","","https://thegamingemporium.com/Images/Games/super-mario-kart-in-browser.webp"],["Super Smash Bros in Browser","https://smash.fun/","","https://thegamingemporium.com/Images/Games/super-smash-brothers-in-browser.webp"],["Voxel Warfare","https://voxel-warfare.mindblown.ai/?game","","https://voxel-warfare.mindblown.ai/thumb.webp"],["Pixel Martin: No Filter Fighters","https://pixelgame.io/en/game/martin-no-filter-fighters/play/","","https://pixelgame.io/game/martin-no-filter-fighters/martin-no-filter-fighters-banner.webp"],["nothalo","https://nothalo.lol/","","https://thegamingemporium.com/Images/Games/nothalo-matchmaking-in-browser.webp"],["D2 Survivors","https://d2survivors.lol/","",""],["Riposte Frontline","https://www.playriposte.com/","",""],["NBA Street V3","https://nbastreet3.gamingretro.online/","",""],["Taipei GTA","https://www.taipei-rush.app/","",""],["GrandV V2","https://v2.fiveplay.lol/launcher.html","",""],["ALL-22 PRO: Pokémon Football","https://all22pokemon.com/pro","",""],["Link's Arena","https://linksarena.pages.dev/","","https://ported2browser.com/storage/covers/links-arena.webp"],["GTA2 in your browser","https://m1stermo.github.io/gta2/","",""],["Friday Fighters","https://fridayfighters.com/","",""],["FIFA 10","https://fifa10.website/","",""],["d2o","https://d2o.quest/","","https://d2o.quest/og.png"],["FighterZ Tactics","https://dragonballtft.online/","","https://dragonballtft.online/share.jpg"],["Need for Speed: Most Wanted (2005)","https://web.nfsmwo.com/","",""],["PES 2011","https://pes11.optijuegos.net/","",""],["Midnight Club 3: DUB Edition","https://midnighhtclub3.online/","",""],["FIFA 14","https://fifa14.online/","",""],["WWE SmackDown vs. Raw 2011","https://wwe2011.online/","",""],["Silent Hill Origins","https://silenthillorigins.zeliaopen.space/","",""],["Road Rash","https://roadrash.pages.dev/","",""],["Boondocks Brawl","https://boondocksbrawl.com/","",""],["Guitar Hero 3: Legends of Rock","https://gh3.thediaryofchris.net/index.html","",""],["derby","https://genex.games/derby","",""],["Super Monkey Ball","https://monkeyball-online.pages.dev/","","https://www.inxanitylabs.com/assets/games/thumbs/super-monkey-ball-art.webp"],["Pokemon: 3D Arena","https://jackijianxa.itch.io/pokemon3darena","",""],["Dragon Ball Z: Budokai 2","https://budokai2onlline.cc/","","https://ported2browser.com/storage/covers/dbz-budokai-2.webp"],["Fallout Nevada & Sonora","https://fallout-nevada.ru/","","https://ported2browser.com/storage/covers/fallout-nevada.webp"],["KAREN WARFARE","https://karenwarfare.fun/","",""],["Naruto Shippuden: Ultimate Ninja Impact","https://narutoimpact.online/","",""],["Mortal Kombat: Shaolin Monks","https://mortalkombatsm.online/","",""],["SmackDown! Here Comes the Pain","https://wwepain.gamingretro.online/","",""],["Burnout 3","https://burnout3.gamingretro.online/","",""],["Def Jam: Fight for NY","https://def-jam.gamingretro.online/","",""],["Dust 2 DM","https://wix3.com/dust-2-dm-on-spawn/","",""],["Gran Turismo 4","https://granturismo4.gamingretro.online/","",""],["FIFA Street (2012)","https://fifastreet2012.gamingretro.online/","",""],["NIL Street (NFL Street 2)","https://nilstreet.playthecombine.com/","",""],["Marvel vs Capcom 2","https://marvelvscapcom2.gamingretro.online/","",""],["Street Fighter Anniversary Collection","https://streetfighteranniversary.gamingretro.online/","",""],["Dragon Ball Z: Budokai Tenkaichi 2","https://dragonballbt2.gamingretro.online/","",""],["Battle Stadium D.O.N","https://battlestadium.gamingretro.online/","",""],["FIFA 11","https://fifa11.gamingretro.online/","",""],["FIFA 13","https://fifa13.gamingretro.online/","",""],["Legends Brawl","https://wix3.com/legends-brawl-on-remix-play-now-and-create-your-own-games/","",""],["Mortal Kombat: Armageddon","https://mka.lauta.site/","",""],["Downhill Domination","https://downhilldomination.gamingretro.online/","",""],["Resident Evil Outbreak","https://outbreakweb.com/","",""],["Tekken 5","https://tekken5.gamingretro.online/","",""],["F1 06 (Formula One 06)","https://f12006.gamingretro.online/","",""],["Tekken 4","https://tekken4.gamingretro.online/","",""],["Cyberpunk 2077 (work in progress)","https://cyberpunk2077.lol/","","https://ported2browser.com/storage/covers/cyberpunk-2077.webp"],["Street Fighter III: 3rd Strike","https://streetfighter3.gamingretro.online/","",""],["Madden NFL 08","https://maddennfl08.gamingretro.online/","",""],["WWE SmackDown vs. Raw 2010","https://wwe2010.gamingretro.online/","",""],["NFL Street","https://nflstreet.online/","",""],["SSX 3","https://ssx3.online/","",""],["NBA Street V3 (alt)","https://nbastreet3.online/","",""],["ALL-22 SLUGGER: Pokémon Baseball","https://all22pokemon.com/slugger","",""],["The Warriors","https://thewarriors.gamingretro.online/","",""],["NBA 2K12","https://nba2k12.online/","",""],["Naruto Shippuden: Ultimate Ninja 5","https://narutoshippuden5.gamingretro.online/","",""],["UFC Throwdown","https://ufc2.gamingretro.online/","",""],["PES 2012","https://pes12.gamingretro.online/","",""],["Resident Evil 4 (alt)","https://residentevil4.gamingretro.online/","",""],["Rugby 08","https://mitchivin.github.io/rugby08/","","https://mitchivin.github.io/rugby08/pwa/social-preview.png"],["Tony Hawk's Pro Skater 3","https://tonyhawkpro3.gamingretro.online/","",""],["Spider-Man 2","https://spiderman2.gamingretro.online/","",""],["PES 2014","https://pes14.online/","",""],["Monster Hunter Freedom Unite","https://mhfu.gamingretro.online/","",""],["God of War: Chains of Olympus","https://godofwarchains.gamingretro.online/","",""],["Ratchet & Clank: Size Matters","https://ratchetclanksizematters.gamingretro.online/","",""],["Jak and Daxter: The Lost Frontier","https://jakdaxterlostfrontier.gamingretro.online/","",""],["Crisis Core: Final Fantasy VII","https://crisiscorefinalfantasy7.gamingretro.online/","",""],["Virtua Tennis 2","https://virtuatennis2.gamingretro.online/","",""],["God of War: Ghost of Sparta","https://godofwarsparta.gamingretro.online/","",""],["Kingdom Hearts: Birth by Sleep","https://kingdomheartsbbs.gamingretro.online/","",""],["Poké Jam","https://pokejam.xyz/","","https://pokejam.xyz/og.png"],["Pokémon Park Tycoon","https://www.spawn.co/@smallzero/pokemon-park-tycoon","",""],["PokéIsaac","https://pokeisaac.com/","",""],["PokéBonk","https://pokebonk.com/","","https://pokebonk.com/social/card-es.jpg"],["Dragon Ball Devolution","https://www.txori.com/dbdevolution","",""],["Zeldamon","https://zeldamon.pages.dev/","",""],["Diablo Survivors","https://www.spawn.co/@izkimar/diablo-survivors","",""],["Mortal Kombardo 9","https://mk9.lauta.site/","",""],["SoulCalibur II","https://soulcalibur2online.cc/","",""],["Front Line FPS","https://frontlinefps.com/","","https://frontlinefps.com/assets/og/frontline-share-2026-10.jpg"],["AF Sim Racing","https://afsimracing.com.ar/","",""],["GTA Paris Online (beta)","https://play.gtaonx.com/?mode=sandbox&low=1&fps=30&res=800x450&cores=2&args=-noclothmtinstance&network=1&paris=district","",""],["POSTAL 2","https://kahn.lol/gopostal/","",""],["Sensible World of Soccer","https://openswos.net/game/","",""],["Super Mario 64","https://kahn.lol/games/sm64/","",""],["Cricket 07","https://cricket07.dhaiwat.com/","",""],["PokéSurvivor","https://pokesurvivor.com/","","https://pokesurvivor.com/assets/og-image.jpg"],["Pilotwings 64 (clean room)","https://andrewnakas.github.io/pilotwings64-cleanroom/","",""],["Pokémon Showdown","https://play.pokemonshowdown.com/","",""],["MarioKart64JS","https://mk64js.gokart.games/play","","https://mk64js.gokart.games/img/title.jpg"],["Ocarina of Time (clean room)","https://andrewnakas.github.io/oot-cleanroom/","",""],["Sonic CD","https://tws2401.github.io/Sonic-CD-WASM/","",""],["Super Mario Sunshine","https://truffled.lol/games/sms/index.html","",""],["New Super Mario Bros. Wii","https://teaserlua.github.io/nsmbw-web-port/","",""],["Super Mario Galaxy","https://raw.githack.com/T4ctica1YT/SMGwebport/main/index.html","",""],["Messenger","https://messenger.abeto.co/","","https://messenger.abeto.co/assets/images/social.jpg"],["WWE SmackDown! vs. RAW","https://smackdownvsraw.gamingretro.online/","",""],["Urban Chaos","https://rgc.zone/ports/urbanchaosweb/","",""],["IMPACT - Player Two","https://playertwo.lol/?ref=retiredlibrarian","",""],["Sonic Mania","https://ugbontop.github.io/Sonic-Mania-InYourBrowser/","",""],["Boyz n the Hood: Squabble Up","https://boyznthehoodgame.com/","","https://boyznthehoodgame.com/og-card.jpg?v=1"],["The Legend of Zelda: Majora's Mask","https://andrewnakas.github.io/mm-cleanroom/","",""],["Diddy Kong Racing","https://andrewnakas.github.io/dkr-cleanroom/","",""],["FlatOut 2","https://justplayweb.com/play/flatout-2/","",""],["Donkey Kong 64 (clean room)","https://andrewnakas.github.io/dk64-cleanroom/","",""],["Don't Be a Menace: Mayhem","https://dontbeamenace.com/","",""],["Ion Fury","https://agentcube.github.io/ion-fury-wasm/","",""],["Cinderwake","https://cinderwake.io/","","https://cinderwake.io/og-image.jpg"],["Grand Theft Auto: Chinatown Wars","https://gta-chinatown-wars.pages.dev/","",""],["IGI 1","https://playigi.com/play","",""],["Contra","https://contragame.dev/","","https://contragame.dev/assets/game-poster.webp"],["NFS Carbon Online","https://nfscrb.xyz/","",""],["Battlefield 1942","https://bf1942.pieter.com/","m","https://bf1942.pieter.com/assets/og.jpg?v=2"],["Oni","https://rgc.zone/ports/oniweb/index.html","",""],["Zelda: Twilight Princess","https://truffled.lol/games/dusk/index.html","","https://rgc.zone/news/media/2921-0.jpg"],["SCRAPFALL","https://meticulai.com/games/scrapfall/","","https://meticulai.com/games/scrapfall/og.jpg"],["PES 2013","https://pes13.optijuegos.net/pes13","",""],["NSMB: Mario Vs Luigi","https://ipodtouch0218.itch.io/nsmb-mariovsluigi","",""],["Blueline","https://playblueline.pages.dev/","","https://playblueline.pages.dev/card.jpg"],["OG GTA V","https://playgta5.com/","",""],["Pokémon Battlegrounds Ranked","https://ranked.pokemonbattlegrounds.com/","",""],["NFS Underground (browser edition)","https://nfsu.yurasm.com/","",""],["Underground 2 Revived","https://nfsu2.xyz/","",""],["Super Mario Strike","https://mario.ronvemp.lat/","",""],["Dragon Ball Z: Budokai Tenkaichi 4","https://bt4.lauta.site/","",""],["FIFA 15","https://fifa15.gamingretro.online/","",""],["FIFA World Cup Brasil 2014","https://fifa14wc.gamingretro.online/","",""],["NFS3: Hot Pursuit","https://nfs3.xyz/","",""],["New Vegas Recompiled","https://falloutnewvegasweb.com/","",""],["The Simpsons Arcade (HTML5 remake)","https://games4me.alwaysdata.net/simpsons_web/","",""],["TMNT: The Arcade Game","https://games4me.alwaysdata.net/tmnt_web/","",""],["PS2 (playtab)","https://ps2.playtab.fun/noir/","",""],["True Crime: New York City","https://ps2.playtab.fun/tcnyc/","",""],["Bully","https://ps2.playtab.fun/cne/","",""],["Killzone","https://ps2.playtab.fun/kz/","",""],["Hitman: Blood Money","https://ps2.playtab.fun/hitbm/","",""],["Def Jam: Fight for NY - The Takeover","https://ps2.playtab.fun/defjp/","",""],["GTA San Andreas","https://ps2.playtab.fun/gtsaa/","",""],["GTA IV","https://ps2.playtab.fun/gtfor/","",""],["Resident Evil: Code Veronica","https://ps2.playtab.fun/recv/","",""],["Devil May Cry 3","https://ps2.playtab.fun/dmc3da/","",""],["Resident Evil 4","https://ps2.playtab.fun/ree4/","",""],["Star Wars: Battlefront II","https://ps2.playtab.fun/swbf2/","",""],["GTA: Vice City Stories","https://ps2.playtab.fun/vcs/","",""],["FIFA Street (PS2)","https://ps2.playtab.fun/ffstreet/","",""],["Diddy Warfare","https://slickdaddy.fun/","",""],["Prince of Persia: The Sands of Time","https://ps2.playtab.fun/pop1/","",""],["Driv3r","https://ps2.playtab.fun/dvr3/","",""]];
+        const _seenGameUrls = new Set(gamesList.map(g => g.url));
+        const _extra = [];
+        EXTRA_GAMES.forEach(([name, url, flags, cover]) => { if (_seenGameUrls.has(url)) return; _seenGameUrls.add(url); _extra.push({ name, url, cover, flags }); });
+        gamesList.unshift(..._extra);
+
         function getCoverFallback(name) {
-            return `https://via.placeholder.com/400x400/1a1028/a78bfa?text=${encodeURIComponent(name)}`;
+            const hue = [...name].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
+            const letter = (name.trim()[0] || '?').toUpperCase().replace(/[<>&"']/g, '');
+            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='hsl(${hue},60%,32%)'/><stop offset='1' stop-color='hsl(${(hue+50)%360},65%,14%)'/></linearGradient></defs><rect width='400' height='400' fill='url(#g)'/><text x='200' y='245' font-family='Arial,sans-serif' font-size='170' font-weight='700' fill='rgba(255,255,255,0.85)' text-anchor='middle'>${letter}</text></svg>`;
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+        function getSiteIcon(url) {
+            try { return 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=' + encodeURIComponent(new URL(url).origin) + '&size=256'; } catch (e) { return ''; }
+        }
+        // cover chain: game's own art -> the site's icon -> generated tile
+        function coverFallbackStep(img, idx) {
+            const g = gamesList[idx] || { url: '', name: img.alt || '?' }; const url = g.url, name = g.name;
+            const step = parseInt(img.dataset.step || '0', 10);
+            img.dataset.step = step + 1;
+            if (step === 0) { const ic = getSiteIcon(url); if (ic) { img.src = ic; return; } }
+            img.onerror = null;
+            img.src = getCoverFallback(name);
         }
 
         function loadSettings() {
@@ -1553,7 +1582,7 @@
         let tabs = [], activeTabId = null, tabCounter = 0;
         const tabFrames = {};
         function goHome() {
-            document.body.classList.remove('proxy-active','fullscreen-mode');
+            document.body.classList.remove('proxy-active','fullscreen-mode','game-only');
             document.getElementById('browser-ui').style.display = 'none';
             document.getElementById('float-fullscreen-btn').style.display = 'none';
             document.getElementById('frame-container').innerHTML = '';
@@ -1620,12 +1649,113 @@
                 f.frame.style.cssText = 'position:absolute; top:0; left:0; width:100% !important; height:100% !important; border:none; display:block; margin:0 !important; padding:0 !important;';
                 f.frame.allow = 'autoplay; encrypted-media; fullscreen';
                 container.appendChild(f.frame);
+                watchFrameForAds(f.frame);
                 tabFrames[tabId] = f;
             } else f.frame.style.display = 'block';
             try { f.go(url); } catch (e) {
                 status.style.display = 'flex';
                 status.textContent = 'load failed — try a different query';
             }
+        }
+
+
+        // ============================================================
+        //  AD BLOCKER (best effort, runs inside every proxied frame)
+        //  - blocks requests/scripts/iframes/images to known ad + tracker hosts
+        //  - blocks pop-ups / pop-unders (window.open) and hides ad containers
+        //  Open the browser console: "[noxveil adblock] blocked ..." shows what it stopped.
+        // ============================================================
+        const ADBLOCK_ON = true;
+        const AD_HOSTS = [
+            'doubleclick.net','googlesyndication.com','googleadservices.com','googletagservices.com','adservice.google.',
+            'pagead2.','google-analytics.com','googletagmanager.com','amazon-adsystem.com','adnxs.com','adsrvr.org',
+            'rubiconproject.com','pubmatic.com','openx.net','casalemedia.com','criteo.com','criteo.net','taboola.com',
+            'outbrain.com','revcontent.com','mgid.com','adsterra','popads.net','popcash.net','propellerads','exoclick.com',
+            'juicyads.com','trafficjunky.com','clickadu.com','hilltopads','adcash.com','a-ads.com','adskeeper.com',
+            'moatads.com','adsafeprotected.com','scorecardresearch.com','quantserve.com','hotjar.com','smartadserver.com',
+            'adform.net','yieldmo.com','sharethrough.com','media.net','bidswitch.net','33across.com','tapad.com',
+            'applovin.com','unityads.unity3d.com','adcolony.com','chartboost.com','ironsrc.com','is.com/','vungle.com',
+            'inmobi.com','smaato.net','mopub.com','admob','adsco.re','onclickads.net','tsyndicate.com','richpush','pushwoosh',
+            'betterads','monetag','profitableratecpm','highperformanceformat','effectivegatecpm','displayvertising'
+        ];
+        function nvIsAd(u) {
+            if (!u) return false;
+            let str = String(u).toLowerCase();
+            try { str += ' ' + decodeURIComponent(str); } catch (e) {}
+            return AD_HOSTS.some(h => str.includes(h));
+        }
+        const AD_CSS = `ins.adsbygoogle, .adsbygoogle, [id^="google_ads"], [id^="div-gpt-ad"], [class*="adsbygoogle"],
+            iframe[src*="doubleclick"], iframe[src*="googlesyndication"], iframe[src*="adsterra"], iframe[src*="exoclick"],
+            [id*="ad-container"], [class*="ad-container"], [class*="advert"], [id*="advert"], [class*="sponsored"],
+            [aria-label="Advertisement"], [data-ad], [data-ad-slot], .ad-banner, .ad-slot, .banner-ad, #banner-ad { display: none !important; visibility: hidden !important; }`;
+
+        function installAdblock(frameEl) {
+            if (!ADBLOCK_ON || !frameEl) return;
+            let w;
+            try { w = frameEl.contentWindow; if (!w || !w.document || w.__nvAdblock) return; } catch (e) { return; }
+            w.__nvAdblock = true;
+            const log = (what, u) => { try { console.log('[noxveil adblock] blocked', what, String(u).slice(0, 120)); } catch (e) {} };
+            try {
+                const st = w.document.createElement('style');
+                st.textContent = AD_CSS;
+                (w.document.head || w.document.documentElement).appendChild(st);
+            } catch (e) {}
+            // pop-ups / pop-unders
+            try { w.open = function (u) { log('popup', u); return null; }; } catch (e) {}
+            // network calls
+            try {
+                const of = w.fetch;
+                if (of) w.fetch = function (input, init) {
+                    const u = (input && input.url) || input;
+                    if (nvIsAd(u)) { log('fetch', u); return Promise.resolve(new w.Response('', { status: 204 })); }
+                    return of.apply(this, arguments);
+                };
+            } catch (e) {}
+            try {
+                const xo = w.XMLHttpRequest.prototype.open;
+                w.XMLHttpRequest.prototype.open = function (m, u) {
+                    if (nvIsAd(u)) { log('xhr', u); arguments[1] = 'about:blank'; }
+                    return xo.apply(this, arguments);
+                };
+            } catch (e) {}
+            try {
+                const sb = w.navigator.sendBeacon;
+                if (sb) w.navigator.sendBeacon = function (u) { if (nvIsAd(u)) { log('beacon', u); return true; } return sb.apply(this, arguments); };
+            } catch (e) {}
+            // injected elements (scripts, iframes, images, links)
+            const bad = n => {
+                try {
+                    if (!n || n.nodeType !== 1) return false;
+                    const tag = n.tagName;
+                    if (tag !== 'SCRIPT' && tag !== 'IFRAME' && tag !== 'IMG' && tag !== 'LINK' && tag !== 'EMBED' && tag !== 'OBJECT') return false;
+                    return nvIsAd(n.src || n.getAttribute('src') || n.href || n.getAttribute('href') || n.data);
+                } catch (e) { return false; }
+            };
+            try {
+                const P = w.Node.prototype;
+                ['appendChild', 'insertBefore'].forEach(k => {
+                    const o = P[k];
+                    P[k] = function (n) { if (bad(n)) { log(k, n.src || n.href); return n; } return o.apply(this, arguments); };
+                });
+                const eo = w.Element.prototype;
+                ['append', 'prepend'].forEach(k => {
+                    const o = eo[k];
+                    if (o) eo[k] = function (...nodes) { return o.apply(this, nodes.filter(n => !bad(n))); };
+                });
+            } catch (e) {}
+            try {
+                new w.MutationObserver(muts => muts.forEach(m => m.addedNodes.forEach(n => { if (bad(n)) { log('node', n.src || n.href); try { n.remove(); } catch (e) {} } })))
+                    .observe(w.document.documentElement, { childList: true, subtree: true });
+            } catch (e) {}
+        }
+        // new page in a frame = new window, so check often and hook each one as early as possible
+        function watchFrameForAds(frameEl) {
+            if (!frameEl || frameEl.__nvWatch) return;
+            frameEl.__nvWatch = setInterval(() => {
+                if (!document.body.contains(frameEl)) { clearInterval(frameEl.__nvWatch); return; }
+                installAdblock(frameEl);
+            }, 40);
+            frameEl.addEventListener('load', () => installAdblock(frameEl));
         }
 
         function resolveUrl(input) {
@@ -1644,23 +1774,31 @@
             document.getElementById('custom-address').value = '';
             switchTab(id);
         }
-        async function directLoad(url) {
+        async function directLoad(url, gameOnly) {
             let title = 'loading...';
             try { title = new URL(url).hostname.replace('www.',''); } catch (e) {}
             tabCounter++; const id = 'tab-'+tabCounter;
             tabs.push({ id, title, url });
-            switchTab(id);
+            await switchTab(id);
+            if (gameOnly) document.body.classList.add('fullscreen-mode', 'game-only');
         }
+        // opens a game full-window: no tab bar, no site UI, just the game (button bottom-right brings the bar back)
+        function playGame(i) { const g = gamesList[i]; if (g) directLoad(g.url, true); }
         document.getElementById('custom-address').addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
 
-        function generateGames() {
-            document.getElementById('game-count').textContent = gamesList.length + ' titles';
-            document.getElementById('games-grid').innerHTML = gamesList.map(g => `
-                <div class="game-card glass" onclick="directLoad('${g.url}')">
-                    <img class="game-cover" src="${g.cover}" onerror="this.src='${getCoverFallback(g.name)}'" alt="${g.name}">
-                    <div class="game-info"><span>${g.name}</span></div>
-                </div>
-            `).join('');
+        function escHtml(t) { return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+        function generateGames(filter) {
+            const q = (filter || '').trim().toLowerCase();
+            const list = gamesList.map((g, i) => ({ g, i })).filter(({ g }) => !q || g.name.toLowerCase().includes(q));
+            document.getElementById('game-count').textContent = (q ? list.length + ' of ' : '') + gamesList.length + ' titles';
+            document.getElementById('games-grid').innerHTML = list.map(({ g, i }) => {
+                const src = g.cover || getCoverFallback(g.name);
+                const tag = (g.flags || '').includes('f') ? '<em class="game-tag">needs game files</em>' : ((g.flags || '').includes('m') ? '<em class="game-tag">multiplayer</em>' : '');
+                return `<div class="game-card glass" onclick="playGame(${i})">
+                    <img class="game-cover" src="${escHtml(src)}" data-step="${g.cover ? 0 : 2}" referrerpolicy="no-referrer" loading="lazy" onerror="coverFallbackStep(this, ${i})" alt="${escHtml(g.name)}">
+                    <div class="game-info"><span>${escHtml(g.name)}</span>${tag}</div>
+                </div>`;
+            }).join('');
         }
 
         function normalizeScUrl(href) {
@@ -1718,11 +1856,19 @@
                     const artist = artistEl ? artistEl.textContent.trim() : '';
                     let artUrl = '';
                     const imgEl = item.querySelector('img.sc-artwork') || item.querySelector('img');
-                    if (imgEl) artUrl = imgEl.getAttribute('src');
+                    if (imgEl) artUrl = imgEl.getAttribute('src') || imgEl.getAttribute('data-src') || '';
+                    if (!artUrl || artUrl.startsWith('data:')) {
+                        const bgEl = item.querySelector('[style*="background-image"]');
+                        const bm = bgEl && (bgEl.getAttribute('style') || '').match(/url\(["']?([^"')]+)["']?\)/);
+                        if (bm) artUrl = bm[1];
+                    }
+                    if (artUrl && artUrl.startsWith('//')) artUrl = 'https:' + artUrl;
+                    if (artUrl) artUrl = artUrl.replace(/-(large|small|badge|tiny|crop|t\d+x\d+)\.(jpg|jpeg|png)/i, '-t300x300.$2');
+                    const noteArt = "data:image/svg+xml;charset=utf-8," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><rect width='60' height='60' fill='#2a1840'/><text x='30' y='42' font-size='34' text-anchor='middle' fill='#a78bfa'>♪</text></svg>").replace(/'/g, '%27');
                     const row = document.createElement('div');
                     row.className = 'vv-result glass';
                     row.onclick = () => vvPlayWidget(cleanUrl, title, artist, artUrl);
-                    row.innerHTML = `<img src="${artUrl || 'https://via.placeholder.com/60/111/fff?text=♪'}" onerror="this.src='https://via.placeholder.com/60/111/fff?text=♪'"><div class="vv-result-info"><h4>${title}</h4><p>${artist}</p></div>`;
+                    row.innerHTML = `<img src="${artUrl || noteArt}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${noteArt}'"><div class="vv-result-info"><h4>${title}</h4><p>${artist}</p></div>`;
                     resultsContainer.appendChild(row);
                     added++;
                 });
