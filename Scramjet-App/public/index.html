@@ -284,11 +284,6 @@
         .game-card:hover { transform: translateY(-4px); border-color: var(--border-hi); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.6); }
         .game-cover { width: 100%; aspect-ratio: 1; object-fit: cover; background: #1a1028; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .game-info { padding: 12px; }
-        .game-tag { display: block; font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-faint); margin-top: 4px; }
-        #game-search { margin-left: auto; margin-right: 16px; height: 34px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-family: var(--font-body); font-size: 12px; outline: none; width: 220px; }
-        #game-search:focus { border-color: rgba(167,139,250,0.5); }
-        body.game-only #float-fullscreen-btn { opacity: 0.18; transition: opacity .2s; }
-        body.game-only #float-fullscreen-btn:hover { opacity: 1; }
         .game-card span { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .arcade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
@@ -300,29 +295,6 @@
         .arcade-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-family: var(--font-display); font-size: 1.2rem; color: var(--accent); font-weight: 600; }
         .arcade-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: #fff; margin-bottom: 6px; }
         .arcade-desc { font-family: var(--font-body); font-size: 13px; color: var(--text-dim); line-height: 1.5; }
-
-
-        /* ===== exit game / floating AI / save ===== */
-        #float-exit-btn { position: fixed; top: 12px; right: 14px; z-index: 2147483649; display: none; height: 34px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--border); background: rgba(7,5,12,0.75); backdrop-filter: blur(14px); color: var(--text); font-family: var(--font-display); font-size: 12px; cursor: pointer; opacity: .35; transition: opacity .2s, background .2s; }
-        #float-exit-btn:hover { opacity: 1; background: rgba(220,38,38,0.55); }
-        body.game-only #float-exit-btn { display: block; }
-        #nv-ai-launch { position: fixed; bottom: 22px; right: 82px; width: 48px; height: 48px; border-radius: 14px; z-index: 2147483649; border: 1px solid var(--border); background: var(--surface-hi); backdrop-filter: blur(20px); color: var(--accent); font-family: var(--font-display); font-weight: 600; font-size: 14px; cursor: pointer; display: none; }
-        body.proxy-active #nv-ai-launch { display: block; }
-        body.game-only #nv-ai-launch { opacity: .18; } body.game-only #nv-ai-launch:hover { opacity: 1; }
-        #nv-ai { position: fixed; right: 24px; bottom: 90px; width: 400px; height: 540px; min-width: 280px; min-height: 120px; max-width: 96vw; max-height: 94vh; z-index: 2147483650; display: none; flex-direction: column; border-radius: 18px; overflow: hidden; resize: both; box-shadow: 0 30px 80px -20px rgba(0,0,0,0.8); background: rgba(14,10,24,0.92); }
-        #nv-ai.open { display: flex; }
-        #nv-ai.min { height: 44px !important; min-height: 44px; resize: none; }
-        #nv-ai.min #nv-ai-body { display: none; }
-        #nv-ai-head { display: flex; align-items: center; gap: 8px; padding: 0 10px 0 14px; height: 44px; flex-shrink: 0; cursor: grab; user-select: none; touch-action: none; border-bottom: 1px solid var(--border); font-family: var(--font-display); font-size: 13px; color: #fff; }
-        #nv-ai-head:active { cursor: grabbing; }
-        .nv-ai-grip { color: var(--text-faint); }
-        #nv-ai-head button { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; }
-        #nv-ai-head button:hover { background: var(--surface-hi); }
-        #nv-ai-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
-        #nv-ai-body .ai-card { border-radius: 0; border: none; box-shadow: none; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; flex: 1; }
-        #nv-ai-body .ai-toolbar .ai-title { display: none; }
-        #nv-ai-body .ai-msg .ai-via { display: block; margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-faint); }
-        #btn-save { }
 
         /* ===== MUSIC ===== */
         #view-music { justify-content: flex-start; padding: 48px 40px 40px 110px; }
@@ -597,10 +569,6 @@
             <svg viewBox="0 0 24 24"><path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z"/></svg>
             <span>AI</span>
         </button>
-        <button class="side-btn" id="btn-save" onclick="downloadSite()" title="download this site">
-            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
-            <span>save</span>
-        </button>
         <div class="side-divider"></div>
         <button class="side-btn" id="btn-setup" onclick="openOnboarding(true)" title="setup">
             <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
@@ -648,7 +616,6 @@
         <div class="view" id="view-games">
             <div class="section-head">
                 <h1 class="section-title" data-i18n="games_title">unblocked games</h1>
-                <input id="game-search" type="search" placeholder="search games" oninput="generateGames(this.value)" autocomplete="off">
                 <span class="section-meta" id="game-count">loading...</span>
             </div>
             <div class="scroll-wrapper"><div class="games-grid" id="games-grid"></div></div>
@@ -775,7 +742,6 @@
                             share screen
                         </button>
                         <button type="button" class="ai-tool-btn" id="ai-stop-share" onclick="aiStopShare()" style="display:none;">stop share</button>
-                        <button type="button" class="ai-tool-btn" id="ai-see-page" onclick="aiSeePage()" title="let the AI read the page you have open">see page</button>
                         <button type="button" class="ai-tool-btn" onclick="aiClearChat()">clear</button>
                     </div>
                     <div id="ai-messages">
@@ -794,14 +760,6 @@
         </div>
     </div>
 
-    <button id="float-exit-btn" onclick="exitGame()" title="exit game">&#x2715; exit</button>
-    <button id="nv-ai-launch" onclick="toggleAiWindow()" title="AI assistant">AI</button>
-    <div id="nv-ai" class="glass">
-        <div id="nv-ai-head"><span class="nv-ai-grip">&#x2630;</span><span class="nv-ai-name">noxveil ai</span><span style="flex:1"></span>
-            <button type="button" onclick="toggleAiMin()" title="minimize">&#x2013;</button>
-            <button type="button" onclick="toggleAiWindow(false)" title="close">&#x2715;</button></div>
-        <div id="nv-ai-body"></div>
-    </div>
     <button id="float-fullscreen-btn" onclick="toggleFullscreen()">
         <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
     </button>
@@ -900,20 +858,20 @@
         const favIReady = "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://i-ready.com&size=128";
 
         const BGS = [
-            { id:'video1',  name:'Dream Chaser',      type:'video', src:'bgs/video1.mp4', from:'https://motionbgs.com/media/9212/dream-chaser-black-and-white.960x540.mp4',  gradient:'linear-gradient(-45deg,#3a3a3a,#07050c,#5a5a5a,#07050c)', tag:'motion' },
-            { id:'video2',  name:'A Galaxy Within',   type:'video', src:'bgs/video2.mp4', from:'https://motionbgs.com/media/10270/a-galaxy-within.960x540.mp4',              gradient:'linear-gradient(-45deg,#1e1b4b,#07050c,#4c1d95,#07050c)', tag:'motion' },
-            { id:'video3',  name:'Minecraft Cabin',   type:'video', src:'bgs/video3.mp4', from:'https://motionbgs.com/media/9243/minecraft-overgrown-cabin.960x540.mp4',    gradient:'linear-gradient(-45deg,#14532d,#07050c,#166534,#07050c)', tag:'motion' },
-            { id:'video4',  name:'Sasuke',            type:'video', src:'bgs/video4.mp4', from:'https://motionbgs.com/media/5532/sasuke.960x540.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#7c2d12,#07050c)', tag:'motion' },
-            { id:'video5',  name:'Naruto Sky',        type:'video', src:'bgs/video5.mp4', from:'https://motionbgs.com/media/9019/naruto-endless-sky.960x540.mp4',            gradient:'linear-gradient(-45deg,#0c4a6e,#07050c,#0369a1,#07050c)', tag:'motion' },
-            { id:'video6',  name:'Gojo Shattered',    type:'video', src:'bgs/video6.mp4', from:'https://motionbgs.com/media/9292/satoru-gojo-shattered-sky.960x540.mp4',     gradient:'linear-gradient(-45deg,#3b0764,#07050c,#7e22ce,#07050c)', tag:'motion' },
-            { id:'video7',  name:'Perfect Cell',      type:'video', src:'bgs/video7.mp4', from:'https://motionbgs.com/media/8711/perfect-cell-dragon-ball-z.960x540.mp4',   gradient:'linear-gradient(-45deg,#14532d,#07050c,#65a30d,#07050c)', tag:'motion' },
-            { id:'video8',  name:'Giyu Snow',         type:'video', src:'bgs/video8.mp4', from:'https://motionbgs.com/media/9251/giyu-tomioka-snow-blossoms.960x540.mp4',     gradient:'linear-gradient(-45deg,#0e7490,#07050c,#1e3a8a,#07050c)', tag:'motion' },
-            { id:'video9',  name:'Gon Fishing',       type:'video', src:'bgs/video9.mp4', from:'https://motionbgs.com/media/9440/gon-freecss-fishing-day.960x540.mp4',       gradient:'linear-gradient(-45deg,#166534,#07050c,#0d9488,#07050c)', tag:'motion' },
-            { id:'video10', name:'Neon Tunnel',       type:'video', src:'bgs/video10.mp4', from:'https://assets.mixkit.co/videos/35321/35321-720.mp4',                        gradient:'linear-gradient(-45deg,#4c1d95,#07050c,#db2777,#07050c)', tag:'motion' },
-            { id:'video11', name:'Light Tunnel',      type:'video', src:'bgs/video11.mp4', from:'https://assets.mixkit.co/videos/35318/35318-720.mp4',                        gradient:'linear-gradient(-45deg,#1e3a8a,#07050c,#38bdf8,#07050c)', tag:'motion' },
-            { id:'video12', name:'Metal Hall',        type:'video', src:'bgs/video12.mp4', from:'https://assets.mixkit.co/videos/31770/31770-720.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#44403c,#07050c)', tag:'motion' },
-            { id:'video13', name:'Cube Drift',        type:'video', src:'bgs/video13.mp4', from:'https://assets.mixkit.co/videos/31497/31497-720.mp4',                        gradient:'linear-gradient(-45deg,#0f172a,#07050c,#334155,#07050c)', tag:'motion' },
-            { id:'video14', name:'Prism Bloom',       type:'video', src:'bgs/video14.mp4', from:'https://assets.mixkit.co/videos/44685/44685-720.mp4',                        gradient:'linear-gradient(-45deg,#831843,#07050c,#f0abfc,#07050c)', tag:'motion' },
+            { id:'video1',  name:'Dream Chaser',      type:'video', src:'https://motionbgs.com/media/9212/dream-chaser-black-and-white.960x540.mp4',  gradient:'linear-gradient(-45deg,#3a3a3a,#07050c,#5a5a5a,#07050c)', tag:'motion' },
+            { id:'video2',  name:'A Galaxy Within',   type:'video', src:'https://motionbgs.com/media/10270/a-galaxy-within.960x540.mp4',              gradient:'linear-gradient(-45deg,#1e1b4b,#07050c,#4c1d95,#07050c)', tag:'motion' },
+            { id:'video3',  name:'Minecraft Cabin',   type:'video', src:'https://motionbgs.com/media/9243/minecraft-overgrown-cabin.960x540.mp4',    gradient:'linear-gradient(-45deg,#14532d,#07050c,#166534,#07050c)', tag:'motion' },
+            { id:'video4',  name:'Sasuke',            type:'video', src:'https://motionbgs.com/media/5532/sasuke.960x540.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#7c2d12,#07050c)', tag:'motion' },
+            { id:'video5',  name:'Naruto Sky',        type:'video', src:'https://motionbgs.com/media/9019/naruto-endless-sky.960x540.mp4',            gradient:'linear-gradient(-45deg,#0c4a6e,#07050c,#0369a1,#07050c)', tag:'motion' },
+            { id:'video6',  name:'Gojo Shattered',    type:'video', src:'https://motionbgs.com/media/9292/satoru-gojo-shattered-sky.960x540.mp4',     gradient:'linear-gradient(-45deg,#3b0764,#07050c,#7e22ce,#07050c)', tag:'motion' },
+            { id:'video7',  name:'Perfect Cell',      type:'video', src:'https://motionbgs.com/media/8711/perfect-cell-dragon-ball-z.960x540.mp4',   gradient:'linear-gradient(-45deg,#14532d,#07050c,#65a30d,#07050c)', tag:'motion' },
+            { id:'video8',  name:'Giyu Snow',         type:'video', src:'https://motionbgs.com/media/9251/giyu-tomioka-snow-blossoms.960x540.mp4',     gradient:'linear-gradient(-45deg,#0e7490,#07050c,#1e3a8a,#07050c)', tag:'motion' },
+            { id:'video9',  name:'Gon Fishing',       type:'video', src:'https://motionbgs.com/media/9440/gon-freecss-fishing-day.960x540.mp4',       gradient:'linear-gradient(-45deg,#166534,#07050c,#0d9488,#07050c)', tag:'motion' },
+            { id:'video10', name:'Neon Tunnel',       type:'video', src:'https://assets.mixkit.co/videos/35321/35321-720.mp4',                        gradient:'linear-gradient(-45deg,#4c1d95,#07050c,#db2777,#07050c)', tag:'motion' },
+            { id:'video11', name:'Light Tunnel',      type:'video', src:'https://assets.mixkit.co/videos/35318/35318-720.mp4',                        gradient:'linear-gradient(-45deg,#1e3a8a,#07050c,#38bdf8,#07050c)', tag:'motion' },
+            { id:'video12', name:'Metal Hall',        type:'video', src:'https://assets.mixkit.co/videos/31770/31770-720.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#44403c,#07050c)', tag:'motion' },
+            { id:'video13', name:'Cube Drift',        type:'video', src:'https://assets.mixkit.co/videos/31497/31497-720.mp4',                        gradient:'linear-gradient(-45deg,#0f172a,#07050c,#334155,#07050c)', tag:'motion' },
+            { id:'video14', name:'Prism Bloom',       type:'video', src:'https://assets.mixkit.co/videos/44685/44685-720.mp4',                        gradient:'linear-gradient(-45deg,#831843,#07050c,#f0abfc,#07050c)', tag:'motion' },
             { id:'violet',  name:'Violet Drift',      type:'css', cls:'bg-violet', tag:'gradient' },
             { id:'ember',   name:'Ember',             type:'css', cls:'bg-ember',  tag:'gradient' },
             { id:'ocean',   name:'Deep Sea',          type:'css', cls:'bg-ocean',  tag:'gradient' },
@@ -982,31 +940,8 @@
             { name:'Skribbl.io', url:'https://skribbl.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/skribblio/skribblio.jpg' }
         ];
 
-        // ---- extra games (from bitrunlog.com list + requested) ----
-        // [name, url, flags(f=needs your game files, m=multiplayer), cover]
-        const EXTRA_GAMES = [["Boltz","https://vel.gg/boltz","",""],["Skate 3 (fan browser game)","https://skate.aaddpp.lol/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-skate-3.jpg"],["Quake III Arena (q3js)","https://q3js.com/","m",""],["Zelda II: The Adventure of Link","https://z2rs.com/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-troyedwardsjr-z2rs.jpg"],["BO1 Zombies","https://vel.gg/bsz","",""],["Among Us Web","https://wasm.rip/files/amongus/latest/","",""],["Command & Conquer: Generals Zero Hour","https://generals.wasm.ltd/","fm","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-command-conquer-generals-zero-hour.jpg"],["Command & Conquer: Red Alert 2","https://chronodivide.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-command-conquer-red-alert-2.jpg"],["Counter-Strike 1.6","https://csjs.live/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-counter-strike-1-6.jpg"],["Counter-Strike: Source Bunnyhop","https://bunnyhop.lol/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-counter-strike-source-bunnyhop-bunnyhop-lol.jpg"],["Counter-Strike: Source Surf","http://surfd.net/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-counter-strike-source-surf-surfd.jpg"],["Crash Bash Online","https://crashbash.app/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-crash-bash-online.jpg"],["Diablo (diablo_web)","http://johnimril.github.io/diablo_web/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-diablo.jpg"],["Doom Multiplayer (Silent Space Marine)","https://silentspacemarine.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-doom-multiplayer-silent-space-marine.jpg"],["GTA 3","https://wasm.rip/files/gta3/index.html","",""],["Grand Theft Auto V","https://gta.deloskiyt.pl/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-grand-theft-auto-v.jpg"],["GTA Vice City","https://gta.rabisco.net/","f",""],["Half-Life (pixelsuft)","http://pixelsuft.github.io/hl/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-half-life-pixelsuft.jpg"],["Half-Life and CS 1.6 (WebXash)","http://x8bitrain.github.io/webXash/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-half-life-and-counter-strike-1-6-webxash.jpg"],["Halo: Combat Evolved","https://mitchellhynes.com/halo/halo.html","fm","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-halo-combat-evolved.jpg"],["Halo: Combat Evolved Mobile","https://hcemobile.com/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-halo-combat-evolved-mobile-hcemobile.jpg"],["LEGO Island","https://isle.pizza/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-lego-island.jpg"],["Minecraft 1.8.8 (EaglercraftX)","https://wasmarcade.com/minecraft","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-minecraft-1-8-8-eaglercraftx.jpg"],["Unreal Engine Web Ports","https://unrealcollection.games/","","https://ported2browser.com/storage/covers/unreal-series.webp"],["COD Zombies: Nacht der Untoten","https://zombies.bitcoinsapi.com/","m",""],["NetQuake.io","https://www.netquake.io/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-netquake-io.jpg"],["Pro Evolution Soccer 6","http://pes6.optijuegos.net/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-pro-evolution-soccer-6.jpg"],["Quake II","http://q2.pieter.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-quake-ii.jpg"],["Quake III Arena (pieter)","https://q3.pieter.com/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-quake-iii-arena-q3-pieter-com.jpg"],["QuakeWorld","http://q1.pieter.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-quakeworld.jpg"],["Return to Castle Wolfenstein","http://rtcw.pieter.com/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-return-to-castle-wolfenstein.jpg"],["RuneScape Classic","https://runescapeclassic.gold/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-runescape-classic.jpg"],["Star Wars Jedi Knight: Jedi Academy","https://jk.q3js.com/","fm","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-star-wars-jedi-knight-jedi-academy.jpg"],["Super Mario 64 Multiplayer","https://olivers.tools/play/","m","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-super-mario-64-multiplayer.jpg"],["Super Mario Zombies","https://smz.fun/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-super-mario-zombies.jpg"],["The Simpsons: Hit & Run","https://shar-wasm.cjoseph.workers.dev/?skipmovie","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-the-simpsons-hit-run.jpg"],["Urban Terror","http://ut.pieter.com/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-urban-terror-listed-as-unreal-tournament.jpg"],["WadCMD (Doom)","https://wadcmd.com/","f","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-wadcmd-doom-in-the-browser.jpg"],["Claude of Duty: Vibe Slops II (froydinger)","https://froydinger.github.io/claude-of-duty/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-claude-of-duty-vibe-slops-ii-froydinger-mirror.jpg"],["Claude of Duty: Vibe Slops II (GoofyAhhBro)","https://goofyahhbro69420.github.io/Black-Ops-2/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-claude-of-duty-vibe-slops-ii-goofyahhbro69420-mirr.jpg"],["Diablo (diabloweb)","https://d07riv.github.io/diabloweb/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-d07riv-diabloweb.jpg"],["Kino der Toten (GoofyAhhBro)","https://goofyahhbro69420.github.io/COD-ZOMBIES/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-kino-der-toten-goofyahhbro69420-mirror.jpg"],["Kino der Toten (theeagler1234)","https://theeagler1234-alt.github.io/kino-der-toten/","","https://raw.githubusercontent.com/SubmitGame/awesome-decomp-games/main/screenshots/browser-kino-der-toten-theeagler1234-mirror.jpg"],["Teleoperator","https://teleoperator.mindblown.ai/","",""],["Roadster Rally","https://roadster.game/","","https://roadster.game/assets/roadster-rally-social-v1.png"],["Tekken Dark Resurrection","https://tkdr-recomp.pages.dev/","",""],["NFS Underground 2 Online","https://nfsunderground2.site/","","https://ported2browser.com/storage/covers/nfs-underground-2.webp"],["Pro Skimboarder","https://wavedash.com/games/matt-portners-pro-skimboarder","",""],["FIFA Street 2","https://fifastreet2.fun/","",""],["Dragon Ball Budokai Tenkaichi 3","https://dragonballbt3.online/","",""],["Super Mario Kart Remake","https://burnedpopcorn.github.io/SM-Kart-ZX-Web-Port/index.html","","https://thegamingemporium.com/Images/Games/super-mario-kart-in-browser.webp"],["Super Smash Bros in Browser","https://smash.fun/","","https://thegamingemporium.com/Images/Games/super-smash-brothers-in-browser.webp"],["Voxel Warfare","https://voxel-warfare.mindblown.ai/?game","","https://voxel-warfare.mindblown.ai/thumb.webp"],["Pixel Martin: No Filter Fighters","https://pixelgame.io/en/game/martin-no-filter-fighters/play/","","https://pixelgame.io/game/martin-no-filter-fighters/martin-no-filter-fighters-banner.webp"],["nothalo","https://nothalo.lol/","","https://thegamingemporium.com/Images/Games/nothalo-matchmaking-in-browser.webp"],["D2 Survivors","https://d2survivors.lol/","",""],["Riposte Frontline","https://www.playriposte.com/","",""],["NBA Street V3","https://nbastreet3.gamingretro.online/","",""],["Taipei GTA","https://www.taipei-rush.app/","",""],["GrandV V2","https://v2.fiveplay.lol/launcher.html","",""],["ALL-22 PRO: Pokémon Football","https://all22pokemon.com/pro","",""],["Link's Arena","https://linksarena.pages.dev/","","https://ported2browser.com/storage/covers/links-arena.webp"],["GTA2 in your browser","https://m1stermo.github.io/gta2/","",""],["Friday Fighters","https://fridayfighters.com/","",""],["FIFA 10","https://fifa10.website/","",""],["d2o","https://d2o.quest/","","https://d2o.quest/og.png"],["FighterZ Tactics","https://dragonballtft.online/","","https://dragonballtft.online/share.jpg"],["Need for Speed: Most Wanted (2005)","https://web.nfsmwo.com/","",""],["PES 2011","https://pes11.optijuegos.net/","",""],["Midnight Club 3: DUB Edition","https://midnighhtclub3.online/","",""],["FIFA 14","https://fifa14.online/","",""],["WWE SmackDown vs. Raw 2011","https://wwe2011.online/","",""],["Silent Hill Origins","https://silenthillorigins.zeliaopen.space/","",""],["Road Rash","https://roadrash.pages.dev/","",""],["Boondocks Brawl","https://boondocksbrawl.com/","",""],["Guitar Hero 3: Legends of Rock","https://gh3.thediaryofchris.net/index.html","",""],["derby","https://genex.games/derby","",""],["Super Monkey Ball","https://monkeyball-online.pages.dev/","","https://www.inxanitylabs.com/assets/games/thumbs/super-monkey-ball-art.webp"],["Pokemon: 3D Arena","https://jackijianxa.itch.io/pokemon3darena","",""],["Dragon Ball Z: Budokai 2","https://budokai2onlline.cc/","","https://ported2browser.com/storage/covers/dbz-budokai-2.webp"],["Fallout Nevada & Sonora","https://fallout-nevada.ru/","","https://ported2browser.com/storage/covers/fallout-nevada.webp"],["KAREN WARFARE","https://karenwarfare.fun/","",""],["Naruto Shippuden: Ultimate Ninja Impact","https://narutoimpact.online/","",""],["Mortal Kombat: Shaolin Monks","https://mortalkombatsm.online/","",""],["SmackDown! Here Comes the Pain","https://wwepain.gamingretro.online/","",""],["Burnout 3","https://burnout3.gamingretro.online/","",""],["Def Jam: Fight for NY","https://def-jam.gamingretro.online/","",""],["Dust 2 DM","https://wix3.com/dust-2-dm-on-spawn/","",""],["Gran Turismo 4","https://granturismo4.gamingretro.online/","",""],["FIFA Street (2012)","https://fifastreet2012.gamingretro.online/","",""],["NIL Street (NFL Street 2)","https://nilstreet.playthecombine.com/","",""],["Marvel vs Capcom 2","https://marvelvscapcom2.gamingretro.online/","",""],["Street Fighter Anniversary Collection","https://streetfighteranniversary.gamingretro.online/","",""],["Dragon Ball Z: Budokai Tenkaichi 2","https://dragonballbt2.gamingretro.online/","",""],["Battle Stadium D.O.N","https://battlestadium.gamingretro.online/","",""],["FIFA 11","https://fifa11.gamingretro.online/","",""],["FIFA 13","https://fifa13.gamingretro.online/","",""],["Legends Brawl","https://wix3.com/legends-brawl-on-remix-play-now-and-create-your-own-games/","",""],["Mortal Kombat: Armageddon","https://mka.lauta.site/","",""],["Downhill Domination","https://downhilldomination.gamingretro.online/","",""],["Resident Evil Outbreak","https://outbreakweb.com/","",""],["Tekken 5","https://tekken5.gamingretro.online/","",""],["F1 06 (Formula One 06)","https://f12006.gamingretro.online/","",""],["Tekken 4","https://tekken4.gamingretro.online/","",""],["Cyberpunk 2077 (work in progress)","https://cyberpunk2077.lol/","","https://ported2browser.com/storage/covers/cyberpunk-2077.webp"],["Street Fighter III: 3rd Strike","https://streetfighter3.gamingretro.online/","",""],["Madden NFL 08","https://maddennfl08.gamingretro.online/","",""],["WWE SmackDown vs. Raw 2010","https://wwe2010.gamingretro.online/","",""],["NFL Street","https://nflstreet.online/","",""],["SSX 3","https://ssx3.online/","",""],["NBA Street V3 (alt)","https://nbastreet3.online/","",""],["ALL-22 SLUGGER: Pokémon Baseball","https://all22pokemon.com/slugger","",""],["The Warriors","https://thewarriors.gamingretro.online/","",""],["NBA 2K12","https://nba2k12.online/","",""],["Naruto Shippuden: Ultimate Ninja 5","https://narutoshippuden5.gamingretro.online/","",""],["UFC Throwdown","https://ufc2.gamingretro.online/","",""],["PES 2012","https://pes12.gamingretro.online/","",""],["Resident Evil 4 (alt)","https://residentevil4.gamingretro.online/","",""],["Rugby 08","https://mitchivin.github.io/rugby08/","","https://mitchivin.github.io/rugby08/pwa/social-preview.png"],["Tony Hawk's Pro Skater 3","https://tonyhawkpro3.gamingretro.online/","",""],["Spider-Man 2","https://spiderman2.gamingretro.online/","",""],["PES 2014","https://pes14.online/","",""],["Monster Hunter Freedom Unite","https://mhfu.gamingretro.online/","",""],["God of War: Chains of Olympus","https://godofwarchains.gamingretro.online/","",""],["Ratchet & Clank: Size Matters","https://ratchetclanksizematters.gamingretro.online/","",""],["Jak and Daxter: The Lost Frontier","https://jakdaxterlostfrontier.gamingretro.online/","",""],["Crisis Core: Final Fantasy VII","https://crisiscorefinalfantasy7.gamingretro.online/","",""],["Virtua Tennis 2","https://virtuatennis2.gamingretro.online/","",""],["God of War: Ghost of Sparta","https://godofwarsparta.gamingretro.online/","",""],["Kingdom Hearts: Birth by Sleep","https://kingdomheartsbbs.gamingretro.online/","",""],["Poké Jam","https://pokejam.xyz/","","https://pokejam.xyz/og.png"],["Pokémon Park Tycoon","https://www.spawn.co/@smallzero/pokemon-park-tycoon","",""],["PokéIsaac","https://pokeisaac.com/","",""],["PokéBonk","https://pokebonk.com/","","https://pokebonk.com/social/card-es.jpg"],["Dragon Ball Devolution","https://www.txori.com/dbdevolution","",""],["Zeldamon","https://zeldamon.pages.dev/","",""],["Diablo Survivors","https://www.spawn.co/@izkimar/diablo-survivors","",""],["Mortal Kombardo 9","https://mk9.lauta.site/","",""],["SoulCalibur II","https://soulcalibur2online.cc/","",""],["Front Line FPS","https://frontlinefps.com/","","https://frontlinefps.com/assets/og/frontline-share-2026-10.jpg"],["AF Sim Racing","https://afsimracing.com.ar/","",""],["GTA Paris Online (beta)","https://play.gtaonx.com/?mode=sandbox&low=1&fps=30&res=800x450&cores=2&args=-noclothmtinstance&network=1&paris=district","",""],["POSTAL 2","https://kahn.lol/gopostal/","",""],["Sensible World of Soccer","https://openswos.net/game/","",""],["Super Mario 64","https://kahn.lol/games/sm64/","",""],["Cricket 07","https://cricket07.dhaiwat.com/","",""],["PokéSurvivor","https://pokesurvivor.com/","","https://pokesurvivor.com/assets/og-image.jpg"],["Pilotwings 64 (clean room)","https://andrewnakas.github.io/pilotwings64-cleanroom/","",""],["Pokémon Showdown","https://play.pokemonshowdown.com/","",""],["MarioKart64JS","https://mk64js.gokart.games/play","","https://mk64js.gokart.games/img/title.jpg"],["Ocarina of Time (clean room)","https://andrewnakas.github.io/oot-cleanroom/","",""],["Sonic CD","https://tws2401.github.io/Sonic-CD-WASM/","",""],["Super Mario Sunshine","https://truffled.lol/games/sms/index.html","",""],["New Super Mario Bros. Wii","https://teaserlua.github.io/nsmbw-web-port/","",""],["Super Mario Galaxy","https://raw.githack.com/T4ctica1YT/SMGwebport/main/index.html","",""],["Messenger","https://messenger.abeto.co/","","https://messenger.abeto.co/assets/images/social.jpg"],["WWE SmackDown! vs. RAW","https://smackdownvsraw.gamingretro.online/","",""],["Urban Chaos","https://rgc.zone/ports/urbanchaosweb/","",""],["IMPACT - Player Two","https://playertwo.lol/?ref=retiredlibrarian","",""],["Sonic Mania","https://ugbontop.github.io/Sonic-Mania-InYourBrowser/","",""],["Boyz n the Hood: Squabble Up","https://boyznthehoodgame.com/","","https://boyznthehoodgame.com/og-card.jpg?v=1"],["The Legend of Zelda: Majora's Mask","https://andrewnakas.github.io/mm-cleanroom/","",""],["Diddy Kong Racing","https://andrewnakas.github.io/dkr-cleanroom/","",""],["FlatOut 2","https://justplayweb.com/play/flatout-2/","",""],["Donkey Kong 64 (clean room)","https://andrewnakas.github.io/dk64-cleanroom/","",""],["Don't Be a Menace: Mayhem","https://dontbeamenace.com/","",""],["Ion Fury","https://agentcube.github.io/ion-fury-wasm/","",""],["Cinderwake","https://cinderwake.io/","","https://cinderwake.io/og-image.jpg"],["Grand Theft Auto: Chinatown Wars","https://gta-chinatown-wars.pages.dev/","",""],["IGI 1","https://playigi.com/play","",""],["Contra","https://contragame.dev/","","https://contragame.dev/assets/game-poster.webp"],["NFS Carbon Online","https://nfscrb.xyz/","",""],["Battlefield 1942","https://bf1942.pieter.com/","m","https://bf1942.pieter.com/assets/og.jpg?v=2"],["Oni","https://rgc.zone/ports/oniweb/index.html","",""],["Zelda: Twilight Princess","https://truffled.lol/games/dusk/index.html","","https://rgc.zone/news/media/2921-0.jpg"],["SCRAPFALL","https://meticulai.com/games/scrapfall/","","https://meticulai.com/games/scrapfall/og.jpg"],["PES 2013","https://pes13.optijuegos.net/pes13","",""],["NSMB: Mario Vs Luigi","https://ipodtouch0218.itch.io/nsmb-mariovsluigi","",""],["Blueline","https://playblueline.pages.dev/","","https://playblueline.pages.dev/card.jpg"],["OG GTA V","https://playgta5.com/","",""],["Pokémon Battlegrounds Ranked","https://ranked.pokemonbattlegrounds.com/","",""],["NFS Underground (browser edition)","https://nfsu.yurasm.com/","",""],["Underground 2 Revived","https://nfsu2.xyz/","",""],["Super Mario Strike","https://mario.ronvemp.lat/","",""],["Dragon Ball Z: Budokai Tenkaichi 4","https://bt4.lauta.site/","",""],["FIFA 15","https://fifa15.gamingretro.online/","",""],["FIFA World Cup Brasil 2014","https://fifa14wc.gamingretro.online/","",""],["NFS3: Hot Pursuit","https://nfs3.xyz/","",""],["New Vegas Recompiled","https://falloutnewvegasweb.com/","",""],["The Simpsons Arcade (HTML5 remake)","https://games4me.alwaysdata.net/simpsons_web/","",""],["TMNT: The Arcade Game","https://games4me.alwaysdata.net/tmnt_web/","",""],["PS2 (playtab)","https://ps2.playtab.fun/noir/","",""],["True Crime: New York City","https://ps2.playtab.fun/tcnyc/","",""],["Bully","https://ps2.playtab.fun/cne/","",""],["Killzone","https://ps2.playtab.fun/kz/","",""],["Hitman: Blood Money","https://ps2.playtab.fun/hitbm/","",""],["Def Jam: Fight for NY - The Takeover","https://ps2.playtab.fun/defjp/","",""],["GTA San Andreas","https://ps2.playtab.fun/gtsaa/","",""],["GTA IV","https://ps2.playtab.fun/gtfor/","",""],["Resident Evil: Code Veronica","https://ps2.playtab.fun/recv/","",""],["Devil May Cry 3","https://ps2.playtab.fun/dmc3da/","",""],["Resident Evil 4","https://ps2.playtab.fun/ree4/","",""],["Star Wars: Battlefront II","https://ps2.playtab.fun/swbf2/","",""],["GTA: Vice City Stories","https://ps2.playtab.fun/vcs/","",""],["FIFA Street (PS2)","https://ps2.playtab.fun/ffstreet/","",""],["Diddy Warfare","https://slickdaddy.fun/","",""],["Prince of Persia: The Sands of Time","https://ps2.playtab.fun/pop1/","",""],["Driv3r","https://ps2.playtab.fun/dvr3/","",""]];
-        const _seenGameUrls = new Set(gamesList.map(g => g.url));
-        const _extra = [];
-        EXTRA_GAMES.forEach(([name, url, flags, cover]) => { if (_seenGameUrls.has(url)) return; _seenGameUrls.add(url); _extra.push({ name, url, cover, flags }); });
-        gamesList.unshift(..._extra);
-
         function getCoverFallback(name) {
-            const hue = [...name].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
-            const letter = (name.trim()[0] || '?').toUpperCase().replace(/[<>&"']/g, '');
-            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='hsl(${hue},60%,32%)'/><stop offset='1' stop-color='hsl(${(hue+50)%360},65%,14%)'/></linearGradient></defs><rect width='400' height='400' fill='url(#g)'/><text x='200' y='245' font-family='Arial,sans-serif' font-size='170' font-weight='700' fill='rgba(255,255,255,0.85)' text-anchor='middle'>${letter}</text></svg>`;
-            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-        }
-        function getSiteIcon(url) {
-            try { return 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=' + encodeURIComponent(new URL(url).origin) + '&size=256'; } catch (e) { return ''; }
-        }
-        // cover chain: game's own art -> the site's icon -> generated tile
-        function coverFallbackStep(img, idx) {
-            const g = gamesList[idx] || { url: '', name: img.alt || '?' }; const url = g.url, name = g.name;
-            const step = parseInt(img.dataset.step || '0', 10);
-            img.dataset.step = step + 1;
-            if (step === 0) { const ic = getSiteIcon(url); if (ic) { img.src = ic; return; } }
-            img.onerror = null;
-            img.src = getCoverFallback(name);
+            return `https://via.placeholder.com/400x400/1a1028/a78bfa?text=${encodeURIComponent(name)}`;
         }
 
         function loadSettings() {
@@ -1099,8 +1034,7 @@
             const sjUrl = getScramjetUrl(url);
             const scramjetS = sjUrl ? { name: 'scramjet', url: sjUrl } : null;
 
-            const isLocal = !/^https?:/i.test(url);
-            const all = (isLocal ? [direct] : [direct, directNoRef, allorigins, corsproxy, scramjetS]).filter(Boolean);
+            const all = [direct, directNoRef, allorigins, corsproxy, scramjetS].filter(Boolean);
             if (remember) {
                 const idx = all.findIndex(s => s.name === remember);
                 if (idx > 0) all.unshift(all.splice(idx, 1)[0]);
@@ -1532,7 +1466,6 @@
         }
 
         function switchView(name) {
-            if (name === 'ai') { toggleAiWindow(true); return; }
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('view-' + name).classList.add('active');
@@ -1551,7 +1484,7 @@
         function buildWispPool() {
             const local = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
             // Vercel/static hosts have no /wisp/ backend — skip local first hop there
-            const isStatic = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$/i.test(location.hostname);
+            const isStatic = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$|onrender\.com$/i.test(location.hostname);
             const publicList = [
                 'wss://wisp.mercurywork.shop/',
                 'wss://anura.pro/',
@@ -1619,7 +1552,7 @@
         let tabs = [], activeTabId = null, tabCounter = 0;
         const tabFrames = {};
         function goHome() {
-            document.body.classList.remove('proxy-active','fullscreen-mode','game-only');
+            document.body.classList.remove('proxy-active','fullscreen-mode');
             document.getElementById('browser-ui').style.display = 'none';
             document.getElementById('float-fullscreen-btn').style.display = 'none';
             document.getElementById('frame-container').innerHTML = '';
@@ -1686,177 +1619,12 @@
                 f.frame.style.cssText = 'position:absolute; top:0; left:0; width:100% !important; height:100% !important; border:none; display:block; margin:0 !important; padding:0 !important;';
                 f.frame.allow = 'autoplay; encrypted-media; fullscreen';
                 container.appendChild(f.frame);
-                watchFrameForAds(f.frame);
                 tabFrames[tabId] = f;
             } else f.frame.style.display = 'block';
             try { f.go(url); } catch (e) {
                 status.style.display = 'flex';
                 status.textContent = 'load failed — try a different query';
             }
-        }
-
-
-        // ============================================================
-        //  AD BLOCKER v2 (best effort, runs inside every proxied page AND every iframe inside it)
-        //  Layers: request blocking (fetch/xhr/beacon/ws), element blocking (script/iframe/img/link,
-        //  src setters, document.write), pop-up + click-hijack blocking, cosmetic hiding, overlay removal.
-        //  Console (F12) shows "[noxveil adblock] blocked ..." for everything it stops.
-        // ============================================================
-        const ADBLOCK_ON = true;
-        const AD_HOSTS = [
-            'doubleclick.net','googlesyndication.com','googleadservices.com','googletagservices.com','adservice.google.',
-            'pagead2.','google-analytics.com','googletagmanager.com','amazon-adsystem.com','adnxs.com','adsrvr.org','adtech',
-            'rubiconproject.com','pubmatic.com','openx.net','casalemedia.com','criteo.com','criteo.net','taboola.com',
-            'outbrain.com','revcontent.com','mgid.com','adsterra','popads.net','popcash.net','propellerads','exoclick.com',
-            'exosrv.com','juicyads.com','trafficjunky.com','clickadu.com','hilltopads','adcash.com','a-ads.com','adskeeper.com',
-            'moatads.com','adsafeprotected.com','scorecardresearch.com','quantserve.com','hotjar.com','smartadserver.com',
-            'adform.net','yieldmo.com','sharethrough.com','media.net','bidswitch.net','33across.com','tapad.com',
-            'applovin.com','unityads','adcolony.com','chartboost.com','ironsrc.com','vungle.com','inmobi.com','smaato.net',
-            'mopub.com','admob','adsco.re','onclickads.net','tsyndicate.com','richpush','pushwoosh','betterads','monetag',
-            'profitableratecpm','highperformanceformat','effectivegatecpm','displayvertising','adsrvmedia','adservme','adserver',
-            'adspyglass','adxpansion','ad-maven','admaven','adnium','bidvertiser','clickaine','clicksor','cpmstar',
-            'trafficstars','zeropark','mondiad','pushame','notix.io','pushengage','sendpulse.com',
-            'an.yandex','mc.yandex','ads.pubmatic','ads.yahoo','advertising.com','adition.com','adscale','teads.tv',
-            'undertone.com','lijit.com','sovrn.com','indexww.com','contextweb.com','gumgum.com','triplelift.com','sonobi.com',
-            'spotxchange.com','spotx.tv','springserve.com','freewheel.tv','innovid.com','adotmob','kargo.com',
-            'ads-twitter','analytics.tiktok'
-        ];
-        // path-style patterns (checked on third-party absolute urls only)
-        const AD_RX = /(\/|\.|-|_)(ads?|adserver|adframe|adsense|advert(s|ising)?|banners?|popunder|prebid|pagead|adsbygoogle)(\/|\.|-|_|\?|$)/i;
-        function nvIsAd(u) {
-            if (!u) return false;
-            let str = String(u).toLowerCase();
-            if (str.startsWith('data:') || str.startsWith('blob:') || str.startsWith('javascript:')) return false;
-            try { str += ' ' + decodeURIComponent(str); } catch (e) {}
-            if (AD_HOSTS.some(h => str.includes(h))) return true;
-            // third-party url pieces (also the original url inside a proxy-rewritten address)
-            return str.split(/(?=https?:\/\/)/).some(seg => /^https?:\/\//.test(seg) && !seg.includes(location.host) && AD_RX.test(seg));
-        }
-        const AD_CSS = `ins.adsbygoogle, .adsbygoogle, [id^="google_ads"], [id^="div-gpt-ad"], [class*="adsbygoogle"], [id*="google_ads"],
-            iframe[src*="doubleclick"], iframe[src*="googlesyndication"], iframe[src*="adsterra"], iframe[src*="exoclick"],
-            iframe[id^="aswift"], iframe[title*="dvertisement"],
-            [id*="ad-container"], [class*="ad-container"], [class*="advert"], [id*="advert"], [class*="sponsored"], [id*="sponsored"],
-            [aria-label="Advertisement"], [aria-label="advertisement"], [data-ad], [data-ad-slot], [data-adunit], .ad-banner, .ad-slot,
-            .banner-ad, #banner-ad, .ad, .ads, .adv, #ad, #ads, [class^="ad-"], [class^="ads-"], [id^="ad-"], [id^="ads-"],
-            [class*="adBox"], [class*="adWrap"], [class*="adContainer"], [id*="adContainer"],
-            .pre-roll, .preroll, #preroll, [class*="preroll"] { display: none !important; visibility: hidden !important; pointer-events: none !important; }`;
-        const AD_NAME_RX = /(^|[-_ ])(ad|ads|adv|advert|advertisement|banner|popup|popunder|sponsor|sponsored|preroll)([-_ ]|$)/i;
-
-        function nvLog(what, u) { try { console.log('[noxveil adblock] blocked', what, String(u).slice(0, 140)); } catch (e) {} }
-        function nvBadNode(n) {
-            try {
-                if (!n || n.nodeType !== 1) return false;
-                const t = n.tagName;
-                if (t !== 'SCRIPT' && t !== 'IFRAME' && t !== 'IMG' && t !== 'LINK' && t !== 'EMBED' && t !== 'OBJECT' && t !== 'VIDEO' && t !== 'SOURCE') return false;
-                return nvIsAd(n.src || n.getAttribute('src') || n.href || n.getAttribute('href') || n.data);
-            } catch (e) { return false; }
-        }
-        // (re)apply wrappers — scramjet may overwrite them while the page boots, so this is idempotent and runs repeatedly
-        function nvWrap(w) {
-            try { if (!w.open.__nv) { const f = function (u) { nvLog('popup', u); return null; }; f.__nv = 1; w.open = f; } } catch (e) {}
-            try {
-                if (w.fetch && !w.fetch.__nv) {
-                    const of = w.fetch, f = function (input, init) {
-                        const u = (input && input.url) || input;
-                        if (nvIsAd(u)) { nvLog('fetch', u); return Promise.resolve(new w.Response('', { status: 204 })); }
-                        return of.apply(this, arguments);
-                    }; f.__nv = 1; w.fetch = f;
-                }
-            } catch (e) {}
-            try {
-                const X = w.XMLHttpRequest.prototype;
-                if (!X.open.__nv) {
-                    const xo = X.open, f = function (m, u) { if (nvIsAd(u)) { nvLog('xhr', u); arguments[1] = 'about:blank'; } return xo.apply(this, arguments); };
-                    f.__nv = 1; X.open = f;
-                }
-            } catch (e) {}
-            try {
-                const nav = w.navigator;
-                if (nav.sendBeacon && !nav.sendBeacon.__nv) { const sb = nav.sendBeacon.bind(nav), f = function (u) { if (nvIsAd(u)) { nvLog('beacon', u); return true; } return sb.apply(null, arguments); }; f.__nv = 1; nav.sendBeacon = f; }
-            } catch (e) {}
-            try {
-                const D = w.Document.prototype;
-                ['write', 'writeln'].forEach(k => { const o = D[k]; if (o && !o.__nv) { const f = function (...a) { if (nvIsAd(a.join(''))) { nvLog('document.' + k, a.join('').slice(0, 80)); return; } return o.apply(this, a); }; f.__nv = 1; D[k] = f; } });
-            } catch (e) {}
-            try {
-                [[w.HTMLScriptElement, 'src'], [w.HTMLIFrameElement, 'src'], [w.HTMLImageElement, 'src'], [w.HTMLLinkElement, 'href'], [w.HTMLEmbedElement, 'src'], [w.HTMLSourceElement, 'src']].forEach(([C, prop]) => {
-                    if (!C) return;
-                    const d = Object.getOwnPropertyDescriptor(C.prototype, prop);
-                    if (!d || !d.set || d.set.__nv) return;
-                    const os = d.set, ns = function (v) { if (nvIsAd(v)) { nvLog(prop + ' setter', v); return; } return os.call(this, v); };
-                    ns.__nv = 1; Object.defineProperty(C.prototype, prop, { configurable: true, enumerable: d.enumerable, get: d.get, set: ns });
-                });
-                const sa = w.Element.prototype.setAttribute;
-                if (!sa.__nv) {
-                    const f = function (k, v) { if ((k === 'src' || k === 'href' || k === 'data') && nvIsAd(v) && /^(SCRIPT|IFRAME|IMG|LINK|EMBED|OBJECT|SOURCE|VIDEO)$/.test(this.tagName)) { nvLog('setAttribute', v); return; } return sa.apply(this, arguments); };
-                    f.__nv = 1; w.Element.prototype.setAttribute = f;
-                }
-            } catch (e) {}
-            try {
-                const P = w.Node.prototype;
-                ['appendChild', 'insertBefore'].forEach(k => { const o = P[k]; if (o && !o.__nv) { const f = function (n) { if (nvBadNode(n)) { nvLog(k, n.src || n.href); return n; } return o.apply(this, arguments); }; f.__nv = 1; P[k] = f; } });
-                const E = w.Element.prototype;
-                ['append', 'prepend', 'after', 'before'].forEach(k => { const o = E[k]; if (o && !o.__nv) { const f = function (...n) { return o.apply(this, n.filter(x => !nvBadNode(x))); }; f.__nv = 1; E[k] = f; } });
-            } catch (e) {}
-            try { if (!w.adsbygoogle || !w.adsbygoogle.__nv) w.adsbygoogle = { push() {}, loaded: true, __nv: 1 }; } catch (e) {}
-        }
-        // one-time per document: css, observers, click guards
-        function nvSetup(w) {
-            if (w.__nvSetup) return; w.__nvSetup = true;
-            try { const st = w.document.createElement('style'); st.textContent = AD_CSS; (w.document.head || w.document.documentElement).appendChild(st); } catch (e) {}
-            try {
-                new w.MutationObserver(muts => muts.forEach(m => m.addedNodes.forEach(n => { if (nvBadNode(n)) { nvLog('node', n.src || n.href); try { n.remove(); } catch (e) {} } })))
-                    .observe(w.document.documentElement, { childList: true, subtree: true });
-            } catch (e) {}
-            try {
-                w.document.addEventListener('click', ev => {
-                    const a = ev.target && ev.target.closest && ev.target.closest('a[href]');
-                    if (!a) return;
-                    const href = a.href || a.getAttribute('href');
-                    if (nvIsAd(href) || (a.target === '_blank' && AD_NAME_RX.test((a.id || '') + ' ' + (a.className || '')))) { nvLog('link click', href); ev.preventDefault(); ev.stopImmediatePropagation(); }
-                }, true);
-            } catch (e) {}
-        }
-        // remove invisible full-screen click-catchers and ad-named fixed boxes
-        function nvSweep(w) {
-            try {
-                const d = w.document, vw = w.innerWidth, vh = w.innerHeight;
-                d.querySelectorAll('a, div, span, ins').forEach(el => {
-                    const name = (el.id || '') + ' ' + (typeof el.className === 'string' ? el.className : '');
-                    const cs = w.getComputedStyle(el);
-                    if (cs.position !== 'fixed' && cs.position !== 'absolute' && cs.position !== 'sticky') return;
-                    const r = el.getBoundingClientRect();
-                    const big = r.width >= vw * 0.8 && r.height >= vh * 0.8;
-                    const hasContent = el.querySelector('canvas, video, input, textarea, button, select') || (el.innerText || '').trim().length > 0;
-                    const adNamed = AD_NAME_RX.test(name) && !/(^|[-_ ])(header|loading|load|nav|menu|game)([-_ ]|$)/i.test(name);
-                    if ((adNamed && cs.position === 'fixed') || (big && !hasContent && parseInt(cs.zIndex || '0', 10) > 100 && (parseFloat(cs.opacity) < 0.15 || cs.backgroundColor === 'rgba(0, 0, 0, 0)'))) {
-                        nvLog('overlay', name.trim().slice(0, 60)); el.remove();
-                    }
-                });
-            } catch (e) {}
-        }
-        function nvHandleWindow(w, depth) {
-            if (!w || depth > 6) return;
-            try { if (!w.document) return; } catch (e) { return; }
-            nvWrap(w);
-            nvSetup(w);
-            try { w.document.querySelectorAll('iframe').forEach(f => { try { nvHandleWindow(f.contentWindow, depth + 1); } catch (e) {} }); } catch (e) {}
-        }
-        function installAdblock(frameEl) {
-            if (!ADBLOCK_ON || !frameEl) return;
-            try { nvHandleWindow(frameEl.contentWindow, 0); } catch (e) {}
-        }
-        // new page in a frame = new window, so check often and hook each one as early as possible
-        function watchFrameForAds(frameEl) {
-            if (!frameEl || frameEl.__nvWatch) return;
-            let n = 0;
-            const walk = (w, dd) => { if (!w || dd > 6) return; nvSweep(w); w.document.querySelectorAll('iframe').forEach(f => { try { walk(f.contentWindow, dd + 1); } catch (e) {} }); };
-            frameEl.__nvWatch = setInterval(() => {
-                if (!document.body.contains(frameEl)) { clearInterval(frameEl.__nvWatch); return; }
-                installAdblock(frameEl);
-                if (++n % 12 === 0) { try { walk(frameEl.contentWindow, 0); } catch (e) {} }
-            }, 50);
-            frameEl.addEventListener('load', () => installAdblock(frameEl));
         }
 
         function resolveUrl(input) {
@@ -1875,32 +1643,23 @@
             document.getElementById('custom-address').value = '';
             switchTab(id);
         }
-        async function directLoad(url, gameOnly) {
+        async function directLoad(url) {
             let title = 'loading...';
             try { title = new URL(url).hostname.replace('www.',''); } catch (e) {}
             tabCounter++; const id = 'tab-'+tabCounter;
             tabs.push({ id, title, url });
-            await switchTab(id);
-            if (gameOnly) document.body.classList.add('fullscreen-mode', 'game-only');
+            switchTab(id);
         }
-        function exitGame() { goHome(); try { switchView('games'); } catch (e) {} }
-        // opens a game full-window: no tab bar, no site UI, just the game (button bottom-right brings the bar back)
-        function playGame(i) { const g = gamesList[i]; if (g) directLoad(g.url, true); }
         document.getElementById('custom-address').addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
 
-        function escHtml(t) { return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-        function generateGames(filter) {
-            const q = (filter || '').trim().toLowerCase();
-            const list = gamesList.map((g, i) => ({ g, i })).filter(({ g }) => !q || g.name.toLowerCase().includes(q));
-            document.getElementById('game-count').textContent = (q ? list.length + ' of ' : '') + gamesList.length + ' titles';
-            document.getElementById('games-grid').innerHTML = list.map(({ g, i }) => {
-                const src = g.cover || getCoverFallback(g.name);
-                const tag = (g.flags || '').includes('f') ? '<em class="game-tag">needs game files</em>' : ((g.flags || '').includes('m') ? '<em class="game-tag">multiplayer</em>' : '');
-                return `<div class="game-card glass" onclick="playGame(${i})">
-                    <img class="game-cover" src="${escHtml(src)}" data-step="${g.cover ? 0 : 2}" referrerpolicy="no-referrer" loading="lazy" onerror="coverFallbackStep(this, ${i})" alt="${escHtml(g.name)}">
-                    <div class="game-info"><span>${escHtml(g.name)}</span>${tag}</div>
-                </div>`;
-            }).join('');
+        function generateGames() {
+            document.getElementById('game-count').textContent = gamesList.length + ' titles';
+            document.getElementById('games-grid').innerHTML = gamesList.map(g => `
+                <div class="game-card glass" onclick="directLoad('${g.url}')">
+                    <img class="game-cover" src="${g.cover}" onerror="this.src='${getCoverFallback(g.name)}'" alt="${g.name}">
+                    <div class="game-info"><span>${g.name}</span></div>
+                </div>
+            `).join('');
         }
 
         function normalizeScUrl(href) {
@@ -1958,19 +1717,11 @@
                     const artist = artistEl ? artistEl.textContent.trim() : '';
                     let artUrl = '';
                     const imgEl = item.querySelector('img.sc-artwork') || item.querySelector('img');
-                    if (imgEl) artUrl = imgEl.getAttribute('src') || imgEl.getAttribute('data-src') || '';
-                    if (!artUrl || artUrl.startsWith('data:')) {
-                        const bgEl = item.querySelector('[style*="background-image"]');
-                        const bm = bgEl && (bgEl.getAttribute('style') || '').match(/url\(["']?([^"')]+)["']?\)/);
-                        if (bm) artUrl = bm[1];
-                    }
-                    if (artUrl && artUrl.startsWith('//')) artUrl = 'https:' + artUrl;
-                    if (artUrl) artUrl = artUrl.replace(/-(large|small|badge|tiny|crop|t\d+x\d+)\.(jpg|jpeg|png)/i, '-t300x300.$2');
-                    const noteArt = "data:image/svg+xml;charset=utf-8," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><rect width='60' height='60' fill='#2a1840'/><text x='30' y='42' font-size='34' text-anchor='middle' fill='#a78bfa'>♪</text></svg>").replace(/'/g, '%27');
+                    if (imgEl) artUrl = imgEl.getAttribute('src');
                     const row = document.createElement('div');
                     row.className = 'vv-result glass';
                     row.onclick = () => vvPlayWidget(cleanUrl, title, artist, artUrl);
-                    row.innerHTML = `<img src="${artUrl || noteArt}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${noteArt}'"><div class="vv-result-info"><h4>${title}</h4><p>${artist}</p></div>`;
+                    row.innerHTML = `<img src="${artUrl || 'https://via.placeholder.com/60/111/fff?text=♪'}" onerror="this.src='https://via.placeholder.com/60/111/fff?text=♪'"><div class="vv-result-info"><h4>${title}</h4><p>${artist}</p></div>`;
                     resultsContainer.appendChild(row);
                     added++;
                 });
@@ -2361,30 +2112,12 @@
             }
         }
 
-        // page text the AI can read ("see page")
-        let aiPageCtx = null;
-        function aiSeePage() {
-            const status = document.getElementById('ai-share-status');
-            const f = (typeof tabFrames !== 'undefined') && tabFrames[activeTabId];
-            if (!f || !f.frame) { if (status) status.textContent = 'open a page or game first, then press "see page"'; return; }
-            try {
-                const d = f.frame.contentDocument;
-                const text = ((d.body && d.body.innerText) || '').replace(/\s+/g, ' ').trim().slice(0, 6000);
-                const t = tabs.find(x => x.id === activeTabId);
-                aiPageCtx = { url: (t && t.url) || '', title: d.title || '', text };
-                document.getElementById('ai-see-page')?.classList.add('live');
-                if (status) status.textContent = 'page attached: ' + (d.title || (t && t.url) || 'current page') + (text.length < 30 ? ' (mostly graphics — use "share tab" so it can see the picture)' : ' · ' + text.length + ' chars');
-            } catch (e) {
-                if (status) status.textContent = 'could not read that page — use "share tab" instead';
-            }
-        }
-
         async function aiSend() {
             if (aiBusy) return;
             const input = document.getElementById('ai-input');
             const sendBtn = document.getElementById('ai-send');
             let text = (input.value || '').trim();
-            // grab a fresh frame if still sharing (live view of what you're doing)
+            // refresh snapshot if still sharing
             if (aiStream && aiVideo) {
                 const frame = aiCaptureFrame();
                 if (frame) {
@@ -2394,41 +2127,39 @@
                 }
             }
             const snap = aiSnapDataUrl;
-            const ctx = aiPageCtx;
-            if (!text && !snap && !ctx) return;
-            if (!text) text = snap ? 'What do you see on my screen? Describe it and help me with it.' : 'Summarize this page and tell me what matters.';
+            if (!text && !snap) return;
+            if (!text && snap) text = 'What do you see on my screen? Describe it and help me with it.';
 
             input.value = '';
             aiAppend('user', text, snap);
             aiBusy = true;
             if (sendBtn) sendBtn.disabled = true;
-            let thinking = aiAppend('sys', 'thinking…');
-            let bubble = null;
+            const thinking = aiAppend('sys', 'thinking…');
 
-            const modelText = ctx ? ('[page the user has open: ' + ctx.title + ' · ' + ctx.url + ']\n' + (ctx.text || '(no readable text)') + '\n\n' + text) : text;
-            aiHistory.push({ role: 'user', content: snap ? [{ type: 'text', text: modelText }, { type: 'image_url', image_url: { url: snap } }] : modelText });
-            aiPageCtx = null;
-            document.getElementById('ai-see-page')?.classList.remove('live');
+            // build message content (vision if snapshot present)
+            let userContent;
+            if (snap) {
+                userContent = [
+                    { type: 'text', text: text },
+                    { type: 'image_url', image_url: { url: snap } }
+                ];
+            } else {
+                userContent = text;
+            }
+            aiHistory.push({ role: 'user', content: userContent });
 
-            const box = document.getElementById('ai-messages');
-            const onDelta = (full) => {
-                if (!bubble) { if (thinking && thinking.parentNode) thinking.remove(); bubble = aiAppend('bot', ''); }
-                bubble.textContent = full;
-                if (box) box.scrollTop = box.scrollHeight;
-            };
             try {
-                const res = await aiCallModel(aiHistory, onDelta);
-                if (!bubble) { if (thinking && thinking.parentNode) thinking.remove(); bubble = aiAppend('bot', res.text || '(empty reply)'); }
-                else bubble.textContent = res.text || '(empty reply)';
-                const via = document.createElement('span'); via.className = 'ai-via'; via.textContent = res.via; bubble.appendChild(via);
-                aiHistory.push({ role: 'assistant', content: res.text || '' });
+                const reply = await aiCallModel(aiHistory);
+                if (thinking && thinking.parentNode) thinking.remove();
+                aiAppend('bot', reply || '(empty reply)');
+                aiHistory.push({ role: 'assistant', content: reply || '' });
+                // one-shot image: clear after send so next msg is clean unless still sharing
                 if (!aiStream) {
                     aiSnapDataUrl = null;
                     document.getElementById('ai-preview-wrap')?.classList.remove('show');
                 }
             } catch (e) {
                 if (thinking && thinking.parentNode) thinking.remove();
-                if (bubble && bubble.parentNode) bubble.remove();
                 aiAppend('sys', 'error · ' + (e.message || 'request failed'));
                 aiHistory.pop();
             }
@@ -2436,198 +2167,103 @@
             if (sendBtn) sendBtn.disabled = false;
         }
 
-        // ---- smarter + faster model routing: streaming, better models, real vision on every route ----
-        const AI_SYSTEM = "You are noxveil AI, a sharp, fast assistant. Answer directly and correctly. For math, code and logic, work it out carefully before answering and give the verified result. Keep replies short unless detail is needed. If an image is attached it is a screenshot of the user's screen: read the visible text and details, then help with what they're doing. If page text is attached, use it. Never claim you can't see an attached image.";
-        const AI_PUTER_MODELS = ['gpt-5-mini', 'claude-sonnet-4', 'gpt-4o', 'gemini-2.5-flash'];
-        function aiText(c) {
-            if (typeof c === 'string') return c;
-            if (Array.isArray(c)) return c.map(p => p.type === 'text' ? p.text : '').filter(Boolean).join('\n') || 'hello';
-            return 'hello';
-        }
-        function aiImageOf(m) {
-            if (!m || !Array.isArray(m.content)) return null;
-            const p = m.content.find(x => x.type === 'image_url');
-            return p && p.image_url && p.image_url.url || null;
-        }
-        async function aiPuter(history, model, onDelta) {
+        async function aiCallModel(history) {
+            const ctrl = (ms) => {
+                const c = new AbortController();
+                setTimeout(() => c.abort(), ms);
+                return c;
+            };
+            const extractText = (content) => {
+                if (typeof content === 'string') return content;
+                if (Array.isArray(content)) {
+                    return content.map(p => p.type === 'text' ? p.text : '').filter(Boolean).join('\n') || 'hello';
+                }
+                return 'hello';
+            };
             const last = history[history.length - 1];
-            const img = aiImageOf(last);
-            const prior = history.slice(0, -1).map(h => ({ role: h.role, content: aiText(h.content) }));
-            const opts = { model, stream: true };
-            let call;
-            if (img) {
-                const transcript = prior.map(h => (h.role === 'user' ? 'User: ' : 'Assistant: ') + h.content).join('\n');
-                call = puter.ai.chat(AI_SYSTEM + '\n\n' + (transcript ? transcript + '\n' : '') + 'User: ' + aiText(last.content), img, opts);
-            } else {
-                call = puter.ai.chat([{ role: 'system', content: AI_SYSTEM }, ...prior, { role: 'user', content: aiText(last.content) }], opts);
-            }
-            const resp = await Promise.race([call, new Promise((_, rej) => setTimeout(() => rej(Object.assign(new Error('timeout'), { timeout: true })), 15000))]);
-            let full = '';
-            if (resp && typeof resp[Symbol.asyncIterator] === 'function') {
-                for await (const part of resp) {
-                    const t = typeof part === 'string' ? part : (part && (part.text || (part.message && part.message.content))) || '';
-                    if (t) { full += t; onDelta(full); }
-                }
-            } else {
-                let t = typeof resp === 'string' ? resp : (resp && ((resp.message && resp.message.content) || resp.text)) || '';
-                if (Array.isArray(t)) t = t.map(x => x.text || '').join('');
-                full = String(t || '');
-                if (full) onDelta(full);
-            }
-            return full;
-        }
-        async function aiPollinations(history, onDelta) {
-            const msgs = [{ role: 'system', content: AI_SYSTEM }, ...history.map((h, i, a) => i === a.length - 1 ? h : { role: h.role, content: aiText(h.content) })];
-            const c = new AbortController();
-            const timer = setTimeout(() => c.abort(), 35000);
+            const prompt = extractText(last.content);
+            const hasImage = Array.isArray(last.content) && last.content.some(p => p.type === 'image_url');
+
+            // 1) Puter free AI (fast when script loads)
             try {
+                if (window.puter && puter.ai && typeof puter.ai.chat === 'function') {
+                    const c = ctrl(20000);
+                    const msgs = history.map(h => ({
+                        role: h.role,
+                        content: typeof h.content === 'string' ? h.content : extractText(h.content)
+                    }));
+                    // puter vision: pass image as separate if present
+                    let input = msgs;
+                    if (hasImage) {
+                        const img = last.content.find(p => p.type === 'image_url');
+                        const url = img && img.image_url && img.image_url.url;
+                        if (url) {
+                            const r = await puter.ai.chat(prompt, url, { signal: c.signal });
+                            const text = typeof r === 'string' ? r : (r && (r.message || r.text || r.content)) || JSON.stringify(r);
+                            if (text) return String(text);
+                        }
+                    }
+                    const r = await puter.ai.chat(msgs.length > 1 ? msgs : prompt, { signal: c.signal });
+                    const text = typeof r === 'string' ? r : (r && (r.message || r.text || r.content)) || '';
+                    if (text) return String(text);
+                }
+            } catch (e) {}
+
+            // 2) Pollinations POST openai (short timeout)
+            try {
+                const c = ctrl(15000);
                 const r = await fetch('https://text.pollinations.ai/openai', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ model: 'openai', stream: true, messages: msgs }), signal: c.signal
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'openai',
+                        messages: [
+                            { role: 'system', content: 'You are a helpful assistant in noxveil. Be concise.' },
+                            ...history.map(h => ({
+                                role: h.role,
+                                content: typeof h.content === 'string' ? h.content : extractText(h.content)
+                            }))
+                        ]
+                    }),
+                    signal: c.signal
                 });
-                if (!r.ok || !r.body) throw new Error('pollinations ' + r.status);
-                const reader = r.body.getReader(), dec = new TextDecoder();
-                let buf = '', full = '';
-                const eat = (ln) => {
-                    const m = ln.match(/^data:\s*(.*)$/);
-                    if (!m || m[1] === '[DONE]') return;
-                    try { const j = JSON.parse(m[1]); const d = (j.choices && j.choices[0] && ((j.choices[0].delta && j.choices[0].delta.content) || (j.choices[0].message && j.choices[0].message.content))) || ''; if (d) { full += d; onDelta(full); } } catch (e) {}
-                };
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    buf += dec.decode(value, { stream: true });
-                    const lines = buf.split('\n'); buf = lines.pop();
-                    lines.forEach(eat);
+                if (r.ok) {
+                    const data = await r.json();
+                    const msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+                    if (msg) return msg;
                 }
-                if (buf) eat(buf);
-                if (!full && buf) { try { const j = JSON.parse(buf); full = j.choices[0].message.content || ''; if (full) onDelta(full); } catch (e) {} }
-                if (!full) throw new Error('empty reply');
-                return full;
-            } finally { clearTimeout(timer); }
-        }
-        async function aiCallModel(history, onDelta) {
-            history = history.slice(-14);
-            // 1) Puter: strong models, streaming (tokens appear instantly)
-            if (window.puter && puter.ai && typeof puter.ai.chat === 'function') {
-                for (const model of AI_PUTER_MODELS) {
-                    try { const t = await aiPuter(history, model, onDelta); if (t) return { text: t, via: 'puter · ' + model }; }
-                    catch (e) { if (e && e.timeout) break; }   // timeout usually means a sign-in popup — skip to the next route
+            } catch (e) {}
+
+            // 3) Pollinations GET (fast path)
+            try {
+                const c = ctrl(12000);
+                const r = await fetch('https://text.pollinations.ai/' + encodeURIComponent(prompt) + '?model=openai&seed=' + Date.now(), { signal: c.signal });
+                if (r.ok) {
+                    const text = (await r.text()).trim();
+                    if (text) return text;
                 }
-            }
-            // 2) Pollinations: streaming, and the screenshot is passed through (vision)
-            try { const t = await aiPollinations(history, onDelta); if (t) return { text: t, via: 'pollinations' }; } catch (e) {}
-            // 3) plain text fallbacks (no image)
-            const prompt = aiText(history[history.length - 1].content);
-            const urls = [
-                'https://text.pollinations.ai/' + encodeURIComponent(prompt) + '?model=openai&seed=' + Date.now(),
+            } catch (e) {}
+
+            // 4) CORS proxies
+            const proxied = [
                 'https://corsproxy.io/?' + encodeURIComponent('https://text.pollinations.ai/' + encodeURIComponent(prompt)),
                 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://text.pollinations.ai/' + encodeURIComponent(prompt))
             ];
-            for (const u of urls) {
+            for (const u of proxied) {
                 try {
-                    const c = new AbortController(); const t = setTimeout(() => c.abort(), 12000);
-                    const r = await fetch(u, { signal: c.signal, cache: 'no-store' }); clearTimeout(t);
-                    if (r.ok) { const text = (await r.text()).trim(); if (text && text.length < 50000) return { text, via: 'fallback (text only)' }; }
+                    const c = ctrl(12000);
+                    const r = await fetch(u, { signal: c.signal, cache: 'no-store' });
+                    if (r.ok) {
+                        const text = (await r.text()).trim();
+                        if (text && text.length < 50000) return text;
+                    }
                 } catch (e) {}
             }
+
             throw new Error('failed to fetch — network blocked the AI hosts');
         }
 
-        // ===== FLOATING AI WINDOW (drag it anywhere, it stays on top of every tab and game) =====
-        function nvAiSaveGeom() {
-            const w = document.getElementById('nv-ai'); if (!w) return;
-            try { localStorage.setItem('nv_ai_geom', JSON.stringify({ l: w.offsetLeft, t: w.offsetTop, w: w.offsetWidth, h: w.offsetHeight })); } catch (e) {}
-        }
-        function nvAiClamp() {
-            const w = document.getElementById('nv-ai'); if (!w) return;
-            const l = Math.max(0, Math.min(w.offsetLeft, innerWidth - 120)), t = Math.max(0, Math.min(w.offsetTop, innerHeight - 50));
-            w.style.left = l + 'px'; w.style.top = t + 'px'; w.style.right = 'auto'; w.style.bottom = 'auto';
-        }
-        function nvAiInit() {
-            const win = document.getElementById('nv-ai'), body = document.getElementById('nv-ai-body'), head = document.getElementById('nv-ai-head');
-            const card = document.querySelector('#view-ai .ai-card');
-            if (!win || !body || !head) return;
-            if (card && !body.contains(card)) body.appendChild(card);
-            try {
-                const g = JSON.parse(localStorage.getItem('nv_ai_geom') || 'null');
-                if (g) { win.style.left = g.l + 'px'; win.style.top = g.t + 'px'; win.style.right = 'auto'; win.style.bottom = 'auto'; win.style.width = g.w + 'px'; win.style.height = g.h + 'px'; }
-            } catch (e) {}
-            let dragging = false, ox = 0, oy = 0;
-            head.addEventListener('pointerdown', e => {
-                if (e.target.closest('button')) return;
-                dragging = true; ox = e.clientX - win.offsetLeft; oy = e.clientY - win.offsetTop;
-                head.setPointerCapture(e.pointerId);
-                win.style.right = 'auto'; win.style.bottom = 'auto';
-            });
-            head.addEventListener('pointermove', e => {
-                if (!dragging) return;
-                win.style.left = Math.max(0, Math.min(e.clientX - ox, innerWidth - 120)) + 'px';
-                win.style.top = Math.max(0, Math.min(e.clientY - oy, innerHeight - 50)) + 'px';
-            });
-            const stop = () => { if (dragging) { dragging = false; nvAiSaveGeom(); } };
-            head.addEventListener('pointerup', stop); head.addEventListener('pointercancel', stop);
-            win.addEventListener('mouseup', nvAiSaveGeom);
-            window.addEventListener('resize', () => { if (win.classList.contains('open')) nvAiClamp(); });
-        }
-        function toggleAiWindow(force) {
-            const w = document.getElementById('nv-ai'); if (!w) return;
-            const open = force === undefined ? !w.classList.contains('open') : !!force;
-            w.classList.toggle('open', open);
-            if (open) { w.classList.remove('min'); if (w.style.left) nvAiClamp(); const i = document.getElementById('ai-input'); if (i) setTimeout(() => i.focus(), 50); }
-        }
-        function toggleAiMin() { const w = document.getElementById('nv-ai'); if (w) w.classList.toggle('min'); }
-
-        // ===== SAVE / DOWNLOAD THE SITE =====
-        // Zips every front-end file this page loads (html, css, js, wasm, images and optionally your bgs videos).
-        // Server-side parts (your Node/Wisp backend) can't be read from a browser — the GitHub "Download ZIP" has those.
-        async function downloadSite() {
-            const btn = document.getElementById('btn-save'), label = btn && btn.querySelector('span');
-            const say = t => { if (label) label.textContent = t; };
-            if (btn && btn.dataset.busy) return;
-            try {
-                if (btn) btn.dataset.busy = '1';
-                say('loading…');
-                if (!window.JSZip) await new Promise((ok, no) => { const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'; sc.onload = ok; sc.onerror = () => no(new Error('could not load the zip library')); document.head.appendChild(sc); });
-                const withVideos = confirm('Include the background videos (bgs folder)? They are large.\nOK = include them, Cancel = leave them out.');
-                const base = new URL('./', location.href);
-                const zip = new JSZip(), seen = new Set(), queue = [];
-                const add = (rel, depth) => { try { const u = new URL(rel, base); if (u.origin !== location.origin || seen.has(u.pathname) || seen.size > 700) return; seen.add(u.pathname); queue.push({ u, depth }); } catch (e) {} };
-                ['index.html', 'index.css', 'search.js', 'register-sw.js', 'sw.js', 'home-logo.png', 'favicon.ico',
-                 'scram/scramjet.all.js', 'scram/scramjet.wasm.wasm', 'scram/scramjet.sync.js', 'baremux/index.js', 'baremux/worker.js'].forEach(f => add(f, 0));
-                if (withVideos) BGS.filter(b => b.type === 'video' && b.src && !/^https?:/i.test(b.src)).forEach(b => add(b.src, 9));
-                let tried = 0, saved = 0;
-                while (queue.length) {
-                    const { u, depth } = queue.shift();
-                    say((++tried) + ' · ' + saved + ' saved');
-                    let r; try { r = await fetch(u.href, { cache: 'no-store' }); } catch (e) { continue; }
-                    if (!r.ok) continue;
-                    const path = u.pathname;
-                    if (/text\/html/i.test(r.headers.get('content-type') || '') && !/\.html?$/i.test(path) && path !== base.pathname) continue; // host's "not found" page
-                    const buf = await r.arrayBuffer();
-                    let rel = path.startsWith(base.pathname) ? path.slice(base.pathname.length) : path.replace(/^\//, '');
-                    if (!rel || rel.endsWith('/')) rel += 'index.html';
-                    zip.file(rel, buf); saved++;
-                    if (depth < 2 && /\.(m?js|css|html?)$/i.test(path)) {
-                        const txt = new TextDecoder().decode(buf), rx = /["'`(]((?:\.{0,2}\/)?[\w\-./]+\.(?:m?js|wasm|css|png|jpe?g|gif|svg|ico|json|webp|woff2?|ttf))["'`)?#]/g;
-                        let m; while ((m = rx.exec(txt))) add(new URL(m[1], u).href, depth + 1);
-                    }
-                }
-                zip.file('README.txt', 'noxveil site backup\n\nThis zip holds the front-end files the site loads (' + saved + ' files).\n\nTo run it again, upload these files to a host that ALSO runs the proxy backend the original uses (the Node/Wisp server from your repo).\nOpening index.html straight from your computer will NOT work: the proxy needs a service worker and a backend over http(s).\nFor a complete copy including server code, use GitHub > Code > Download ZIP on your repo.\n');
-                say('zipping…');
-                const blob = await zip.generateAsync({ type: 'blob' }, m => say(Math.round(m.percent) + '%'));
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'noxveil-site.zip';
-                document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-                alert('Saved ' + saved + ' files to noxveil-site.zip.\n\nNote: this is the front-end only. To run it, host it where the proxy backend also runs. For the full project (with server code) use GitHub > Code > Download ZIP.');
-            } catch (e) {
-                alert('Download failed: ' + (e && e.message || e));
-            } finally {
-                say('save'); if (btn) delete btn.dataset.busy;
-            }
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
-            nvAiInit();
             generateGames();
             ensureProxy();
             loadSettings();
@@ -2637,7 +2273,7 @@
             if (!CLOAKS.find(c => c.id === settings.cloak)) settings.cloak = 'classroom';
             // show intro until finished this browser session
             let obDone = false;
-            try { obDone = sessionStorage.getItem('nv_ob_done') === '1'; } catch (e) {}  // intro shows once per browser session (it used to also skip forever after first run)
+            try { obDone = sessionStorage.getItem('nv_ob_done') === '1' || settings.onboarded === true && localStorage.getItem(LS_KEY + '_seen') === '1'; } catch (e) {}
             if (!obDone) settings.onboarded = false;
             applyAll();
             buildOnboardingGrids();
