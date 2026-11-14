@@ -283,7 +283,7 @@
         .catalog-tools input { width:100%; max-width:420px; border:1px solid var(--border); background:rgba(10,8,18,.72); color:var(--text); border-radius:12px; padding:12px 14px; outline:none; }
         .catalog-tools input:focus { border-color: rgba(167,139,250,0.5); }
 
-        /* ===== ANIME UI — CLEAN COVER CARDS & PROXY STREAMING ===== */
+        /* ===== ANIME UI ===== */
         #view-anime { justify-content:flex-start; padding:34px 38px 36px 108px; overflow:auto; }
         .anime-shell { width:100%; max-width:1450px; margin:0 auto; color:#f5f3fb; }
         .anime-top { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin:8px 0 34px; }
@@ -312,7 +312,6 @@
         .anime-section-head h2 { font:600 18px var(--font-display); margin:0; letter-spacing:-0.01em; }
         .anime-section-head span { font:10px 'JetBrains Mono',monospace; color:#827991; }
 
-        /* Pure Cover Cards Grid */
         .anime-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(175px,1fr)); gap:18px; }
         .anime-card {
             cursor:pointer; min-width:0; border-radius:16px; overflow:hidden; position:relative;
@@ -358,7 +357,6 @@
         }
         .anime-empty { padding:36px; color:#8e859d; font-size:13px; grid-column:1/-1; text-align:center; background:rgba(255,255,255,0.02); border-radius:16px; border:1px dashed var(--border); }
 
-        /* Detail View */
         .anime-back {
             display:inline-flex; align-items:center; gap:6px;
             border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05);
@@ -390,7 +388,6 @@
         .anime-ep:hover { border-color:rgba(167,139,250,0.65); background:rgba(167,139,250,0.18); color:#fff; transform:translateY(-2px); box-shadow:0 8px 20px rgba(139,92,246,0.2); }
         .anime-ep small { display:block; color:#8d83a1; font-family:'JetBrains Mono',monospace; font-size:9.5px; }
 
-        /* Watch View */
         .anime-watch-title { margin:0 0 16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
         .anime-watch-title span { font:10px 'JetBrains Mono',monospace; color:#a78bfa; letter-spacing:.18em; display:block; }
         .anime-watch-title h2 { font:600 23px var(--font-display); margin:6px 0 0; color:#fff; }
@@ -671,19 +668,16 @@
                 <div>
                     <div class="anime-kicker">NOXED / ANIME</div>
                     <h1>Discover anime<span>.</span></h1>
-                    <p>Browse cover cards, pick episodes, and watch directly via Brave stream routing.</p>
+                    <p>anikage.cc only · proxied through scramjet + brave</p>
                 </div>
                 <form class="anime-searchbox" onsubmit="event.preventDefault(); searchAnime(document.getElementById('anime-search').value, true);">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-                    <input id="anime-search" type="search" placeholder="Search anime titles, genres..." oninput="searchAnime(this.value)" aria-label="Search anime">
+                    <input id="anime-search" type="search" placeholder="Search anime on anikage.cc..." oninput="searchAnime(this.value)" aria-label="Search anime">
                     <button type="submit" class="anime-search-btn">Search</button>
                 </form>
             </header>
             <div id="anime-home" class="anime-page">
-                <div class="anime-section-head"><h2>Trending Now</h2><span id="anime-status">Loading catalog…</span></div>
-                <div id="anime-catalog" class="anime-grid"></div>
-                <div class="anime-section-head"><h2>All-Time Popular</h2></div>
-                <div id="anime-popular" class="anime-grid"></div>
+                <!-- filled by loadAnimeHome() -->
             </div>
             <section id="anime-detail" class="anime-detail-page" hidden>
                 <button type="button" class="anime-back" onclick="animeBack()">← Back to catalog</button>
@@ -1172,12 +1166,12 @@
 
         async function loadInTab(tabId, url) {
             const container = document.getElementById('frame-container');
-            const ok = await ensureProxy();
+            await ensureProxy();
             for (const [id, f] of Object.entries(tabFrames)) {
                 if (f && f.frame) f.frame.style.display = id === tabId ? 'block' : 'none';
             }
             let f = tabFrames[tabId];
-            if (ok && scramjet) {
+            if (scramjet) {
                 if (!f) {
                     f = scramjet.createFrame();
                     f.frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
@@ -1209,10 +1203,11 @@
             return (eng ? eng.value : 'https://search.brave.com/search?q=%s').replace('%s', encodeURIComponent(input));
         }
 
-        function handleSearch() {
+        async function handleSearch() {
             const el = document.getElementById('custom-address');
             const input = (el ? el.value : '').trim();
             if (!input) return;
+            await ensureProxy();
             const finalUrl = resolveUrl(input);
             tabCounter++;
             const id = 'tab-' + tabCounter;
@@ -1237,7 +1232,7 @@
             if (countEl) countEl.textContent = `${list.length} / ${gamesList.length} titles`;
             if (gridEl) {
                 gridEl.innerHTML = list.map(g => `
-                    <div class="game-card glass" onclick="directLoad('${g.url}', '${g.name.replace(/'/g,"\'")}');">
+                    <div class="game-card glass" onclick="directLoad('${g.url}', '${g.name.replace(/'/g,"\\'")}')">
                         <img class="game-cover" loading="lazy" src="${g.cover}" onerror="this.src='${getCoverFallback(g.name)}'" alt="${g.name}">
                         <div class="game-info"><span>${g.name}</span></div>
                     </div>
@@ -1246,215 +1241,64 @@
         }
 
         // ============================================================
-        //  ANIME UI — COVER CARDS + BRAVE STREAMING ROUTER
-        //  Zero domain traces, fully robust navigation
+        //  ANIME — ANIKAGE.CC ONLY + SCRAMJET
         // ============================================================
-        let animeTrending = [], animePopular = [], animeCurrent = null, animeCurrentEp = 1;
-        let animeSearchTimer = null;
+        const ANIKAGE_BASE = 'https://anikage.cc';
 
-        const anilistGraphQuery = `query ($sort:[MediaSort],$perPage:Int){
-            Page(page:1,perPage:$perPage){
-                media(type:ANIME,sort:$sort,isAdult:false){
-                    id
-                    idMal
-                    title{romaji english native}
-                    coverImage{extraLarge large}
-                    bannerImage
-                    description
-                    episodes
-                    format
-                    seasonYear
-                    averageScore
-                    genres
-                    status
-                }
-            }
-        }`;
-
-        async function fetchAnimeCatalog(sort, perPage = 24) {
-            try {
-                const res = await fetch('https://graphql.anilist.co', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ query: anilistGraphQuery, variables: { sort, perPage } })
-                });
-                if (!res.ok) throw new Error('Catalog fetch error');
-                const json = await res.json();
-                return json?.data?.Page?.media || [];
-            } catch (e) {
-                return [];
-            }
-        }
-
-        function getAnimeTitle(a) {
-            return a?.title?.english || a?.title?.romaji || a?.title?.native || 'Untitled Series';
-        }
-
-        function getAnimeCover(a) {
-            return a?.coverImage?.extraLarge || a?.coverImage?.large || getCoverFallback(getAnimeTitle(a));
-        }
-
-        function renderAnimeCoverCard(a) {
-            const title = getAnimeTitle(a);
-            const cover = getAnimeCover(a);
-            const score = a.averageScore ? (a.averageScore / 10).toFixed(1) : '8.9';
-            const eps = a.episodes ? `${a.episodes} EP` : 'ONGOING';
-            return `
-                <article class="anime-card" onclick="openAnimeDetail(${a.id})">
-                    <div class="anime-poster">
-                        <img loading="lazy" src="${cover}" onerror="this.src='${getCoverFallback(title)}'" alt="${title.replace(/"/g, '&quot;')}">
-                        <span class="anime-score">★ ${score}</span>
-                        <span class="anime-ep-badge">${eps}</span>
-                        <div class="anime-card-overlay">
-                            <div class="anime-card-title">${title}</div>
-                            <div class="anime-card-sub">${a.format || 'TV'} · ${a.seasonYear || '2026'}</div>
+        function loadAnimeHome() {
+            const home = document.getElementById('anime-home');
+            const detail = document.getElementById('anime-detail');
+            const watch = document.getElementById('anime-watch');
+            if (detail) detail.hidden = true;
+            if (watch) watch.hidden = true;
+            if (home) {
+                home.hidden = false;
+                home.innerHTML = `
+                    <div class="anime-section-head">
+                        <h2>anikage.cc</h2>
+                        <span id="anime-status">proxied via scramjet · brave only</span>
+                    </div>
+                    <div id="anime-catalog" class="anime-grid" style="grid-template-columns:1fr;min-height:70vh;">
+                        <div id="anikage-frame-wrap" style="width:100%;height:70vh;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);">
+                            <div class="anime-player-loader" id="anikage-loader">
+                                <div class="spinner"></div>
+                                <span>loading anikage.cc through scramjet…</span>
+                            </div>
                         </div>
                     </div>
-                </article>
-            `;
-        }
-
-        function paintAnimeCatalog() {
-            const catEl = document.getElementById('anime-catalog');
-            const popEl = document.getElementById('anime-popular');
-            const stEl = document.getElementById('anime-status');
-            if (!catEl) return;
-
-            catEl.innerHTML = animeTrending.length
-                ? animeTrending.map(renderAnimeCoverCard).join('')
-                : '<div class="anime-empty">Unable to load anime covers. Check network connection.</div>';
-            if (popEl) popEl.innerHTML = animePopular.map(renderAnimeCoverCard).join('');
-            if (stEl) stEl.textContent = `${animeTrending.length + animePopular.length} series ready`;
-        }
-
-        async function loadAnimeHome() {
-            if (animeTrending.length > 0) {
-                paintAnimeCatalog();
-                return;
+                `;
+                mountAnikage();
             }
-            const stEl = document.getElementById('anime-status');
-            if (stEl) stEl.textContent = 'Loading cover cards…';
-            [animeTrending, animePopular] = await Promise.all([
-                fetchAnimeCatalog(['TRENDING_DESC', 'POPULARITY_DESC'], 24),
-                fetchAnimeCatalog(['POPULARITY_DESC'], 24)
-            ]);
-            paintAnimeCatalog();
+        }
+
+        async function mountAnikage() {
+            await ensureProxy();
+            const wrap = document.getElementById('anikage-frame-wrap');
+            if (!wrap) return;
+            if (scramjet && typeof scramjet.createFrame === 'function') {
+                const sj = scramjet.createFrame();
+                sj.frame.style.cssText = 'width:100%;height:100%;border:0;';
+                sj.frame.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+                wrap.innerHTML = '';
+                wrap.appendChild(sj.frame);
+                sj.go(ANIKAGE_BASE);
+            } else {
+                const encoded = getScramjetEncodedUrl(ANIKAGE_BASE);
+                wrap.innerHTML = `<iframe src="${encoded || ANIKAGE_BASE}" style="width:100%;height:100%;border:0;" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+            }
+            const loader = document.getElementById('anikage-loader');
+            if (loader) loader.remove();
         }
 
         function searchAnime(q = '', immediate = false) {
             const query = String(q).trim();
-            const detailEl = document.getElementById('anime-detail');
-            const watchEl = document.getElementById('anime-watch');
-            const homeEl = document.getElementById('anime-home');
-            if (detailEl) detailEl.hidden = true;
-            if (watchEl) watchEl.hidden = true;
-            if (homeEl) homeEl.hidden = false;
-
             if (!query) {
-                const h2 = document.querySelector('#anime-home .anime-section-head h2');
-                if (h2) h2.textContent = 'Trending Now';
-                paintAnimeCatalog();
+                loadAnimeHome();
                 return;
             }
-
-            const popEl = document.getElementById('anime-popular');
-            const h2 = document.querySelector('#anime-home .anime-section-head h2');
-            const stEl = document.getElementById('anime-status');
-            if (popEl) popEl.innerHTML = '';
-            if (h2) h2.textContent = `Results for "${query}"`;
-            if (stEl) stEl.textContent = 'Searching catalog…';
-
-            clearTimeout(animeSearchTimer);
-            const runSearch = async () => {
-                try {
-                    const res = await fetch('https://graphql.anilist.co', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            query: `query($search:String){Page(perPage:30){media(search:$search,type:ANIME,isAdult:false,sort:SEARCH_MATCH){id idMal title{romaji english native} coverImage{extraLarge large} description episodes format seasonYear averageScore genres status}}}`,
-                            variables: { search: query }
-                        })
-                    });
-                    const data = (await res.json())?.data?.Page?.media || [];
-                    const catEl = document.getElementById('anime-catalog');
-                    if (catEl) {
-                        catEl.innerHTML = data.length
-                            ? data.map(renderAnimeCoverCard).join('')
-                            : '<div class="anime-empty">No anime matched that search.</div>';
-                    }
-                    if (stEl) stEl.textContent = `${data.length} matches`;
-                } catch (e) {
-                    if (stEl) stEl.textContent = 'Search error';
-                }
-            };
-
-            if (immediate) runSearch();
-            else animeSearchTimer = setTimeout(runSearch, 260);
-        }
-
-        async function openAnimeDetail(id) {
-            let a = [...animeTrending, ...animePopular].find(x => x.id === id);
-            if (!a) {
-                try {
-                    const r = await fetch('https://graphql.anilist.co', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            query: `query($id:Int){Media(id:$id,type:ANIME){id idMal title{romaji english native} coverImage{extraLarge large} description episodes format seasonYear averageScore genres status}}`,
-                            variables: { id }
-                        })
-                    });
-                    a = (await r.json())?.data?.Media;
-                } catch (e) {}
-            }
-            if (!a) return;
-
-            animeCurrent = a;
-            const homeEl = document.getElementById('anime-home');
-            const watchEl = document.getElementById('anime-watch');
-            const detailEl = document.getElementById('anime-detail');
-            if (homeEl) homeEl.hidden = true;
-            if (watchEl) watchEl.hidden = true;
-            if (detailEl) detailEl.hidden = false;
-
-            const title = getAnimeTitle(a);
-            const cover = getAnimeCover(a);
-            const desc = (a.description || 'Stream ready. Pick an episode below to launch playback.').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '');
-            const epCount = Math.max(1, Math.min(Number(a.episodes) || 24, 200));
-            const genres = (a.genres || []).slice(0, 4).join(' · ');
-
-            const contentEl = document.getElementById('anime-detail-content');
-            if (contentEl) {
-                contentEl.innerHTML = `
-                    <div class="anime-detail-hero">
-                        <img src="${cover}" onerror="this.src='${getCoverFallback(title)}'" alt="${title}">
-                        <div class="anime-detail-copy">
-                            <div class="anime-kicker">SERIES OVERVIEW · ${genres || 'ANIME'}</div>
-                            <h2>${title}</h2>
-                            <div class="anime-meta">
-                                <span>${a.format || 'TV'}</span>
-                                <span>${a.seasonYear || '2026'}</span>
-                                <span>★ ${a.averageScore ? (a.averageScore / 10).toFixed(1) : '8.9'}</span>
-                                <span>${epCount} EPISODES</span>
-                                <span>${a.status || 'AVAILABLE'}</span>
-                            </div>
-                            <p class="anime-synopsis">${desc}</p>
-                        </div>
-                    </div>
-                    <div class="anime-episode-head">
-                        <h3>Episodes</h3>
-                        <span>Select an episode to watch</span>
-                    </div>
-                    <div class="anime-episodes">
-                        ${Array.from({ length: epCount }, (_, i) => `
-                            <button type="button" class="anime-ep" onclick="playAnimeEpisode(${i + 1})">
-                                Episode ${i + 1}
-                                <small>WATCH EP ${String(i + 1).padStart(2, '0')}</small>
-                            </button>
-                        `).join('')}
-                    </div>
-                `;
-            }
+            const braveQ = `site:anikage.cc ${query}`;
+            const target = `https://search.brave.com/search?q=${encodeURIComponent(braveQ)}`;
+            directLoad(target, `anikage · ${query}`);
         }
 
         function animeBack() {
@@ -1475,92 +1319,12 @@
             if (detailEl) detailEl.hidden = false;
         }
 
-        function buildBraveStreamTarget(animeObj, epNum) {
-            const title = getAnimeTitle(animeObj);
-            const query = `${title} episode ${epNum} watch sub dub stream`;
-            return `https://search.brave.com/search?q=${encodeURIComponent(query)}`;
-        }
-
-        async function playAnimeEpisode(n) {
-            if (!animeCurrent) return;
-            animeCurrentEp = n;
-            const detailEl = document.getElementById('anime-detail');
-            const homeEl = document.getElementById('anime-home');
-            const watchEl = document.getElementById('anime-watch');
-            if (detailEl) detailEl.hidden = true;
-            if (homeEl) homeEl.hidden = true;
-            if (watchEl) watchEl.hidden = false;
-
-            const title = getAnimeTitle(animeCurrent);
-            const wtEl = document.getElementById('watch-title');
-            const wlEl = document.getElementById('watch-label');
-            if (wtEl) wtEl.textContent = `${title} — Episode ${n}`;
-            if (wlEl) wlEl.textContent = `BRAVE STREAM ENGINE · EPISODE ${String(n).padStart(2, '0')}`;
-
-            const playerBox = document.getElementById('anime-player');
-            if (!playerBox) return;
-
-            playerBox.innerHTML = `
-                <div class="anime-player-loader" id="anime-player-loader">
-                    <div class="spinner"></div>
-                    <span>Connecting stream via Brave proxy…</span>
-                </div>
-            `;
-
-            const braveStreamUrl = buildBraveStreamTarget(animeCurrent, n);
-            await ensureProxy();
-
-            const iframe = document.createElement('iframe');
-            iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.referrerPolicy = 'no-referrer';
-
-            const encoded = getScramjetEncodedUrl(braveStreamUrl);
-            if (encoded) {
-                iframe.src = encoded;
-            } else if (scramjet && typeof scramjet.createFrame === 'function') {
-                const sjFrame = scramjet.createFrame();
-                sjFrame.frame.style.cssText = 'width:100%;height:100%;min-height:480px;border:0;';
-                sjFrame.frame.allow = 'autoplay; encrypted-media; fullscreen';
-                playerBox.innerHTML = '';
-                playerBox.appendChild(sjFrame.frame);
-                sjFrame.go(braveStreamUrl);
-                return;
-            } else {
-                iframe.src = braveStreamUrl;
-            }
-
-            iframe.onload = () => {
-                const loader = document.getElementById('anime-player-loader');
-                if (loader) loader.remove();
-            };
-            setTimeout(() => {
-                const loader = document.getElementById('anime-player-loader');
-                if (loader) loader.remove();
-            }, 3500);
-
-            playerBox.appendChild(iframe);
-        }
-
-        function animeStepEpisode(delta) {
-            if (!animeCurrent) return;
-            const maxEp = Math.max(1, Math.min(Number(animeCurrent.episodes) || 24, 200));
-            const nextEp = Math.max(1, Math.min(maxEp, animeCurrentEp + delta));
-            if (nextEp !== animeCurrentEp) playAnimeEpisode(nextEp);
-        }
-
-        function animeOpenBraveTab() {
-            if (!animeCurrent) return;
-            const title = getAnimeTitle(animeCurrent);
-            const url = buildBraveStreamTarget(animeCurrent, animeCurrentEp);
-            directLoad(url, `${title} EP ${animeCurrentEp}`);
-        }
-
+        function animeStepEpisode() {}
+        function animeOpenBraveTab() {}
         function animeFullscreen() {
             const el = document.getElementById('anime-player');
             if (el && el.requestFullscreen) el.requestFullscreen();
         }
-
         function animeExit() {
             const player = document.getElementById('anime-player');
             if (player) player.innerHTML = '';
@@ -1570,14 +1334,16 @@
             if (detailEl) detailEl.hidden = false;
         }
 
-        // ===== MUSIC (VOUNDVEIL) =====
-        function vvSearch() {
+        // ===== MUSIC (VOUNDVEIL) — FORCED BRAVE + SCRAMJET =====
+        async function vvSearch() {
             const searchInput = document.getElementById('vv-search');
             const q = searchInput ? searchInput.value.trim() : '';
             if (!q) return;
             const statusLine = document.getElementById('vv-status-line');
-            if (statusLine) statusLine.textContent = 'searching soundcloud…';
-            directLoad('https://soundcloud.com/search/sounds?q=' + encodeURIComponent(q), 'Music: ' + q);
+            if (statusLine) statusLine.textContent = 'routing through brave + scramjet…';
+            await ensureProxy();
+            const target = `https://search.brave.com/search?q=${encodeURIComponent(q + ' soundcloud')}`;
+            directLoad(target, 'Music: ' + q);
         }
         function vvQuick(q) {
             const searchInput = document.getElementById('vv-search');
@@ -1690,12 +1456,10 @@
             loadAnimeHome();
             ensureProxy();
 
-            // If not onboarded or first time, show onboarding smoothly
             if (!settings.onboarded) {
                 openOnboarding();
             }
 
-            // Guarantee Enter key works on every input field across the entire app
             document.addEventListener('keydown', (e) => {
                 if (e.key !== 'Enter') return;
                 const active = document.activeElement;
