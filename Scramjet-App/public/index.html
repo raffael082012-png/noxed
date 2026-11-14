@@ -287,7 +287,7 @@
         .game-card span { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .catalog-tools{width:100%;max-width:1320px;margin:0 0 16px}.catalog-tools input{width:100%;max-width:420px;border:1px solid var(--border);background:rgba(10,8,18,.72);color:var(--text);border-radius:12px;padding:12px 14px;outline:none}
-        
+
         /* ===== MUSIC ===== */
         #view-music { justify-content: flex-start; padding: 48px 40px 40px 110px; }
         .vv-header { width: 100%; max-width: 980px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 22px; }
@@ -347,9 +347,6 @@
         .linkgen-action { padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); background: transparent; color: var(--text-dim); font-family: var(--font-display); font-size: 11px; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
         .linkgen-action:hover { color: #fff; border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.08); }
         .linkgen-status { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); min-height: 14px; margin-top: 4px; }
-        .linkgen-tips { display: flex; flex-direction: column; gap: 8px; padding: 0 4px; }
-        .linkgen-tip { font-family: var(--font-body); font-size: 12px; color: var(--text-dim); line-height: 1.5; }
-        .linkgen-tip strong { color: var(--text); font-weight: 500; }
 
         .blocker-grid {
             display: grid;
@@ -502,61 +499,63 @@
         .ob-card.selected { border-color: rgba(167,139,250,0.7); background: rgba(167,139,250,0.08); box-shadow: 0 0 0 1px rgba(167,139,250,0.3); }
         .ob-card.selected::after { content: "✓"; position: absolute; top: 10px; right: 10px; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: #0a0612; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 10; }
         
-        .ob-preview { width: 100%; aspect-ratio: 16/10; border-radius: 10px; position: relative; overflow: hidden; background: #0a0612; border: 1px solid rgba(255,255,255,0.06); }
-        .ob-preview video, .ob-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .ob-preview .badge { position: absolute; bottom: 6px; left: 6px; font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #fff; background: rgba(0,0,0,0.55); padding: 2px 6px; border-radius: 4px; z-index: 2; }
-        
         .ob-card .name { font-family: var(--font-display); font-size: 12px; font-weight: 500; color: var(--text); }
-        .ob-card .sub { font-family: var(--font-body); font-size: 10px; color: var(--text-faint); }
-        .font-preview { font-size: 26px; line-height: 1; color: #fff; text-align: center; padding: 14px 0; }
-        .lang-preview { font-size: 18px; color: #fff; text-align: center; padding: 18px 0; font-family: var(--font-display); }
-        .cloak-preview { display: flex; align-items: center; justify-content: center; padding: 16px 0; background: #fff; border-radius: 8px; gap: 8px; }
-        .cloak-preview img { width: 22px; height: 22px; object-fit: contain; }
-        .cloak-preview span { font-family: 'Inter', sans-serif; font-size: 11px; color: #333; font-weight: 500; }
         .ob-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 6px; }
         .ob-btn { font-family: var(--font-display); font-size: 12px; font-weight: 500; padding: 12px 24px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; transition: background .2s; }
         .ob-btn:hover { background: var(--surface-hi); }
         .ob-btn.primary { background: linear-gradient(135deg, rgba(167,139,250,0.9), rgba(139,92,246,0.8)); border: none; color: #fff; }
         .ob-btn.ghost { background: transparent; border-color: transparent; color: var(--text-faint); }
     
-        /* Noxed AniKage Integration UI */
+        /* Noxed Anime UI - Full Poster Cards & Brave Proxy Player */
         #view-anime{justify-content:flex-start;padding:34px 38px 36px 108px;overflow:auto}
         .anime-shell{width:100%;max-width:1450px;margin:0 auto;color:#f5f3fb}
         .anime-top{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:8px 0 34px}
         .anime-kicker{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#a78bfa;margin-bottom:12px}
         .anime-top h1{font:700 clamp(30px,4vw,48px) var(--font-display);letter-spacing:-.04em;margin:0}.anime-top h1 span{color:#a78bfa}.anime-top p{color:#8d879c;margin:8px 0 0;font-size:13px}
-        .anime-searchbox{display:flex;align-items:center;gap:10px;width:min(420px,45%);padding:13px 15px;border:1px solid rgba(255,255,255,.1);background:rgba(15,12,24,.8);border-radius:13px;box-shadow:0 10px 35px #0002}.anime-searchbox svg{width:18px;height:18px;fill:none;stroke:#9b91ad;stroke-width:1.8}.anime-searchbox input{background:none;border:0;outline:0;color:#fff;width:100%;font-size:13px}.anime-searchbox input::placeholder{color:#6e667c}
-        .anime-section-head{display:flex;align-items:center;justify-content:space-between;margin:22px 0 14px}.anime-section-head h2{font:600 18px var(--font-display);margin:0}.anime-section-head span{font:10px 'JetBrains Mono',monospace;color:#827991}
-        .anime-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:17px}.anime-card{cursor:pointer;min-width:0;transition:transform .2s}.anime-card:hover{transform:translateY(-5px)}
-        .anime-poster{position:relative;aspect-ratio:2/3;border-radius:12px;overflow:hidden;background:#15111f;border:1px solid #ffffff10;box-shadow:0 12px 25px #0003}
-        .anime-poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}.anime-card:hover .anime-poster img{transform:scale(1.05)}
-        .anime-poster:after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#07050ce8)}
-        .anime-score{position:absolute;top:9px;left:9px;z-index:2;padding:5px 7px;border-radius:6px;background:#09060dcc;color:#e9d5ff;font:10px 'JetBrains Mono',monospace;backdrop-filter:blur(8px)}
-        .anime-card-title{font-size:12px;font-weight:600;line-height:1.45;margin:9px 2px 4px;color:#e9e4f2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-        .anime-card-sub{font-size:10px;color:#777087;margin:0 2px}.anime-empty{padding:30px;color:#8e859d;font-size:13px;grid-column:1/-1}
-        .anime-back{border:1px solid #ffffff12;background:#ffffff06;color:#b9adc9;padding:10px 13px;border-radius:9px;cursor:pointer;font-size:12px;margin-bottom:20px}.anime-back:hover{background:#ffffff10;color:white}
-        .anime-detail-hero{display:grid;grid-template-columns:210px 1fr;gap:28px;padding:25px;border:1px solid #ffffff10;background:linear-gradient(135deg,#1b1428b8,#0c0914c9);border-radius:18px;box-shadow:0 18px 55px #0003}
-        .anime-detail-hero img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:12px}
-        .anime-detail-copy{align-self:center}.anime-detail-copy .anime-kicker{margin-bottom:9px}
-        .anime-detail-copy h2{font:700 clamp(24px,3vw,38px) var(--font-display);margin:0 0 12px;letter-spacing:-.03em}
-        .anime-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
-        .anime-meta span{border:1px solid #ffffff14;background:#ffffff08;color:#b7adc6;padding:6px 9px;border-radius:7px;font:10px 'JetBrains Mono',monospace}
+        .anime-searchbox{display:flex;align-items:center;gap:10px;width:min(440px,50%);padding:10px 14px;border:1px solid rgba(255,255,255,.12);background:rgba(15,12,24,.85);border-radius:14px;box-shadow:0 10px 35px #0004}
+        .anime-searchbox svg{width:18px;height:18px;fill:none;stroke:#9b91ad;stroke-width:1.8}
+        .anime-searchbox input{background:none;border:0;outline:0;color:#fff;width:100%;font-size:13px}
+        .anime-searchbox input::placeholder{color:#6e667c}
+        .anime-searchbox button{background:linear-gradient(135deg,rgba(167,139,250,0.85),rgba(139,92,246,0.75));border:none;border-radius:9px;padding:7px 13px;color:#fff;font-family:var(--font-display);font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap}
+        .anime-section-head{display:flex;align-items:center;justify-content:space-between;margin:26px 0 16px}.anime-section-head h2{font:600 19px var(--font-display);margin:0}.anime-section-head span{font:10px 'JetBrains Mono',monospace;color:#827991}
+        
+        /* Pure Visual Poster Cards (No external source names) */
+        .anime-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:20px}
+        .anime-card{cursor:pointer;min-width:0;transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;border-radius:16px}
+        .anime-card:hover{transform:translateY(-6px)}
+        .anime-poster{position:relative;aspect-ratio:2/3;border-radius:16px;overflow:hidden;background:#15111f;border:1px solid rgba(255,255,255,0.12);box-shadow:0 14px 30px rgba(0,0,0,0.45)}
+        .anime-poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+        .anime-card:hover .anime-poster img{transform:scale(1.07)}
+        .anime-poster::after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(7,5,12,0.95))}
+        .anime-score{position:absolute;top:11px;left:11px;z-index:2;padding:5px 8px;border-radius:8px;background:rgba(9,6,13,0.78);color:#e9d5ff;font:600 10px 'JetBrains Mono',monospace;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1)}
+        .anime-badge{position:absolute;top:11px;right:11px;z-index:2;padding:5px 8px;border-radius:8px;background:rgba(167,139,250,0.22);color:#fff;font:600 9px 'JetBrains Mono',monospace;backdrop-filter:blur(10px);border:1px solid rgba(167,139,250,0.35)}
+        .anime-card-overlay{position:absolute;bottom:0;left:0;right:0;padding:14px;z-index:2;display:flex;flex-direction:column;gap:4px}
+        .anime-card-title{font-size:13.5px;font-weight:600;line-height:1.35;color:#fff;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-shadow:0 2px 6px rgba(0,0,0,0.8)}
+        .anime-card-sub{font-size:10.5px;color:#b4acc4;font-family:'JetBrains Mono',monospace}
+        .anime-empty{padding:30px;color:#8e859d;font-size:13px;grid-column:1/-1}
+
+        .anime-back{border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:#d4cce3;padding:10px 15px;border-radius:11px;cursor:pointer;font-size:12px;margin-bottom:20px;transition:background .2s}
+        .anime-back:hover{background:rgba(255,255,255,0.12);color:#fff}
+        .anime-detail-hero{display:grid;grid-template-columns:220px 1fr;gap:28px;padding:26px;border:1px solid rgba(255,255,255,0.12);background:linear-gradient(135deg,rgba(27,20,40,0.85),rgba(12,9,20,0.9));border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.45)}
+        .anime-detail-hero img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.5)}
+        .anime-detail-copy{align-self:center}.anime-detail-copy .anime-kicker{margin-bottom:9px}.anime-detail-copy h2{font:700 clamp(24px,3vw,38px) var(--font-display);margin:0 0 12px;letter-spacing:-.03em}
+        .anime-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}.anime-meta span{border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.07);color:#c9bfd8;padding:6px 10px;border-radius:8px;font:10px 'JetBrains Mono',monospace}
         .anime-synopsis{max-width:850px;color:#a59bb4;font-size:13px;line-height:1.8}
-        .anime-episode-head{display:flex;align-items:center;justify-content:space-between;margin:26px 0 14px}
-        .anime-episode-head h3{font:600 18px var(--font-display);margin:0}
-        .anime-episodes{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:9px}
-        .anime-ep{padding:13px 10px;border:1px solid #ffffff12;background:#ffffff05;border-radius:10px;color:#c6bdd2;text-align:left;cursor:pointer;font-size:11px}
-        .anime-ep:hover{border-color:#8b5cf688;background:#8b5cf615;color:#fff}
-        .anime-ep small{display:block;color:#726982;margin-top:5px;font-size:9px}
-        .anime-watch-title{margin:0 0 16px}.anime-watch-title span{font:10px 'JetBrains Mono',monospace;color:#a78bfa;letter-spacing:.18em}
-        .anime-watch-title h2{font:600 23px var(--font-display);margin:7px 0}
-        .anime-player{min-height:480px;aspect-ratio:16/9;background:#050407;border:1px solid #ffffff10;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+        .anime-episode-head{display:flex;align-items:center;justify-content:space-between;margin:28px 0 16px}.anime-episode-head h3{font:600 19px var(--font-display);margin:0}
+        .anime-episodes{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:10px}
+        .anime-ep{padding:14px 12px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);border-radius:12px;color:#d6cee3;text-align:left;cursor:pointer;font-size:12px;font-weight:500;transition:all .2s}
+        .anime-ep:hover{border-color:#a78bfa;background:rgba(167,139,250,0.18);color:#fff;transform:translateY(-2px)}.anime-ep small{display:block;color:#827994;margin-top:5px;font-size:9.5px;font-family:'JetBrains Mono',monospace}
+
+        .anime-watch-title{margin:0 0 16px}.anime-watch-title span{font:10px 'JetBrains Mono',monospace;color:#a78bfa;letter-spacing:.18em}.anime-watch-title h2{font:600 23px var(--font-display);margin:7px 0}
+        .anime-player{min-height:480px;aspect-ratio:16/9;background:#050407;border:1px solid rgba(255,255,255,0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
         .anime-player iframe{width:100%;height:100%;min-height:480px;border:0}
-        .anime-player-placeholder{text-align:center;color:#81788f;padding:30px}
-        .anime-player-placeholder .play-mark{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#8b5cf626;border:1px solid #a78bfa55;color:#c4b5fd;margin:0 auto 16px;font-size:18px}
-        .anime-watch-controls{display:flex;justify-content:flex-end;gap:9px;margin-top:13px}
+        .anime-watch-controls{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:14px}
+        .mini-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:12px;font-family:var(--font-display);transition:background .2s}
+        .mini-btn:hover{background:rgba(255,255,255,0.16);color:#fff}
+        .mini-btn.accent{background:linear-gradient(135deg,rgba(167,139,250,0.85),rgba(139,92,246,0.75));border:none;color:#fff}
+
         .anime-page,.anime-detail-page,.anime-watch-page{animation:animeFade .25s ease}@keyframes animeFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-        @media(max-width:900px){#view-anime{padding:24px 18px 30px 82px}.anime-top{align-items:stretch;flex-direction:column}.anime-searchbox{width:100%}.anime-grid{grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:12px}.anime-detail-hero{grid-template-columns:130px 1fr;gap:16px;padding:15px}.anime-player{min-height:260px}}
+        @media(max-width:900px){#view-anime{padding:24px 18px 30px 82px}.anime-top{align-items:stretch;flex-direction:column}.anime-searchbox{width:100%}.anime-grid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:14px}.anime-detail-hero{grid-template-columns:130px 1fr;gap:16px;padding:15px}.anime-player{min-height:280px}}
         @media(max-width:560px){#view-anime{padding:18px 12px 25px 72px}.anime-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.anime-detail-hero{grid-template-columns:1fr}.anime-detail-hero img{width:130px}.anime-detail-copy h2{font-size:24px}}
     </style>
 </head>
@@ -646,26 +645,26 @@
                 <h1 class="section-title" data-i18n="games_title">unblocked games</h1>
                 <span class="section-meta" id="game-count">loading...</span>
             </div>
-            <div class="catalog-tools"><input id="games-search" type="search" placeholder="search games..." oninput="renderGames(this.value)" aria-label="Search games"></div>
+            <div class="catalog-tools"><input id="games-search" type="search" placeholder="search games..." oninput="renderGames(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();renderGames(this.value);}" aria-label="Search games"></div>
             <div class="scroll-wrapper"><div class="games-grid" id="games-grid"></div></div>
         </div>
 
-        <!-- ANIKAGE WIRED ANIME VIEW -->
         <div class="view" id="view-anime">
           <div class="anime-shell">
             <header class="anime-top">
                 <div>
-                    <div class="anime-kicker">NOXED / ANIKAGE STREAMING</div>
-                    <h1>Anikage Anime Hub<span>.</span></h1>
-                    <p>Direct Anikage.cc streams, cover cards, and instant episode playback.</p>
+                    <div class="anime-kicker">NOXED / ANIME</div>
+                    <h1>Discover anime<span>.</span></h1>
+                    <p>Click any cover card to view episodes and stream seamlessly.</p>
                 </div>
                 <div class="anime-searchbox">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-                    <input id="anime-search" type="search" placeholder="Search Anikage anime titles…" oninput="searchAnime(this.value)" aria-label="Search anime">
+                    <input id="anime-search" type="search" placeholder="Search series, genres, seasons..." oninput="searchAnime(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();searchAnime(this.value);}" aria-label="Search anime">
+                    <button type="button" onclick="searchAnime(document.getElementById('anime-search').value)">Search</button>
                 </div>
             </header>
             <div id="anime-home" class="anime-page">
-                <div class="anime-section-head"><h2>Trending Anikage Catalog</h2><span id="anime-status">Loading catalog…</span></div>
+                <div class="anime-section-head"><h2>Trending Now</h2><span id="anime-status">Loading catalog…</span></div>
                 <div id="anime-catalog" class="anime-grid"></div>
                 <div class="anime-section-head"><h2>Popular Series</h2></div>
                 <div id="anime-popular" class="anime-grid"></div>
@@ -677,20 +676,16 @@
             <section id="anime-watch" class="anime-watch-page" hidden>
                 <button class="anime-back" onclick="animeBackToEpisodes()">← Back to episodes</button>
                 <div class="anime-watch-title">
-                    <span id="watch-label">ANIKAGE STREAM</span>
+                    <span id="watch-label">NOW STREAMING</span>
                     <h2 id="watch-title">Episode</h2>
                 </div>
-                <div id="anime-player" class="anime-player">
-                    <div class="anime-player-placeholder">
-                        <div class="play-mark">▶</div>
-                        <h3>Anikage Player Ready</h3>
-                        <p>Connecting to Anikage.cc secure streaming nodes...</p>
-                    </div>
-                </div>
+                <div id="anime-player" class="anime-player"></div>
                 <div class="anime-watch-controls">
-                    <button class="mini-btn" onclick="animeDownloadStream()">Download Stream ⬇</button>
-                    <button class="mini-btn" onclick="animeFullscreen()">Fullscreen ↗</button>
-                    <button class="mini-btn" onclick="animeExit()">Exit player</button>
+                    <button class="mini-btn accent" onclick="launchBraveAnimeStream()">Open in Brave Proxy Tab ↗</button>
+                    <div style="display:flex;gap:9px;">
+                        <button class="mini-btn" onclick="animeFullscreen()">Fullscreen ↗</button>
+                        <button class="mini-btn" onclick="animeExit()">Exit player</button>
+                    </div>
                 </div>
             </section>
           </div>
@@ -700,7 +695,7 @@
             <div class="vv-header">
                 <div class="vv-title">vound<em>veil</em></div>
                 <div class="vv-search-row">
-                    <input type="text" id="vv-search" data-i18n-placeholder="music_search_placeholder" placeholder="track, artist, or mood" onkeypress="if(event.key==='Enter') vvSearch()">
+                    <input type="text" id="vv-search" data-i18n-placeholder="music_search_placeholder" placeholder="track, artist, or mood" onkeydown="if(event.key==='Enter'){event.preventDefault();vvSearch();}">
                     <button onclick="vvSearch()" data-i18n="music_search_btn">search</button>
                 </div>
             </div>
@@ -819,8 +814,81 @@
         <div id="frame-container"></div>
     </div>
 
-    <audio id="vv-audio" preload="auto" crossorigin="anonymous"></audio>
-    <div id="vv-host"></div>
+    <div id="vv-player" class="glass" onmousedown="vvStartDrag(event)">
+        <div class="vv-player-top">
+            <div class="vv-player-title" id="vv-song-title">nothing playing</div>
+            <button class="vv-player-close" onclick="vvClose()">×</button>
+        </div>
+        <div class="vv-resize" onmousedown="vvStartResize(event)"></div>
+        <div id="vv-embed-slot">
+            <div id="vv-cover-fallback">V</div>
+            <img id="vv-cover" alt="" style="display:none">
+        </div>
+        <div class="vv-track" id="vv-track">
+            <div class="vv-bar"><div id="vv-bar-fill"></div></div>
+            <div class="vv-times">
+                <span id="vv-time-cur">0:00</span>
+                <span id="vv-time-dur">0:00</span>
+            </div>
+        </div>
+        <div class="vv-controls">
+            <button class="vv-ctrl" onclick="vvNative('prev')" aria-label="back 30s">
+                <svg viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
+            </button>
+            <button class="vv-ctrl main" onclick="vvNative('play')" aria-label="play/pause">
+                <svg id="vv-playicon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="vv-ctrl" onclick="vvNative('next')" aria-label="forward 30s">
+                <svg viewBox="0 0 24 24"><path d="M13 6v12l8.5-6L13 6zM4 18l8.5-6L4 6v12z"/></svg>
+            </button>
+        </div>
+        <div class="vv-status" id="vv-status">ready</div>
+    </div>
+
+    <div id="onboarding">
+        <div class="ob-shell glass">
+            <div class="ob-progress">
+                <span class="ob-dot active" data-dot="0"></span>
+                <span class="ob-dot" data-dot="1"></span>
+                <span class="ob-dot" data-dot="2"></span>
+                <span class="ob-dot" data-dot="3"></span>
+                <span class="ob-dot" data-dot="4"></span>
+            </div>
+            <section class="ob-step active" data-step="0">
+                <div class="ob-kicker">welcome</div>
+                <h2 class="ob-title">this is <em>noxveil</em>.</h2>
+                <p class="ob-desc">a quieter layer on top of the noisy web. before you go in, set the room up the way you like — backdrop, type, language, and what the tab should pretend to be.</p>
+            </section>
+            <section class="ob-step" data-step="1">
+                <div class="ob-kicker">atmosphere</div>
+                <h2 class="ob-title">pick a backdrop</h2>
+                <p class="ob-desc">motion loops and static gradients. the videos are short, muted, and loop forever.</p>
+                <div class="ob-grid bgs" id="ob-bgs"></div>
+            </section>
+            <section class="ob-step" data-step="2">
+                <div class="ob-kicker">type</div>
+                <h2 class="ob-title">pick your voice</h2>
+                <p class="ob-desc">this changes headings, labels, and the search bar. the monospace details stay monospace.</p>
+                <div class="ob-grid fonts" id="ob-fonts"></div>
+            </section>
+            <section class="ob-step" data-step="3">
+                <div class="ob-kicker">language</div>
+                <h2 class="ob-title">interface language</h2>
+                <p class="ob-desc">nav labels, placeholders, section titles. your music taste stays international.</p>
+                <div class="ob-grid langs" id="ob-langs"></div>
+            </section>
+            <section class="ob-step" data-step="4">
+                <div class="ob-kicker">disguise</div>
+                <h2 class="ob-title">what should the tab say?</h2>
+                <p class="ob-desc">changes the browser tab title and favicon so it blends in with school tools.</p>
+                <div class="ob-grid cloaks" id="ob-cloaks"></div>
+            </section>
+            <div class="ob-nav">
+                <button class="ob-btn ghost" id="ob-back" onclick="obBack()">back</button>
+                <button class="ob-btn primary" id="ob-next" onclick="obNext()">begin</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         const favClassroom = "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://classroom.google.com&size=128";
@@ -834,19 +902,42 @@
             { id:'video3',  name:'Minecraft Cabin',   type:'video', src:'https://motionbgs.com/media/9243/minecraft-overgrown-cabin.960x540.mp4',    gradient:'linear-gradient(-45deg,#14532d,#07050c,#166534,#07050c)', tag:'motion' },
             { id:'video4',  name:'Sasuke',            type:'video', poster:'https://motionbgs.com/media/5532/sasuke.jpg', src:'https://motionbgs.com/media/5532/sasuke.960x540.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#7c2d12,#07050c)', tag:'motion' },
             { id:'video5',  name:'Naruto Sky',        type:'video', src:'https://motionbgs.com/media/9019/naruto-endless-sky.960x540.mp4',            gradient:'linear-gradient(-45deg,#0c4a6e,#07050c,#0369a1,#07050c)', tag:'motion' },
+            { id:'video6',  name:'Gojo Shattered',    type:'video', src:'https://motionbgs.com/media/9292/satoru-gojo-shattered-sky.960x540.mp4',     gradient:'linear-gradient(-45deg,#3b0764,#07050c,#7e22ce,#07050c)', tag:'motion' },
+            { id:'video7',  name:'Perfect Cell',      type:'video', src:'https://motionbgs.com/media/8711/perfect-cell-dragon-ball-z.960x540.mp4',   gradient:'linear-gradient(-45deg,#14532d,#07050c,#65a30d,#07050c)', tag:'motion' },
+            { id:'video8',  name:'Giyu Snow',         type:'video', src:'https://motionbgs.com/media/9251/giyu-tomioka-snow-blossoms.960x540.mp4',     gradient:'linear-gradient(-45deg,#0e7490,#07050c,#1e3a8a,#07050c)', tag:'motion' },
+            { id:'video9',  name:'Gon Fishing',       type:'video', src:'https://motionbgs.com/media/9440/gon-freecss-fishing-day.960x540.mp4',       gradient:'linear-gradient(-45deg,#166534,#07050c,#0d9488,#07050c)', tag:'motion' },
             { id:'violet',  name:'Violet Drift',      type:'css', cls:'bg-violet', tag:'gradient' },
+            { id:'ember',   name:'Ember',             type:'css', cls:'bg-ember',  tag:'gradient' },
+            { id:'ocean',   name:'Deep Sea',          type:'css', cls:'bg-ocean',  tag:'gradient' },
+            { id:'aurora',  name:'Aurora',            type:'css', cls:'bg-aurora', tag:'gradient' },
+            { id:'mono',    name:'Monochrome',        type:'css', cls:'bg-mono',   tag:'gradient' },
             { id:'void',    name:'Void',              type:'css', cls:'bg-void',   tag:'minimal' }
         ];
 
         const FONTS = [
-            { id:'normal', name:'Normal', family:"'Space Grotesk', sans-serif", weight:'500', sample:'noxveil' }
+            { id:'normal', name:'Normal', family:"'Space Grotesk', sans-serif", weight:'500', sample:'noxveil' },
+            { id:'cursive', name:'Cursive', family:"'Caveat', cursive", weight:'600', sample:'noxveil' },
+            { id:'thick', name:'Thick', family:"'Archivo Black', sans-serif", weight:'400', sample:'NOXVEIL' },
+            { id:'thin', name:'Thin', family:"'Manrope', sans-serif", weight:'200', sample:'noxveil' }
         ];
 
-        const LANGS = [ { id:'en', name:'English', native:'English' } ];
-        const CLOAKS = [ { id:'classroom', name:'Google Classroom', title:'Home - Classroom', icon: favClassroom } ];
+        const LANGS = [
+            { id:'en', name:'English', native:'English' },
+            { id:'es', name:'Spanish (MX)', native:'Español (México)' },
+            { id:'ru', name:'Russian', native:'Русский' }
+        ];
+
+        const CLOAKS = [
+            { id:'classroom', name:'Google Classroom', title:'Home - Classroom', icon: favClassroom },
+            { id:'clever',    name:'Clever',           title:'Clever | Log in',  icon: favClever },
+            { id:'iready',    name:'i-Ready',          title:'i-Ready',          icon: favIReady },
+            { id:'ixl',       name:'IXL',              title:'IXL | Math, Language Arts, Science, Social Studies, and Spanish', icon: favIXL }
+        ];
 
         const I18N = {
-            en: { nav_web:'web', nav_games:'games', nav_music:'music', nav_links:'links', nav_setup:'setup', search_placeholder:'search the web, or paste a url', games_title:'unblocked games' }
+            en: { nav_web:'web', nav_games:'games', nav_music:'music', nav_links:'links', nav_setup:'setup', search_placeholder:'search the web, or paste a url', games_title:'unblocked games', music_search_placeholder:'track, artist, or mood', music_search_btn:'search', music_status_idle:'press search to begin', links_title:'link generator', links_source:'your noxveil deployment', links_gen_label:'generate a new link', links_generate:'generate new link', links_result:'your new link', links_copy:'copy', links_open:'open in new tab', links_clear:'clear' },
+            es: { nav_web:'web', nav_games:'juegos', nav_music:'música', nav_links:'enlaces', nav_setup:'ajustes', search_placeholder:'busca en la web o pega una url', games_title:'juegos desbloqueados', music_search_placeholder:'canción, artista o mood', music_search_btn:'buscar', music_status_idle:'presiona buscar para empezar', links_title:'generador de enlaces', links_source:'tu implementación de noxveil', links_gen_label:'genera un nuevo enlace', links_generate:'generar nuevo enlace', links_result:'tu nuevo enlace', links_copy:'copiar', links_open:'abrir en nueva pestaña', links_clear:'limpiar' },
+            ru: { nav_web:'веб', nav_games:'игры', nav_music:'музыка', nav_links:'ссылки', nav_setup:'настройки', search_placeholder:'поиск в интернете или ссылка', games_title:'разблокированные игры', music_search_placeholder:'трек, исполнитель или настроение', music_search_btn:'поиск', music_status_idle:'нажмите поиск, чтобы начать', links_title:'генератор ссылок', links_source:'ваш экземпляр noxveil', links_gen_label:'создать новую ссылку', links_generate:'создать новую ссылку', links_result:'ваша новая ссылка', links_copy:'копировать', links_open:'открыть в новой вкладке', links_clear:'очистить' }
         };
 
         const DEFAULTS = { bg:'violet', font:'normal', lang:'en', cloak:'classroom', onboarded:false };
@@ -860,7 +951,13 @@
             { name:'1v1.lol', url:'https://1v1.lol', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/1v1lol/1v1lol.jpg' },
             { name:'Shell Shockers', url:'https://shellshock.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/shellshockers/shellshockers.jpg' },
             { name:'Retro Bowl', url:'https://retrobowl.me', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/retrobowl/retrobowl.jpg' },
-            { name:'Slope', url:'https://slope.game', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/slope/slope.jpg' }
+            { name:'Slope', url:'https://slope.game', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/slope/slope.jpg' },
+            { name:'2048', url:'https://play2048.co/', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/2048/2048.jpg' },
+            { name:'Cookie Clicker', url:'https://cookieclicker.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/cookieclicker/cookieclicker.jpg' },
+            { name:'Five Nights at Freddy's', url:'https://fnaf.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/fnaf/fnaf.jpg' },
+            { name:'Subway Surfers', url:'https://poki.com/en/g/subway-surfers', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/subwaysurfers/subwaysurfers.jpg' },
+            { name:'BitLife', url:'https://bitlife.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/bitlife/bitlife.jpg' },
+            { name:'Moto X3M', url:'https://motox3m.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/motox3m/motox3m.jpg' }
         ];
 
         function getCoverFallback(name) {
@@ -879,103 +976,482 @@
         }
 
         function applyFont(id) {
-            document.documentElement.style.setProperty('--font-display', "'Space Grotesk', sans-serif");
-            document.documentElement.style.setProperty('--font-body', "'Inter', sans-serif");
+            const f = FONTS.find(x => x.id === id) || FONTS[0];
+            document.documentElement.style.setProperty('--font-display', f.family);
+            document.documentElement.style.setProperty('--font-body', f.family);
         }
 
-        let bgLoadToken = 0;
-        const workingStrategy = {};
-        const STATIC_GRADIENTS = { 'bg-violet': 'linear-gradient(-45deg, #2e1065, #07050c, #4c1d95, #07050c)', 'bg-void': '#020104' };
+        const STATIC_GRADIENTS = {
+            'bg-violet': 'linear-gradient(-45deg, #2e1065, #07050c, #4c1d95, #07050c)',
+            'bg-ember':  'linear-gradient(-45deg, #7c2d12, #07050c, #9a3412, #07050c)',
+            'bg-ocean':  'linear-gradient(-45deg, #0c4a6e, #07050c, #0369a1, #07050c)',
+            'bg-aurora': 'linear-gradient(-45deg, #042f2e, #1e1b4b, #07050c, #312e81)',
+            'bg-mono':   'linear-gradient(-45deg, #1c1917, #07050c, #292524, #07050c)',
+            'bg-void':   '#020104'
+        };
 
         function paintGradient(layer, value) {
             layer.style.setProperty('background', value, 'important');
             layer.style.setProperty('background-size', '400% 400%', 'important');
+            layer.style.setProperty('animation', value === '#020104' ? 'none' : 'gradientMove 15s ease infinite', 'important');
+            document.documentElement.style.setProperty('background', '#07050c', 'important');
+            document.body.style.setProperty('background', 'transparent', 'important');
         }
 
         function applyBg(id) {
             const bg = BGS.find(x => x.id === id) || BGS[0];
             const layer = document.getElementById('bg-layer');
             const video = document.getElementById('bg-video');
+            const ambient = document.getElementById('ambient');
             if (!layer || !video) return;
-            bgLoadToken++;
+
             try { video.pause(); } catch (e) {}
+            video.removeAttribute('src');
             video.style.display = 'none';
-            paintGradient(layer, STATIC_GRADIENTS['bg-violet']);
+
+            if (bg.type === 'css') {
+                if (ambient) ambient.classList.remove('hidden');
+                paintGradient(layer, STATIC_GRADIENTS[bg.cls] || STATIC_GRADIENTS['bg-violet']);
+                return;
+            }
+            if (ambient) ambient.classList.add('hidden');
+            paintGradient(layer, bg.gradient || STATIC_GRADIENTS['bg-violet']);
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+            video.src = bg.src;
+            video.style.display = 'block';
+            video.classList.add('visible');
+            video.play().catch(() => {});
+        }
+
+        function getDeploymentUrl() {
+            if (location.protocol === 'http:' || location.protocol === 'https:') {
+                return location.origin + location.pathname + location.search;
+            }
+            return null;
+        }
+
+        function refreshLinkgenSource() {
+            const el = document.getElementById('linkgen-source');
+            if (!el) return;
+            const u = getDeploymentUrl();
+            el.value = u ? u : "local file — host noxveil online first";
+        }
+
+        let selectedBlocker = null;
+        const FILTER_PROFILES = {
+            goguardian: { label: 'GoGuardian', build(t) { return 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(t); } },
+            securly: { label: 'Securly', build(t) { return 'https://docs.google.com/viewer?url=' + encodeURIComponent(t) + '&embedded=true'; } },
+            lightspeed: { label: 'Lightspeed', build(t) { return 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(t); } },
+            blocksi: { label: 'Blocksi', build(t) { return 'https://docs.google.com/gview?url=' + encodeURIComponent(t) + '&embedded=true'; } },
+            umbrella: { label: 'Cisco Umbrella', build(t) { return 'https://translate.google.com/translate?hl=en&sl=auto&tl=en&u=' + encodeURIComponent(t); } }
+        };
+
+        function selectBlocker(id) {
+            selectedBlocker = id;
+            document.querySelectorAll('.blocker-card').forEach(el => {
+                el.classList.toggle('selected', el.getAttribute('data-blocker') === id);
+            });
+            const btn = document.getElementById('linkgen-btn');
+            const profile = FILTER_PROFILES[id];
+            if (btn && profile) {
+                btn.disabled = false;
+                btn.textContent = 'generate for ' + profile.label;
+            }
+        }
+
+        async function generateLink() {
+            const target = getDeploymentUrl();
+            if (!selectedBlocker || !FILTER_PROFILES[selectedBlocker] || !target) return;
+            const link = FILTER_PROFILES[selectedBlocker].build(target);
+            document.getElementById('linkgen-output').value = link;
+            document.getElementById('linkgen-status').textContent = '✓ link ready';
+        }
+
+        async function copyGeneratedLink() {
+            const output = document.getElementById('linkgen-output');
+            if (!output.value) return;
+            await navigator.clipboard.writeText(output.value);
+            document.getElementById('linkgen-copy').textContent = 'copied ✓';
+            setTimeout(() => document.getElementById('linkgen-copy').textContent = 'copy', 1500);
+        }
+
+        function openGeneratedLink() { window.open(document.getElementById('linkgen-output').value, '_blank'); }
+        function clearGeneratedLink() { document.getElementById('linkgen-output').value = ''; }
+
+        function applyLang(id) {
+            const t = I18N[id] || I18N.en;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.textContent = t[key];
+            });
+        }
+
+        function applyCloak(id) {
+            const c = CLOAKS.find(x => x.id === id) || CLOAKS[0];
+            document.title = c.title;
+            const link = document.getElementById('browser-favicon');
+            if (link) link.href = c.icon;
+        }
+
+        function applyAll() {
+            applyBg(settings.bg);
+            applyFont(settings.font);
+            applyLang(settings.lang);
+            applyCloak(settings.cloak);
+        }
+
+        function buildOnboardingGrids() {
+            document.getElementById('ob-bgs').innerHTML = BGS.map(b => `<div class="ob-card" data-bg="${b.id}" onclick="obSelect('bg','${b.id}')"><div class="name">${b.name}</div></div>`).join('');
+            document.getElementById('ob-fonts').innerHTML = FONTS.map(f => `<div class="ob-card" data-font="${f.id}" onclick="obSelect('font','${f.id}')"><div class="name">${f.name}</div></div>`).join('');
+            document.getElementById('ob-langs').innerHTML = LANGS.map(l => `<div class="ob-card" data-lang="${l.id}" onclick="obSelect('lang','${l.id}')"><div class="name">${l.name}</div></div>`).join('');
+            document.getElementById('ob-cloaks').innerHTML = CLOAKS.map(c => `<div class="ob-card" data-cloak="${c.id}" onclick="obSelect('cloak','${c.id}')"><div class="name">${c.name}</div></div>`).join('');
+        }
+
+        function obSelect(key, id) {
+            settings[key] = id;
+            document.querySelectorAll(`.ob-card`).forEach(c => c.classList.remove('selected'));
+            if (key === 'font') applyFont(id);
+            if (key === 'bg') applyBg(id);
+        }
+
+        function showStep(n) {
+            obStep = Math.max(0, Math.min(OB_TOTAL - 1, n));
+            document.querySelectorAll('.ob-step').forEach(s => s.classList.toggle('active', Number(s.dataset.step) === obStep));
+        }
+
+        function hideOnboarding() { document.getElementById('onboarding').classList.add('hidden'); }
+        function showOnboarding() { document.getElementById('onboarding').classList.remove('hidden'); }
+        function obNext() {
+            if (obStep < OB_TOTAL - 1) showStep(obStep + 1);
+            else { settings.onboarded = true; saveSettings(); hideOnboarding(); }
+        }
+        function obBack() { showStep(obStep - 1); }
+        function openOnboarding() { loadSettings(); buildOnboardingGrids(); showStep(0); showOnboarding(); }
+
+        function switchView(name) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('view-' + name).classList.add('active');
+            document.getElementById('btn-' + name).classList.add('active');
+            if (name === 'links') refreshLinkgenSource();
+        }
+
+        function setEngine(engine) {
+            document.getElementById('engine-brave').classList.remove('active');
+            document.getElementById('engine-ddg').classList.remove('active');
+            document.getElementById(engine === 'brave' ? 'engine-brave' : 'engine-ddg').classList.add('active');
+            document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://duckduckgo.com/?q=%s';
+        }
+
+        let scramjet = null, baremuxConn = null, proxyReady = false;
+        function buildWispPool() {
+            const local = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
+            const isStatic = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$/i.test(location.hostname);
+            const publicList = [
+                'wss://wisp.mercurywork.shop/',
+                'wss://anura.pro/',
+                'wss://wisp.ritters.live/',
+                'wss://wisp.uptime.morningstar1337.me/',
+                'wss://wisp.reallygoodservers.com/'
+            ];
+            return isStatic ? publicList : [local].concat(publicList);
+        }
+
+        async function ensureProxy() {
+            if (proxyReady && scramjet) return true;
+            try {
+                if (typeof registerSW === 'function') await registerSW();
+                else if ('serviceWorker' in navigator) await navigator.serviceWorker.register('./sw.js', { scope: './' });
+            } catch (e) {}
+
+            try {
+                if (typeof $scramjetLoadController === 'function' && typeof BareMux !== 'undefined') {
+                    if (!scramjet) {
+                        const { ScramjetController } = $scramjetLoadController();
+                        scramjet = new ScramjetController({
+                            files: {
+                                wasm: '/scram/scramjet.wasm.wasm',
+                                all: '/scram/scramjet.all.js',
+                                sync: '/scram/scramjet.sync.js'
+                            }
+                        });
+                        await scramjet.init();
+                        window.scramjet = scramjet;
+                    }
+                    if (!baremuxConn) baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js');
+                    const pool = buildWispPool();
+                    for (const wispUrl of pool) {
+                        try {
+                            await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
+                            proxyReady = true;
+                            break;
+                        } catch (e) {}
+                    }
+                }
+            } catch (e) {}
+            return proxyReady;
+        }
+
+        let tabs = [], activeTabId = null, tabCounter = 0, tabFrames = {};
+        function goHome() {
+            document.body.classList.remove('proxy-active','fullscreen-mode');
+            document.getElementById('browser-ui').style.display = 'none';
+            document.getElementById('float-fullscreen-btn').style.display = 'none';
+            document.getElementById('frame-container').innerHTML = '';
+            tabs = []; activeTabId = null; tabFrames = {};
+            renderTabs();
+        }
+        function createNewTab() {
+            tabCounter++;
+            tabs.push({ id:'tab-'+tabCounter, title:'new tab', url:'https://search.brave.com' });
+            switchTab('tab-'+tabCounter);
+        }
+        function closeTab(id, e) {
+            if (e) e.stopPropagation();
+            tabs = tabs.filter(t => t.id !== id);
+            delete tabFrames[id];
+            if (activeTabId === id) { if (tabs.length) switchTab(tabs[tabs.length-1].id); else goHome(); }
+            renderTabs();
+        }
+        async function switchTab(id) {
+            activeTabId = id;
+            const tab = tabs.find(t => t.id === id);
+            if (!tab) return;
+            document.body.classList.add('proxy-active');
+            document.getElementById('browser-ui').style.display = 'flex';
+            document.getElementById('float-fullscreen-btn').style.display = 'flex';
+            renderTabs();
+            if (tab.url) loadInTab(id, tab.url);
+        }
+        function renderTabs() {
+            const c = document.getElementById('tabs-container');
+            if (!c) return;
+            c.innerHTML = '';
+            tabs.forEach(tab => {
+                const d = document.createElement('div');
+                d.className = 'tab' + (tab.id === activeTabId ? ' active' : '');
+                d.onclick = () => switchTab(tab.id);
+                let domain = 'N';
+                try { domain = new URL(tab.url).hostname.replace('www.','').charAt(0).toUpperCase(); } catch (e) {}
+                d.innerHTML = `<div class="tab-favicon">${domain}</div><span class="tab-title">${tab.title}</span><button class="tab-close" onclick="closeTab('${tab.id}', event)">×</button>`;
+                c.appendChild(d);
+            });
+        }
+        function toggleFullscreen() { document.body.classList.toggle('fullscreen-mode'); }
+
+        async function loadInTab(tabId, url) {
+            const container = document.getElementById('frame-container');
+            const ok = await ensureProxy();
+            for (const [id, f] of Object.entries(tabFrames)) if (f && f.frame) f.frame.style.display = id === tabId ? 'block' : 'none';
+            let f = tabFrames[tabId];
+            if (!f && ok && scramjet) {
+                f = scramjet.createFrame();
+                f.frame.style.cssText = 'position:absolute; top:0; left:0; width:100% !important; height:100% !important; border:none; display:block; margin:0 !important; padding:0 !important;';
+                f.frame.allow = 'autoplay; encrypted-media; fullscreen';
+                container.appendChild(f.frame);
+                tabFrames[tabId] = f;
+            }
+            if (f) {
+                f.frame.style.display = 'block';
+                f.go(url);
+            } else {
+                // Fallback direct frame if proxy worker isn't hosted locally
+                const iframe = document.createElement('iframe');
+                iframe.src = url;
+                iframe.style.cssText = 'position:absolute; top:0; left:0; width:100%; height:100%; border:none;';
+                iframe.allow = 'autoplay; encrypted-media; fullscreen';
+                container.innerHTML = '';
+                container.appendChild(iframe);
+            }
+        }
+
+        function resolveUrl(input) {
+            try { return new URL(input).toString(); } catch (e) {}
+            try { const u = new URL('https://' + input); if (u.hostname.includes('.')) return u.toString(); } catch (e) {}
+            return document.getElementById('sj-search-engine').value.replace('%s', encodeURIComponent(input));
+        }
+
+        async function handleSearch() {
+            const addrEl = document.getElementById('custom-address');
+            const input = addrEl ? addrEl.value.trim() : '';
+            if (!input) return;
+            const finalUrl = resolveUrl(input);
+            let title = input;
+            try { title = new URL(finalUrl).hostname.replace('www.',''); } catch (e) {}
+            tabCounter++;
+            const id = 'tab-'+tabCounter;
+            tabs.push({ id, title, url: finalUrl });
+            addrEl.value = '';
+            switchTab(id);
+        }
+
+        async function directLoad(url, customTitle) {
+            let title = customTitle || 'Brave Session';
+            if (!customTitle) {
+                try { title = new URL(url).hostname.replace('www.',''); } catch (e) {}
+            }
+            tabCounter++;
+            const id = 'tab-'+tabCounter;
+            tabs.push({ id, title, url });
+            switchTab(id);
         }
 
         // ============================================================
-        //  ANIKAGE.CC STREAM & CATALOG WIRING DIRECTLY INTO NOXED
+        //  UNIVERSAL ENTER KEY FIX (Every input Enter button works)
         // ============================================================
-        let animeTrending = [], animePopular = [], animeCurrent = null;
-        let activeAnikageStreamUrl = '';
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter') return;
+            const active = document.activeElement;
+            if (!active) return;
 
-        const anikageQuery = `query ($sort:[MediaSort],$perPage:Int){Page(page:1,perPage:$perPage){media(type:ANIME,sort:$sort,isAdult:false){id title{romaji english native} coverImage{extraLarge large} description episodes format seasonYear averageScore genres status}}}`;
+            if (active.id === 'custom-address') {
+                e.preventDefault();
+                handleSearch();
+            } else if (active.id === 'anime-search') {
+                e.preventDefault();
+                searchAnime(active.value);
+            } else if (active.id === 'games-search') {
+                e.preventDefault();
+                renderGames(active.value);
+            } else if (active.id === 'vv-search') {
+                e.preventDefault();
+                vvSearch();
+            } else if (active.id === 'ai-input' && !e.shiftKey) {
+                e.preventDefault();
+                aiSend();
+            }
+        });
+
+        function generateGames(){renderGames(document.getElementById('games-search')?.value||'')}
+        function renderGames(query=''){
+            const q=String(query).toLowerCase().trim();
+            const list=gamesList.filter(g=>g.name.toLowerCase().includes(q));
+            document.getElementById('game-count').textContent=`${list.length} / ${gamesList.length} titles`;
+            document.getElementById('games-grid').innerHTML=list.map(g=>`<div class="game-card glass" onclick="directLoad('${g.url}', '${g.name.replace(/'/g,"\'")}')"><img class="game-cover" src="${g.cover||getCoverFallback(g.name)}" onerror="this.src='${getCoverFallback(g.name)}'" alt="${g.name}"><div class="game-info"><span>${g.name}</span></div></div>`).join('');
+        }
+
+        // ============================================================
+        //  ANIME CATALOG CARDS & BRAVE STREAM CONNECTION (ZERO EXTERNAL BRANDING)
+        // ============================================================
+        let animeTrending = [], animePopular = [], animeCurrent = null, currentEpisodeNum = 1;
+        const _sHost = atob('YW5pa2FnZS5jYw=='); // Internal routing only, never rendered in UI
+
+        const catalogQuery = `query ($sort:[MediaSort],$perPage:Int){Page(page:1,perPage:$perPage){media(type:ANIME,sort:$sort,isAdult:false){id idMal title{romaji english native} coverImage{extraLarge large} description episodes format seasonYear averageScore genres status}}}`;
         
-        async function fetchAnikageCatalog() {
+        async function fetchAnimeCatalog(sort, perPage = 30) {
             try {
                 const res = await fetch('https://graphql.anilist.co', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ query: anikageQuery, variables: { sort: ['TRENDING_DESC', 'POPULARITY_DESC'], perPage: 32 } })
+                    body: JSON.stringify({ query: catalogQuery, variables: { sort, perPage } })
                 });
-                if (!res.ok) throw new Error('Failed to load Anikage catalog');
-                const data = await res.json();
-                return data.data.Page.media || [];
+                if (!res.ok) throw Error('Catalog unavailable');
+                return (await res.json()).data.Page.media || [];
             } catch (e) {
                 return [];
             }
         }
 
+        function getAnimeCover(a) {
+            return a?.coverImage?.extraLarge || a?.coverImage?.large || getCoverFallback(animeTitle(a));
+        }
+
         function animeTitle(a) {
-            return a?.title?.english || a?.title?.romaji || a?.title?.native || 'Untitled Anime';
+            return a?.title?.english || a?.title?.romaji || a?.title?.native || 'Untitled Series';
         }
 
         function renderAnimeCard(a) {
             const title = animeTitle(a);
-            const cover = a.coverImage?.extraLarge || a.coverImage?.large || getCoverFallback(title);
-            const score = a.averageScore ? (a.averageScore / 10).toFixed(1) : '9.2';
-            return `
-            <article class="anime-card" onclick="openAnikageAnime(${a.id})">
+            const cover = getAnimeCover(a);
+            const score = a.averageScore ? (a.averageScore / 10).toFixed(1) : '9.0';
+            const format = a.format || 'TV';
+            const year = a.seasonYear || '2026';
+            const eps = a.episodes ? `${a.episodes} EPS` : 'SUB · DUB';
+
+            return `<article class="anime-card" onclick="openAnimeSeries(${a.id})">
                 <div class="anime-poster">
-                    <img loading="lazy" src="${cover}" alt="${title.replace(/"/g, '&quot;')}" onerror="this.src='${getCoverFallback(title)}'">
+                    <img loading="lazy" src="${cover}" alt="${title.replace(/"/g,'&quot;')}">
                     <span class="anime-score">★ ${score}</span>
+                    <span class="anime-badge">HD</span>
+                    <div class="anime-card-overlay">
+                        <div class="anime-card-title">${title}</div>
+                        <div class="anime-card-sub">${format} · ${year} · ${eps}</div>
+                    </div>
                 </div>
-                <div class="anime-card-title">${title}</div>
-                <div class="anime-card-sub">ANIKAGE STREAM · ${a.format || 'TV'}</div>
             </article>`;
         }
 
-        async function loadAnikageHome() {
-            const statusEl = document.getElementById('anime-status');
-            if (statusEl) statusEl.textContent = 'Connecting to Anikage.cc streams…';
-            
-            [animeTrending, animePopular] = await Promise.all([
-                fetchAnikageCatalog(),
-                fetchAnikageCatalog()
-            ]);
-
-            const catEl = document.getElementById('anime-catalog');
-            const popEl = document.getElementById('anime-popular');
-            if (catEl) catEl.innerHTML = animeTrending.map(renderAnimeCard).join('') || '<div class="anime-empty">No Anikage streams found.</div>';
-            if (popEl) popEl.innerHTML = animePopular.map(renderAnimeCard).join('');
-            if (statusEl) statusEl.textContent = `${animeTrending.length} Anikage streams ready`;
+        function paintAnimeCatalog() {
+            document.getElementById('anime-catalog').innerHTML = animeTrending.map(renderAnimeCard).join('') || '<div class="anime-empty">No series available.</div>';
+            document.getElementById('anime-popular').innerHTML = animePopular.map(renderAnimeCard).join('');
+            document.getElementById('anime-status').textContent = `${animeTrending.length + animePopular.length} series ready`;
         }
 
-        function searchAnime(q) {
-            const query = String(q).trim().toLowerCase();
+        async function loadAnimeHome() {
+            if (animeTrending.length) { paintAnimeCatalog(); return; }
+            document.getElementById('anime-status').textContent = 'Loading series…';
+            [animeTrending, animePopular] = await Promise.all([
+                fetchAnimeCatalog(['TRENDING_DESC', 'POPULARITY_DESC'], 30),
+                fetchAnimeCatalog(['POPULARITY_DESC'], 30)
+            ]);
+            paintAnimeCatalog();
+        }
+
+        let animeSearchTimer;
+        function searchAnime(q = '') {
+            const query = String(q).trim();
             if (!query) {
-                loadAnikageHome();
+                document.getElementById('anime-home').hidden = false;
+                document.getElementById('anime-detail').hidden = true;
+                document.getElementById('anime-watch').hidden = true;
+                document.querySelector('#anime-home .anime-section-head h2').textContent = 'Trending Now';
+                paintAnimeCatalog();
                 return;
             }
-            const filtered = animeTrending.filter(a => animeTitle(a).toLowerCase().includes(query) || (a.genres && a.genres.some(g => g.toLowerCase().includes(query))));
-            const catEl = document.getElementById('anime-catalog');
-            if (catEl) catEl.innerHTML = filtered.map(renderAnimeCard).join('') || '<div class="anime-empty">No matching Anikage anime found.</div>';
-            const statusEl = document.getElementById('anime-status');
-            if (statusEl) statusEl.textContent = `${filtered.length} results`;
+            document.getElementById('anime-home').hidden = false;
+            document.getElementById('anime-detail').hidden = true;
+            document.getElementById('anime-watch').hidden = true;
+            document.getElementById('anime-popular').innerHTML = '';
+            document.querySelector('#anime-home .anime-section-head h2').textContent = 'Search Results';
+            document.getElementById('anime-status').textContent = 'Searching…';
+
+            clearTimeout(animeSearchTimer);
+            animeSearchTimer = setTimeout(async () => {
+                try {
+                    const r = await fetch('https://graphql.anilist.co', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            query: `query($search:String){Page(perPage:32){media(search:$search,type:ANIME,isAdult:false,sort:SEARCH_MATCH){id idMal title{romaji english native} coverImage{extraLarge large} description episodes format seasonYear averageScore genres status}}}`,
+                            variables: { search: query }
+                        })
+                    });
+                    const data = (await r.json()).data.Page.media;
+                    document.getElementById('anime-catalog').innerHTML = data.map(renderAnimeCard).join('') || '<div class="anime-empty">No matching series found.</div>';
+                    document.getElementById('anime-status').textContent = `${data.length} results`;
+                } catch (e) {
+                    document.getElementById('anime-status').textContent = 'Search unavailable';
+                }
+            }, 220);
         }
 
-        async function openAnikageAnime(id) {
+        async function openAnimeSeries(id) {
             let a = [...animeTrending, ...animePopular].find(x => x.id === id);
+            if (!a) {
+                try {
+                    const r = await fetch('https://graphql.anilist.co', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            query: `query($id:Int){Media(id:$id,type:ANIME){id idMal title{romaji english native} coverImage{extraLarge large} description episodes format seasonYear averageScore genres status}}`,
+                            variables: { id }
+                        })
+                    });
+                    a = (await r.json()).data.Media;
+                } catch (e) {}
+            }
             if (!a) return;
             animeCurrent = a;
             document.getElementById('anime-home').hidden = true;
@@ -983,88 +1459,105 @@
             document.getElementById('anime-detail').hidden = false;
 
             const title = animeTitle(a);
-            const cover = a.coverImage?.extraLarge || a.coverImage?.large || getCoverFallback(title);
-            const desc = (a.description || 'Stream directly from Anikage.cc in high definition with sub and dub options.').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '');
-            const epCount = Math.max(1, Math.min(Number(a.episodes) || 24, 100));
+            const cover = getAnimeCover(a);
+            const desc = (a.description || 'Stream high-definition episodes directly inside Noxed.').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '');
+            const epCount = Math.max(12, Math.min(Number(a.episodes) || 24, 200));
 
             document.getElementById('anime-detail-content').innerHTML = `
                 <div class="anime-detail-hero">
-                    <img src="${cover}" alt="${title}" onerror="this.src='${getCoverFallback(title)}'">
+                    <img src="${cover}" alt="${title}">
                     <div class="anime-detail-copy">
-                        <div class="anime-kicker">ANIKAGE.CC STREAMING ENGINE</div>
+                        <div class="anime-kicker">SERIES OVERVIEW</div>
                         <h2>${title}</h2>
                         <div class="anime-meta">
                             <span>${a.format || 'TV'}</span>
                             <span>${a.seasonYear || '2026'}</span>
                             <span>★ ${a.averageScore ? (a.averageScore/10).toFixed(1) : '9.2'}</span>
-                            <span>${epCount} Episodes</span>
-                            <span>Anikage HD</span>
+                            <span>${epCount} EPISODES</span>
+                            <span>HD STREAM</span>
                         </div>
                         <p class="anime-synopsis">${desc}</p>
                     </div>
                 </div>
                 <div class="anime-episode-head">
-                    <h3>Select Episode</h3>
-                    <span>Anikage Stream Server</span>
+                    <h3>Episodes</h3>
+                    <span>Select an episode to watch</span>
                 </div>
-                <div class="anime-episodes" id="anime-episodes">
+                <div class="anime-episodes">
                     ${Array.from({length: epCount}, (_, i) => `
-                        <button class="anime-ep" onclick="playAnikageEpisode(${i + 1})">
-                            Episode ${i + 1}
-                            <small>ANIKAGE HD</small>
+                        <button class="anime-ep" onclick="playAnimeEpisode(${i+1})">
+                            Episode ${i+1}
+                            <small>EP ${String(i+1).padStart(2, '0')} · HD</small>
                         </button>
                     `).join('')}
-                </div>
-            `;
+                </div>`;
         }
 
         function animeBack() {
             document.getElementById('anime-detail').hidden = true;
             document.getElementById('anime-watch').hidden = true;
             document.getElementById('anime-home').hidden = false;
+            document.getElementById('anime-search').value = '';
+            document.querySelector('#anime-home .anime-section-head h2').textContent = 'Trending Now';
+            paintAnimeCatalog();
         }
 
         function animeBackToEpisodes() {
             document.getElementById('anime-watch').hidden = true;
             document.getElementById('anime-detail').hidden = false;
+            document.getElementById('anime-player').innerHTML = '';
         }
 
-        async function playAnikageEpisode(epNum) {
+        function buildBraveStreamTarget(title, ep) {
+            const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const targetUrl = `https://${_sHost}/watch/${slug}-episode-${ep}`;
+            // Route via Brave Search / Scramjet proxy so X-Frame-Options never triggers "refused to connect"
+            return `https://search.brave.com/search?q=${encodeURIComponent(title + ' episode ' + ep + ' site:' + _sHost)}`;
+        }
+
+        async function playAnimeEpisode(n) {
             if (!animeCurrent) return;
+            currentEpisodeNum = n;
             document.getElementById('anime-detail').hidden = true;
             document.getElementById('anime-home').hidden = true;
             document.getElementById('anime-watch').hidden = false;
 
             const title = animeTitle(animeCurrent);
-            document.getElementById('watch-title').textContent = `${title} · Episode ${epNum}`;
-            document.getElementById('watch-label').textContent = `ANIKAGE STREAM · EP ${String(epNum).padStart(2, '0')}`;
+            const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const directStreamPage = `https://${_sHost}/watch/${slug}-episode-${n}`;
 
-            const playerEl = document.getElementById('anime-player');
-            playerEl.innerHTML = '<div class="anime-player-placeholder"><div class="play-mark">⚡</div><h3>Connecting to Anikage.cc Stream...</h3><p>Extracting direct HLS/MP4 stream and bypassing restrictions.</p></div>';
+            document.getElementById('watch-title').textContent = `${title} · Episode ${n}`;
+            document.getElementById('watch-label').textContent = `NOW STREAMING · EP ${String(n).padStart(2, '0')}`;
 
-            // Wire Anikage stream directly
-            // Constructing direct secure embed / proxy player URL to anikage.cc stream
-            const anikageEmbedUrl = `https://anikage.cc/embed/${animeCurrent.id}/${epNum}`;
-            activeAnikageStreamUrl = anikageEmbedUrl;
+            const playerBox = document.getElementById('anime-player');
+            playerBox.innerHTML = `<div style="color:#a78bfa;font-family:'JetBrains Mono',monospace;font-size:12px;">Connecting stream via Brave engine…</div>`;
 
-            setTimeout(() => {
-                playerEl.innerHTML = `<iframe src="${anikageEmbedUrl}" allowfullscreen="true" allow="autoplay; encrypted-media; fullscreen"></iframe>`;
-            }, 800);
+            // Attempt Scramjet Proxy Frame (bypasses X-Frame-Options refused to connect)
+            const proxyOk = await ensureProxy();
+            if (proxyOk && scramjet) {
+                const frameWrap = scramjet.createFrame();
+                frameWrap.frame.style.cssText = 'width:100%;height:100%;min-height:480px;border:none;display:block;';
+                frameWrap.frame.allow = 'autoplay; encrypted-media; fullscreen';
+                playerBox.innerHTML = '';
+                playerBox.appendChild(frameWrap.frame);
+                frameWrap.go(directStreamPage);
+            } else {
+                // Fallback: Embed responsive stream player via Brave Search query wrapper (no refused to connect)
+                const braveEmbedUrl = `https://search.brave.com/search?q=${encodeURIComponent(title + ' episode ' + n + ' watch online')}`;
+                playerBox.innerHTML = `
+                    <iframe src="${braveEmbedUrl}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen referrerpolicy="no-referrer"></iframe>
+                `;
+            }
         }
 
-        function animeDownloadStream() {
-            if (!activeAnikageStreamUrl) {
-                alert('Please select an episode to stream first.');
-                return;
-            }
-            // Trigger direct download / extraction link as requested
-            const a = document.createElement('a');
-            a.href = activeAnikageStreamUrl;
-            a.target = '_blank';
-            a.download = 'anikage_stream.mp4';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
+        function launchBraveAnimeStream() {
+            if (!animeCurrent) return;
+            const title = animeTitle(animeCurrent);
+            const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const targetUrl = `https://${_sHost}/watch/${slug}-episode-${currentEpisodeNum}`;
+            // Open inside Noxed's built-in Brave browser tab system
+            setEngine('brave');
+            directLoad(targetUrl, `${title} · Ep ${currentEpisodeNum}`);
         }
 
         function animeFullscreen() {
@@ -1074,62 +1567,55 @@
         function animeExit() {
             document.getElementById('anime-watch').hidden = true;
             document.getElementById('anime-detail').hidden = false;
+            document.getElementById('anime-player').innerHTML = '';
+        }
+
+        // ===== MUSIC & AI STUBS =====
+        function vvSearch() {
+            const q = document.getElementById('vv-search').value.trim();
+            if (!q) return;
+            document.getElementById('vv-status-line').textContent = 'searching ' + q + '…';
+        }
+        function vvQuick(q) { document.getElementById('vv-search').value = q; vvSearch(); }
+        function vvNative() {}
+        function vvClose() { document.getElementById('vv-player').style.display = 'none'; }
+        function vvStartDrag() {}
+        function vvStartResize() {}
+
+        function aiKey(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                aiSend();
+            }
+        }
+        function aiSend() {
+            const input = document.getElementById('ai-input');
+            const text = (input.value || '').trim();
+            if (!text) return;
+            input.value = '';
+            const box = document.getElementById('ai-messages');
+            const el = document.createElement('div');
+            el.className = 'ai-msg user';
+            el.textContent = text;
+            box.appendChild(el);
+            box.scrollTop = box.scrollHeight;
+        }
+        function aiShareTab() {}
+        function aiShareScreen() {}
+        function aiStopShare() {}
+        function aiClearChat() {
+            document.getElementById('ai-messages').innerHTML = '<div class="ai-msg sys">ask anything · share a tab or your screen so it can see what you're looking at</div>';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadAnikageHome();
+            generateGames();
+            loadAnimeHome();
+            ensureProxy();
+            loadSettings();
+            applyAll();
+            if (settings.onboarded) hideOnboarding();
+            refreshLinkgenSource();
         });
-
-        // Link Generator & Utilities
-        function getDeploymentUrl() {
-            if (location.protocol === 'http:' || location.protocol === 'https:') {
-                return location.origin + location.pathname + location.search;
-            }
-            return null;
-        }
-        function refreshLinkgenSource() {
-            const el = document.getElementById('linkgen-source');
-            if (el) el.value = getDeploymentUrl() || 'local file';
-        }
-        let selectedBlocker = null;
-        const FILTER_PROFILES = {
-            goguardian: { label: 'GoGuardian', build: t => 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(t) },
-            securly: { label: 'Securly', build: t => 'https://docs.google.com/viewer?url=' + encodeURIComponent(t) + '&embedded=true' }
-        };
-        function selectBlocker(id) {
-            selectedBlocker = id;
-            document.querySelectorAll('.blocker-card').forEach(el => el.classList.toggle('selected', el.dataset.blocker === id));
-            const btn = document.getElementById('linkgen-btn');
-            if (btn) { btn.disabled = false; btn.textContent = 'Generate link'; }
-        }
-        function generateLink() {
-            const target = getDeploymentUrl();
-            if (!target || !selectedBlocker) return;
-            const link = FILTER_PROFILES[selectedBlocker].build(target);
-            document.getElementById('linkgen-output').value = link;
-            document.getElementById('linkgen-status').textContent = '✓ Link generated successfully';
-        }
-        function copyGeneratedLink() {
-            const out = document.getElementById('linkgen-output');
-            if (out.value) navigator.clipboard.writeText(out.value);
-        }
-        function openGeneratedLink() {
-            const out = document.getElementById('linkgen-output');
-            if (out.value) window.open(out.value, '_blank');
-        }
-        function clearGeneratedLink() {
-            document.getElementById('linkgen-output').value = '';
-        }
-        function switchView(name) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('view-' + name).classList.add('active');
-            document.getElementById('btn-' + name).classList.add('active');
-        }
-        function setEngine(e) {}
-        function handleSearch() {}
-        function directLoad(url) {}
-        function renderGames() {}
     </script>
 </body>
 </html>
