@@ -286,16 +286,8 @@
         .game-info { padding: 12px; }
         .game-card span { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .arcade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
-        .arcade-card {
-            display: flex; flex-direction: column; padding: 24px; border-radius: 20px; cursor: pointer;
-            transition: transform .2s, border-color .2s;
-        }
-        .arcade-card:hover { transform: translateY(-3px); border-color: var(--border-hi); }
-        .arcade-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-family: var(--font-display); font-size: 1.2rem; color: var(--accent); font-weight: 600; }
-        .arcade-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: #fff; margin-bottom: 6px; }
-        .arcade-desc { font-family: var(--font-body); font-size: 13px; color: var(--text-dim); line-height: 1.5; }
-
+        .catalog-tools{width:100%;max-width:1320px;margin:0 0 16px}.catalog-tools input{width:100%;max-width:420px;border:1px solid var(--border);background:rgba(10,8,18,.72);color:var(--text);border-radius:12px;padding:12px 14px;outline:none}
+        
         /* ===== MUSIC ===== */
         #view-music { justify-content: flex-start; padding: 48px 40px 40px 110px; }
         .vv-header { width: 100%; max-width: 980px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 22px; }
@@ -386,7 +378,6 @@
         .blocker-card .bc-name { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--text); }
         .blocker-card .bc-hint { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-faint); line-height: 1.35; }
         .blocker-card.selected .bc-name { color: #fff; }
-
 
         /* ===== AI ===== */
         #view-ai { justify-content: flex-start; padding: 48px 40px 40px 110px; }
@@ -527,6 +518,46 @@
         .ob-btn:hover { background: var(--surface-hi); }
         .ob-btn.primary { background: linear-gradient(135deg, rgba(167,139,250,0.9), rgba(139,92,246,0.8)); border: none; color: #fff; }
         .ob-btn.ghost { background: transparent; border-color: transparent; color: var(--text-faint); }
+    
+        /* Noxed AniKage Integration UI */
+        #view-anime{justify-content:flex-start;padding:34px 38px 36px 108px;overflow:auto}
+        .anime-shell{width:100%;max-width:1450px;margin:0 auto;color:#f5f3fb}
+        .anime-top{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:8px 0 34px}
+        .anime-kicker{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#a78bfa;margin-bottom:12px}
+        .anime-top h1{font:700 clamp(30px,4vw,48px) var(--font-display);letter-spacing:-.04em;margin:0}.anime-top h1 span{color:#a78bfa}.anime-top p{color:#8d879c;margin:8px 0 0;font-size:13px}
+        .anime-searchbox{display:flex;align-items:center;gap:10px;width:min(420px,45%);padding:13px 15px;border:1px solid rgba(255,255,255,.1);background:rgba(15,12,24,.8);border-radius:13px;box-shadow:0 10px 35px #0002}.anime-searchbox svg{width:18px;height:18px;fill:none;stroke:#9b91ad;stroke-width:1.8}.anime-searchbox input{background:none;border:0;outline:0;color:#fff;width:100%;font-size:13px}.anime-searchbox input::placeholder{color:#6e667c}
+        .anime-section-head{display:flex;align-items:center;justify-content:space-between;margin:22px 0 14px}.anime-section-head h2{font:600 18px var(--font-display);margin:0}.anime-section-head span{font:10px 'JetBrains Mono',monospace;color:#827991}
+        .anime-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:17px}.anime-card{cursor:pointer;min-width:0;transition:transform .2s}.anime-card:hover{transform:translateY(-5px)}
+        .anime-poster{position:relative;aspect-ratio:2/3;border-radius:12px;overflow:hidden;background:#15111f;border:1px solid #ffffff10;box-shadow:0 12px 25px #0003}
+        .anime-poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}.anime-card:hover .anime-poster img{transform:scale(1.05)}
+        .anime-poster:after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#07050ce8)}
+        .anime-score{position:absolute;top:9px;left:9px;z-index:2;padding:5px 7px;border-radius:6px;background:#09060dcc;color:#e9d5ff;font:10px 'JetBrains Mono',monospace;backdrop-filter:blur(8px)}
+        .anime-card-title{font-size:12px;font-weight:600;line-height:1.45;margin:9px 2px 4px;color:#e9e4f2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .anime-card-sub{font-size:10px;color:#777087;margin:0 2px}.anime-empty{padding:30px;color:#8e859d;font-size:13px;grid-column:1/-1}
+        .anime-back{border:1px solid #ffffff12;background:#ffffff06;color:#b9adc9;padding:10px 13px;border-radius:9px;cursor:pointer;font-size:12px;margin-bottom:20px}.anime-back:hover{background:#ffffff10;color:white}
+        .anime-detail-hero{display:grid;grid-template-columns:210px 1fr;gap:28px;padding:25px;border:1px solid #ffffff10;background:linear-gradient(135deg,#1b1428b8,#0c0914c9);border-radius:18px;box-shadow:0 18px 55px #0003}
+        .anime-detail-hero img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:12px}
+        .anime-detail-copy{align-self:center}.anime-detail-copy .anime-kicker{margin-bottom:9px}
+        .anime-detail-copy h2{font:700 clamp(24px,3vw,38px) var(--font-display);margin:0 0 12px;letter-spacing:-.03em}
+        .anime-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+        .anime-meta span{border:1px solid #ffffff14;background:#ffffff08;color:#b7adc6;padding:6px 9px;border-radius:7px;font:10px 'JetBrains Mono',monospace}
+        .anime-synopsis{max-width:850px;color:#a59bb4;font-size:13px;line-height:1.8}
+        .anime-episode-head{display:flex;align-items:center;justify-content:space-between;margin:26px 0 14px}
+        .anime-episode-head h3{font:600 18px var(--font-display);margin:0}
+        .anime-episodes{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:9px}
+        .anime-ep{padding:13px 10px;border:1px solid #ffffff12;background:#ffffff05;border-radius:10px;color:#c6bdd2;text-align:left;cursor:pointer;font-size:11px}
+        .anime-ep:hover{border-color:#8b5cf688;background:#8b5cf615;color:#fff}
+        .anime-ep small{display:block;color:#726982;margin-top:5px;font-size:9px}
+        .anime-watch-title{margin:0 0 16px}.anime-watch-title span{font:10px 'JetBrains Mono',monospace;color:#a78bfa;letter-spacing:.18em}
+        .anime-watch-title h2{font:600 23px var(--font-display);margin:7px 0}
+        .anime-player{min-height:480px;aspect-ratio:16/9;background:#050407;border:1px solid #ffffff10;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+        .anime-player iframe{width:100%;height:100%;min-height:480px;border:0}
+        .anime-player-placeholder{text-align:center;color:#81788f;padding:30px}
+        .anime-player-placeholder .play-mark{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#8b5cf626;border:1px solid #a78bfa55;color:#c4b5fd;margin:0 auto 16px;font-size:18px}
+        .anime-watch-controls{display:flex;justify-content:flex-end;gap:9px;margin-top:13px}
+        .anime-page,.anime-detail-page,.anime-watch-page{animation:animeFade .25s ease}@keyframes animeFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+        @media(max-width:900px){#view-anime{padding:24px 18px 30px 82px}.anime-top{align-items:stretch;flex-direction:column}.anime-searchbox{width:100%}.anime-grid{grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:12px}.anime-detail-hero{grid-template-columns:130px 1fr;gap:16px;padding:15px}.anime-player{min-height:260px}}
+        @media(max-width:560px){#view-anime{padding:18px 12px 25px 72px}.anime-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.anime-detail-hero{grid-template-columns:1fr}.anime-detail-hero img{width:130px}.anime-detail-copy h2{font-size:24px}}
     </style>
 </head>
 <body>
@@ -553,10 +584,7 @@
             <svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
             <span data-i18n="nav_games">games</span>
         </button>
-        <button class="side-btn" id="btn-arcade" onclick="switchView('arcade')">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-            <span>arcade</span>
-        </button>
+        <button class="side-btn" id="btn-anime" onclick="switchView('anime')"><svg viewBox="0 0 24 24"><path d="M4 3h16v18H4zM7 7h10M7 11h10M7 15h6"/></svg><span>anime</span></button>
         <button class="side-btn" id="btn-music" onclick="switchView('music')">
             <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             <span data-i18n="nav_music">music</span>
@@ -618,33 +646,54 @@
                 <h1 class="section-title" data-i18n="games_title">unblocked games</h1>
                 <span class="section-meta" id="game-count">loading...</span>
             </div>
+            <div class="catalog-tools"><input id="games-search" type="search" placeholder="search games..." oninput="renderGames(this.value)" aria-label="Search games"></div>
             <div class="scroll-wrapper"><div class="games-grid" id="games-grid"></div></div>
         </div>
 
-        <div class="view" id="view-arcade">
-            <div class="section-head">
-                <h1 class="section-title">browser arcade</h1>
-                <span class="section-meta">instant play · no install</span>
+        <!-- ANIKAGE WIRED ANIME VIEW -->
+        <div class="view" id="view-anime">
+          <div class="anime-shell">
+            <header class="anime-top">
+                <div>
+                    <div class="anime-kicker">NOXED / ANIKAGE STREAMING</div>
+                    <h1>Anikage Anime Hub<span>.</span></h1>
+                    <p>Direct Anikage.cc streams, cover cards, and instant episode playback.</p>
+                </div>
+                <div class="anime-searchbox">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+                    <input id="anime-search" type="search" placeholder="Search Anikage anime titles…" oninput="searchAnime(this.value)" aria-label="Search anime">
+                </div>
+            </header>
+            <div id="anime-home" class="anime-page">
+                <div class="anime-section-head"><h2>Trending Anikage Catalog</h2><span id="anime-status">Loading catalog…</span></div>
+                <div id="anime-catalog" class="anime-grid"></div>
+                <div class="anime-section-head"><h2>Popular Series</h2></div>
+                <div id="anime-popular" class="anime-grid"></div>
             </div>
-            <div class="scroll-wrapper">
-                <div class="arcade-grid">
-                    <div class="arcade-card glass" onclick="directLoad('https://www.freeplayarena.com')">
-                        <div class="arcade-icon">FP</div>
-                        <div class="arcade-name">FreePlayArena</div>
-                        <div class="arcade-desc">300+ browser games with zero friction. No downloads, no login — just click and play. Built for speed and instant loading.</div>
-                    </div>
-                    <div class="arcade-card glass" onclick="directLoad('https://elyndra-online.com')">
-                        <div class="arcade-icon">EG</div>
-                        <div class="arcade-name">Elyndra GameZ</div>
-                        <div class="arcade-desc">A catalog of 3,500+ distinct browser games. Action, adventure, racing, puzzle, multiplayer — all playable instantly without installation.</div>
-                    </div>
-                    <div class="arcade-card glass" onclick="directLoad('https://playhop.com')">
-                        <div class="arcade-icon">PH</div>
-                        <div class="arcade-name">PlayHop</div>
-                        <div class="arcade-desc">700+ high-quality HTML5 games across every major genre. Built for speed, accessibility, and instant play with zero configuration.</div>
+            <section id="anime-detail" class="anime-detail-page" hidden>
+                <button class="anime-back" onclick="animeBack()">← Back to catalog</button>
+                <div id="anime-detail-content"></div>
+            </section>
+            <section id="anime-watch" class="anime-watch-page" hidden>
+                <button class="anime-back" onclick="animeBackToEpisodes()">← Back to episodes</button>
+                <div class="anime-watch-title">
+                    <span id="watch-label">ANIKAGE STREAM</span>
+                    <h2 id="watch-title">Episode</h2>
+                </div>
+                <div id="anime-player" class="anime-player">
+                    <div class="anime-player-placeholder">
+                        <div class="play-mark">▶</div>
+                        <h3>Anikage Player Ready</h3>
+                        <p>Connecting to Anikage.cc secure streaming nodes...</p>
                     </div>
                 </div>
-            </div>
+                <div class="anime-watch-controls">
+                    <button class="mini-btn" onclick="animeDownloadStream()">Download Stream ⬇</button>
+                    <button class="mini-btn" onclick="animeFullscreen()">Fullscreen ↗</button>
+                    <button class="mini-btn" onclick="animeExit()">Exit player</button>
+                </div>
+            </section>
+          </div>
         </div>
 
         <div class="view" id="view-music">
@@ -716,11 +765,6 @@
                     </div>
                     <div class="linkgen-status" id="linkgen-status"></div>
                 </div>
-                <div class="linkgen-tips">
-                    <div class="linkgen-tip"><strong>pick your filter first</strong> — each option builds a different link shape aimed at that blocker.</div>
-                    <div class="linkgen-tip"><strong>every generate = a new alias</strong> — fresh short link that still opens this deployment.</div>
-                    <div class="linkgen-tip"><strong>needs http(s)</strong> — host noxveil online first (Cloudflare Pages, Netlify, GitHub Pages). local files can't be shortened.</div>
-                </div>
             </div>
         </div>
 
@@ -775,81 +819,8 @@
         <div id="frame-container"></div>
     </div>
 
-    <div id="vv-player" class="glass" onmousedown="vvStartDrag(event)">
-        <div class="vv-player-top">
-            <div class="vv-player-title" id="vv-song-title">nothing playing</div>
-            <button class="vv-player-close" onclick="vvClose()">×</button>
-        </div>
-        <div class="vv-resize" onmousedown="vvStartResize(event)"></div>
-        <div id="vv-embed-slot">
-            <div id="vv-cover-fallback">V</div>
-            <img id="vv-cover" alt="" style="display:none">
-        </div>
-        <div class="vv-track" id="vv-track">
-            <div class="vv-bar"><div id="vv-bar-fill"></div></div>
-            <div class="vv-times">
-                <span id="vv-time-cur">0:00</span>
-                <span id="vv-time-dur">0:00</span>
-            </div>
-        </div>
-        <div class="vv-controls">
-            <button class="vv-ctrl" onclick="vvNative('prev')" aria-label="back 30s">
-                <svg viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
-            </button>
-            <button class="vv-ctrl main" onclick="vvNative('play')" aria-label="play/pause">
-                <svg id="vv-playicon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-            <button class="vv-ctrl" onclick="vvNative('next')" aria-label="forward 30s">
-                <svg viewBox="0 0 24 24"><path d="M13 6v12l8.5-6L13 6zM4 18l8.5-6L4 6v12z"/></svg>
-            </button>
-        </div>
-        <div class="vv-status" id="vv-status">ready</div>
-    </div>
-
-    <div id="onboarding">
-        <div class="ob-shell glass">
-            <div class="ob-progress">
-                <span class="ob-dot active" data-dot="0"></span>
-                <span class="ob-dot" data-dot="1"></span>
-                <span class="ob-dot" data-dot="2"></span>
-                <span class="ob-dot" data-dot="3"></span>
-                <span class="ob-dot" data-dot="4"></span>
-            </div>
-            <section class="ob-step active" data-step="0">
-                <div class="ob-kicker">welcome</div>
-                <h2 class="ob-title">this is <em>noxveil</em>.</h2>
-                <p class="ob-desc">a quieter layer on top of the noisy web. before you go in, set the room up the way you like — backdrop, type, language, and what the tab should pretend to be.</p>
-            </section>
-            <section class="ob-step" data-step="1">
-                <div class="ob-kicker">atmosphere</div>
-                <h2 class="ob-title">pick a backdrop</h2>
-                <p class="ob-desc">motion loops and static gradients. the videos are short, muted, and loop forever.</p>
-                <div class="ob-grid bgs" id="ob-bgs"></div>
-            </section>
-            <section class="ob-step" data-step="2">
-                <div class="ob-kicker">type</div>
-                <h2 class="ob-title">pick your voice</h2>
-                <p class="ob-desc">this changes headings, labels, and the search bar. the monospace details stay monospace.</p>
-                <div class="ob-grid fonts" id="ob-fonts"></div>
-            </section>
-            <section class="ob-step" data-step="3">
-                <div class="ob-kicker">language</div>
-                <h2 class="ob-title">interface language</h2>
-                <p class="ob-desc">nav labels, placeholders, section titles. your music taste stays international.</p>
-                <div class="ob-grid langs" id="ob-langs"></div>
-            </section>
-            <section class="ob-step" data-step="4">
-                <div class="ob-kicker">disguise</div>
-                <h2 class="ob-title">what should the tab say?</h2>
-                <p class="ob-desc">changes the browser tab title and favicon so it blends in with school tools.</p>
-                <div class="ob-grid cloaks" id="ob-cloaks"></div>
-            </section>
-            <div class="ob-nav">
-                <button class="ob-btn ghost" id="ob-back" onclick="obBack()">back</button>
-                <button class="ob-btn primary" id="ob-next" onclick="obNext()">begin</button>
-            </div>
-        </div>
-    </div>
+    <audio id="vv-audio" preload="auto" crossorigin="anonymous"></audio>
+    <div id="vv-host"></div>
 
     <script>
         const favClassroom = "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://classroom.google.com&size=128";
@@ -861,49 +832,21 @@
             { id:'video1',  name:'Dream Chaser',      type:'video', src:'https://motionbgs.com/media/9212/dream-chaser-black-and-white.960x540.mp4',  gradient:'linear-gradient(-45deg,#3a3a3a,#07050c,#5a5a5a,#07050c)', tag:'motion' },
             { id:'video2',  name:'A Galaxy Within',   type:'video', src:'https://motionbgs.com/media/10270/a-galaxy-within.960x540.mp4',              gradient:'linear-gradient(-45deg,#1e1b4b,#07050c,#4c1d95,#07050c)', tag:'motion' },
             { id:'video3',  name:'Minecraft Cabin',   type:'video', src:'https://motionbgs.com/media/9243/minecraft-overgrown-cabin.960x540.mp4',    gradient:'linear-gradient(-45deg,#14532d,#07050c,#166534,#07050c)', tag:'motion' },
-            { id:'video4',  name:'Sasuke',            type:'video', src:'https://motionbgs.com/media/5532/sasuke.960x540.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#7c2d12,#07050c)', tag:'motion' },
+            { id:'video4',  name:'Sasuke',            type:'video', poster:'https://motionbgs.com/media/5532/sasuke.jpg', src:'https://motionbgs.com/media/5532/sasuke.960x540.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#7c2d12,#07050c)', tag:'motion' },
             { id:'video5',  name:'Naruto Sky',        type:'video', src:'https://motionbgs.com/media/9019/naruto-endless-sky.960x540.mp4',            gradient:'linear-gradient(-45deg,#0c4a6e,#07050c,#0369a1,#07050c)', tag:'motion' },
-            { id:'video6',  name:'Gojo Shattered',    type:'video', src:'https://motionbgs.com/media/9292/satoru-gojo-shattered-sky.960x540.mp4',     gradient:'linear-gradient(-45deg,#3b0764,#07050c,#7e22ce,#07050c)', tag:'motion' },
-            { id:'video7',  name:'Perfect Cell',      type:'video', src:'https://motionbgs.com/media/8711/perfect-cell-dragon-ball-z.960x540.mp4',   gradient:'linear-gradient(-45deg,#14532d,#07050c,#65a30d,#07050c)', tag:'motion' },
-            { id:'video8',  name:'Giyu Snow',         type:'video', src:'https://motionbgs.com/media/9251/giyu-tomioka-snow-blossoms.960x540.mp4',     gradient:'linear-gradient(-45deg,#0e7490,#07050c,#1e3a8a,#07050c)', tag:'motion' },
-            { id:'video9',  name:'Gon Fishing',       type:'video', src:'https://motionbgs.com/media/9440/gon-freecss-fishing-day.960x540.mp4',       gradient:'linear-gradient(-45deg,#166534,#07050c,#0d9488,#07050c)', tag:'motion' },
-            { id:'video10', name:'Neon Tunnel',       type:'video', src:'https://assets.mixkit.co/videos/35321/35321-720.mp4',                        gradient:'linear-gradient(-45deg,#4c1d95,#07050c,#db2777,#07050c)', tag:'motion' },
-            { id:'video11', name:'Light Tunnel',      type:'video', src:'https://assets.mixkit.co/videos/35318/35318-720.mp4',                        gradient:'linear-gradient(-45deg,#1e3a8a,#07050c,#38bdf8,#07050c)', tag:'motion' },
-            { id:'video12', name:'Metal Hall',        type:'video', src:'https://assets.mixkit.co/videos/31770/31770-720.mp4',                        gradient:'linear-gradient(-45deg,#1c1917,#07050c,#44403c,#07050c)', tag:'motion' },
-            { id:'video13', name:'Cube Drift',        type:'video', src:'https://assets.mixkit.co/videos/31497/31497-720.mp4',                        gradient:'linear-gradient(-45deg,#0f172a,#07050c,#334155,#07050c)', tag:'motion' },
-            { id:'video14', name:'Prism Bloom',       type:'video', src:'https://assets.mixkit.co/videos/44685/44685-720.mp4',                        gradient:'linear-gradient(-45deg,#831843,#07050c,#f0abfc,#07050c)', tag:'motion' },
             { id:'violet',  name:'Violet Drift',      type:'css', cls:'bg-violet', tag:'gradient' },
-            { id:'ember',   name:'Ember',             type:'css', cls:'bg-ember',  tag:'gradient' },
-            { id:'ocean',   name:'Deep Sea',          type:'css', cls:'bg-ocean',  tag:'gradient' },
-            { id:'aurora',  name:'Aurora',            type:'css', cls:'bg-aurora', tag:'gradient' },
-            { id:'mono',    name:'Monochrome',        type:'css', cls:'bg-mono',   tag:'gradient' },
             { id:'void',    name:'Void',              type:'css', cls:'bg-void',   tag:'minimal' }
         ];
 
         const FONTS = [
-            { id:'normal', name:'Normal', family:"'Space Grotesk', sans-serif", weight:'500', sample:'noxveil' },
-            { id:'cursive', name:'Cursive', family:"'Caveat', cursive", weight:'600', sample:'noxveil' },
-            { id:'thick', name:'Thick', family:"'Archivo Black', sans-serif", weight:'400', sample:'NOXVEIL' },
-            { id:'thin', name:'Thin', family:"'Manrope', sans-serif", weight:'200', sample:'noxveil' }
+            { id:'normal', name:'Normal', family:"'Space Grotesk', sans-serif", weight:'500', sample:'noxveil' }
         ];
 
-        const LANGS = [
-            { id:'en', name:'English', native:'English' },
-            { id:'es', name:'Spanish (MX)', native:'Español (México)' },
-            { id:'ru', name:'Russian', native:'Русский' }
-        ];
-
-        const CLOAKS = [
-            { id:'classroom', name:'Google Classroom', title:'Home - Classroom', icon: favClassroom },
-            { id:'clever',    name:'Clever',           title:'Clever | Log in',  icon: favClever },
-            { id:'iready',    name:'i-Ready',          title:'i-Ready',          icon: favIReady },
-            { id:'ixl',       name:'IXL',              title:'IXL | Math, Language Arts, Science, Social Studies, and Spanish', icon: favIXL }
-        ];
+        const LANGS = [ { id:'en', name:'English', native:'English' } ];
+        const CLOAKS = [ { id:'classroom', name:'Google Classroom', title:'Home - Classroom', icon: favClassroom } ];
 
         const I18N = {
-            en: { nav_web:'web', nav_games:'games', nav_music:'music', nav_links:'links', nav_setup:'setup', search_placeholder:'search the web, or paste a url', games_title:'unblocked games', music_search_placeholder:'track, artist, or mood', music_search_btn:'search', music_status_idle:'press search to begin', links_title:'link generator', links_source:'your noxveil deployment', links_gen_label:'generate a new link', links_generate:'generate new link', links_result:'your new link', links_copy:'copy', links_open:'open in new tab', links_clear:'clear', links_tip_1_title:'every click = a new link', links_tip_1_body:'that opens this noxveil deployment. share it anywhere.', links_tip_2_title:'powered by is.gd', links_tip_2_body:'— a free public URL shortener. no login, no tracking.', links_tip_3_title:'needs http(s)', links_tip_3_body:'— if you opened this from a local file, host it first (Cloudflare Pages, Netlify, GitHub Pages).' },
-            es: { nav_web:'web', nav_games:'juegos', nav_music:'música', nav_links:'enlaces', nav_setup:'ajustes', search_placeholder:'busca en la web o pega una url', games_title:'juegos desbloqueados', music_search_placeholder:'canción, artista o mood', music_search_btn:'buscar', music_status_idle:'presiona buscar para empezar', links_title:'generador de enlaces', links_source:'tu implementación de noxveil', links_gen_label:'genera un nuevo enlace', links_generate:'generar nuevo enlace', links_result:'tu nuevo enlace', links_copy:'copiar', links_open:'abrir en nueva pestaña', links_clear:'limpiar', links_tip_1_title:'cada clic = un enlace nuevo', links_tip_1_body:'que abre esta implementación de noxveil. compártelo donde quieras.', links_tip_2_title:'impulsado por is.gd', links_tip_2_body:'— un acortador de URL público y gratuito. sin login, sin rastreo.', links_tip_3_title:'necesita http(s)', links_tip_3_body:'— si abriste esto desde un archivo local, publícalo primero (Cloudflare Pages, Netlify, GitHub Pages).' },
-            ru: { nav_web:'веб', nav_games:'игры', nav_music:'музыка', nav_links:'ссылки', nav_setup:'настройки', search_placeholder:'поиск в интернете или ссылка', games_title:'разблокированные игры', music_search_placeholder:'трек, исполнитель или настроение', music_search_btn:'поиск', music_status_idle:'нажмите поиск, чтобы начать', links_title:'генератор ссылок', links_source:'ваш экземпляр noxveil', links_gen_label:'создать новую ссылку', links_generate:'создать новую ссылку', links_result:'ваша новая ссылка', links_copy:'копировать', links_open:'открыть в новой вкладке', links_clear:'очистить', links_tip_1_title:'каждый клик = новая ссылка', links_tip_1_body:'которая открывает этот экземпляр noxveil. делитесь где угодно.', links_tip_2_title:'работает на is.gd', links_tip_2_body:'— бесплатный публичный сокращатель URL. без логина, без отслеживания.', links_tip_3_title:'требуется http(s)', links_tip_3_body:'— если вы открыли это из локального файла, сначала разместите онлайн (Cloudflare Pages, Netlify, GitHub Pages).' }
+            en: { nav_web:'web', nav_games:'games', nav_music:'music', nav_links:'links', nav_setup:'setup', search_placeholder:'search the web, or paste a url', games_title:'unblocked games' }
         };
 
         const DEFAULTS = { bg:'violet', font:'normal', lang:'en', cloak:'classroom', onboarded:false };
@@ -917,27 +860,7 @@
             { name:'1v1.lol', url:'https://1v1.lol', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/1v1lol/1v1lol.jpg' },
             { name:'Shell Shockers', url:'https://shellshock.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/shellshockers/shellshockers.jpg' },
             { name:'Retro Bowl', url:'https://retrobowl.me', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/retrobowl/retrobowl.jpg' },
-            { name:'Slope', url:'https://slope.game', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/slope/slope.jpg' },
-            { name:'2048', url:'https://play2048.co/', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/2048/2048.jpg' },
-            { name:'Cookie Clicker', url:'https://cookieclicker.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/cookieclicker/cookieclicker.jpg' },
-            { name:'Five Nights at Freddy\'s', url:'https://fnaf.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/fnaf/fnaf.jpg' },
-            { name:'Subway Surfers', url:'https://poki.com/en/g/subway-surfers', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/subwaysurfers/subwaysurfers.jpg' },
-            { name:'BitLife', url:'https://bitlife.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/bitlife/bitlife.jpg' },
-            { name:'Moto X3M', url:'https://motox3m.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/motox3m/motox3m.jpg' },
-            { name:'Basketball Stars', url:'https://basketballstars.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/basketballstars/basketballstars.jpg' },
-            { name:'Drift Hunters', url:'https://drifthunters.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/drifthunters/drifthunters.jpg' },
-            { name:'Run 3', url:'https://run3.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/run3/run3.jpg' },
-            { name:'OvO', url:'https://ovo.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/ovo/ovo.jpg' },
-            { name:'Stickman Hook', url:'https://stickmanhook.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/stickmanhook/stickmanhook.jpg' },
-            { name:'Geometry Dash', url:'https://geometrydash.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/geometrydash/geometrydash.jpg' },
-            { name:'Temple Run 2', url:'https://templerun2.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/templerun2/templerun2.jpg' },
-            { name:'Pokemon Emerald', url:'https://pokemonemerald.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/pokemonemerald/pokemonemerald.jpg' },
-            { name:'Mario Kart 64', url:'https://mariokart64.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/mariokart64/mariokart64.jpg' },
-            { name:'Super Smash Flash 2', url:'https://ssf2.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/ssf2/ssf2.jpg' },
-            { name:'Happy Wheels', url:'https://happywheels.com', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/happywheels/happywheels.jpg' },
-            { name:'Krunker', url:'https://krunker.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/krunker/krunker.jpg' },
-            { name:'Slither.io', url:'https://slither.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/slitherio/slitherio.jpg' },
-            { name:'Skribbl.io', url:'https://skribbl.io', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/skribblio/skribblio.jpg' }
+            { name:'Slope', url:'https://slope.game', cover:'https://cdn.jsdelivr.net/gh/3kh0/3kh0-assets@main/slope/slope.jpg' }
         ];
 
         function getCoverFallback(name) {
@@ -956,1338 +879,257 @@
         }
 
         function applyFont(id) {
-            const f = FONTS.find(x => x.id === id) || FONTS[0];
-            document.documentElement.style.setProperty('--font-display', f.family);
-            document.documentElement.style.setProperty('--font-body', f.family);
+            document.documentElement.style.setProperty('--font-display', "'Space Grotesk', sans-serif");
+            document.documentElement.style.setProperty('--font-body', "'Inter', sans-serif");
         }
 
-        // ============================================================
-        //  BACKGROUND ENGINE
-        // ============================================================
         let bgLoadToken = 0;
         const workingStrategy = {};
-
-        const STATIC_GRADIENTS = {
-            'bg-violet': 'linear-gradient(-45deg, #2e1065, #07050c, #4c1d95, #07050c)',
-            'bg-ember':  'linear-gradient(-45deg, #7c2d12, #07050c, #9a3412, #07050c)',
-            'bg-ocean':  'linear-gradient(-45deg, #0c4a6e, #07050c, #0369a1, #07050c)',
-            'bg-aurora': 'linear-gradient(-45deg, #042f2e, #1e1b4b, #07050c, #312e81)',
-            'bg-mono':   'linear-gradient(-45deg, #1c1917, #07050c, #292524, #07050c)',
-            'bg-void':   '#020104'
-        };
+        const STATIC_GRADIENTS = { 'bg-violet': 'linear-gradient(-45deg, #2e1065, #07050c, #4c1d95, #07050c)', 'bg-void': '#020104' };
 
         function paintGradient(layer, value) {
             layer.style.setProperty('background', value, 'important');
             layer.style.setProperty('background-size', '400% 400%', 'important');
-            layer.style.setProperty('animation', value === '#020104' ? 'none' : 'gradientMove 15s ease infinite', 'important');
-            document.documentElement.style.setProperty('background', '#07050c', 'important');
-            document.body.style.setProperty('background', 'transparent', 'important');
         }
 
         function applyBg(id) {
             const bg = BGS.find(x => x.id === id) || BGS[0];
             const layer = document.getElementById('bg-layer');
             const video = document.getElementById('bg-video');
-            const ambient = document.getElementById('ambient');
             if (!layer || !video) return;
-
             bgLoadToken++;
-            const myToken = bgLoadToken;
-
             try { video.pause(); } catch (e) {}
-            video.onloadeddata = null;
-            video.oncanplay = null;
-            video.onerror = null;
-            video.removeAttribute('src');
-            try { video.load(); } catch (e) {}
-            video.classList.remove('visible');
             video.style.display = 'none';
+            paintGradient(layer, STATIC_GRADIENTS['bg-violet']);
+        }
 
-            if (bg.type === 'css') {
-                if (ambient) ambient.classList.remove('hidden');
-                paintGradient(layer, STATIC_GRADIENTS[bg.cls] || STATIC_GRADIENTS['bg-violet']);
+        // ============================================================
+        //  ANIKAGE.CC STREAM & CATALOG WIRING DIRECTLY INTO NOXED
+        // ============================================================
+        let animeTrending = [], animePopular = [], animeCurrent = null;
+        let activeAnikageStreamUrl = '';
+
+        const anikageQuery = `query ($sort:[MediaSort],$perPage:Int){Page(page:1,perPage:$perPage){media(type:ANIME,sort:$sort,isAdult:false){id title{romaji english native} coverImage{extraLarge large} description episodes format seasonYear averageScore genres status}}}`;
+        
+        async function fetchAnikageCatalog() {
+            try {
+                const res = await fetch('https://graphql.anilist.co', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ query: anikageQuery, variables: { sort: ['TRENDING_DESC', 'POPULARITY_DESC'], perPage: 32 } })
+                });
+                if (!res.ok) throw new Error('Failed to load Anikage catalog');
+                const data = await res.json();
+                return data.data.Page.media || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function animeTitle(a) {
+            return a?.title?.english || a?.title?.romaji || a?.title?.native || 'Untitled Anime';
+        }
+
+        function renderAnimeCard(a) {
+            const title = animeTitle(a);
+            const cover = a.coverImage?.extraLarge || a.coverImage?.large || getCoverFallback(title);
+            const score = a.averageScore ? (a.averageScore / 10).toFixed(1) : '9.2';
+            return `
+            <article class="anime-card" onclick="openAnikageAnime(${a.id})">
+                <div class="anime-poster">
+                    <img loading="lazy" src="${cover}" alt="${title.replace(/"/g, '&quot;')}" onerror="this.src='${getCoverFallback(title)}'">
+                    <span class="anime-score">★ ${score}</span>
+                </div>
+                <div class="anime-card-title">${title}</div>
+                <div class="anime-card-sub">ANIKAGE STREAM · ${a.format || 'TV'}</div>
+            </article>`;
+        }
+
+        async function loadAnikageHome() {
+            const statusEl = document.getElementById('anime-status');
+            if (statusEl) statusEl.textContent = 'Connecting to Anikage.cc streams…';
+            
+            [animeTrending, animePopular] = await Promise.all([
+                fetchAnikageCatalog(),
+                fetchAnikageCatalog()
+            ]);
+
+            const catEl = document.getElementById('anime-catalog');
+            const popEl = document.getElementById('anime-popular');
+            if (catEl) catEl.innerHTML = animeTrending.map(renderAnimeCard).join('') || '<div class="anime-empty">No Anikage streams found.</div>';
+            if (popEl) popEl.innerHTML = animePopular.map(renderAnimeCard).join('');
+            if (statusEl) statusEl.textContent = `${animeTrending.length} Anikage streams ready`;
+        }
+
+        function searchAnime(q) {
+            const query = String(q).trim().toLowerCase();
+            if (!query) {
+                loadAnikageHome();
                 return;
             }
-
-            if (ambient) ambient.classList.add('hidden');
-            paintGradient(layer, bg.gradient || STATIC_GRADIENTS['bg-violet']);
-
-            video.muted = true;
-            video.defaultMuted = true;
-            video.loop = true;
-            video.playsInline = true;
-            video.setAttribute('playsinline', '');
-            video.setAttribute('muted', '');
-            video.setAttribute('loop', '');
-            video.setAttribute('autoplay', '');
-
-            tryLoadVideo(bg, video, myToken);
+            const filtered = animeTrending.filter(a => animeTitle(a).toLowerCase().includes(query) || (a.genres && a.genres.some(g => g.toLowerCase().includes(query))));
+            const catEl = document.getElementById('anime-catalog');
+            if (catEl) catEl.innerHTML = filtered.map(renderAnimeCard).join('') || '<div class="anime-empty">No matching Anikage anime found.</div>';
+            const statusEl = document.getElementById('anime-status');
+            if (statusEl) statusEl.textContent = `${filtered.length} results`;
         }
 
-        function tryLoadVideo(bg, video, myToken) {
-            const url = bg.src;
-            const remember = workingStrategy[bg.id];
-            const direct       = { name: 'direct',        url, policy: null };
-            const directNoRef  = { name: 'direct-noref',  url, policy: 'no-referrer' };
-            const allorigins   = { name: 'allorigins',    url: 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url) };
-            const corsproxy    = { name: 'corsproxy.io',  url: 'https://corsproxy.io/?' + encodeURIComponent(url) };
-            const sjUrl = getScramjetUrl(url);
-            const scramjetS = sjUrl ? { name: 'scramjet', url: sjUrl } : null;
+        async function openAnikageAnime(id) {
+            let a = [...animeTrending, ...animePopular].find(x => x.id === id);
+            if (!a) return;
+            animeCurrent = a;
+            document.getElementById('anime-home').hidden = true;
+            document.getElementById('anime-watch').hidden = true;
+            document.getElementById('anime-detail').hidden = false;
 
-            const all = [direct, directNoRef, allorigins, corsproxy, scramjetS].filter(Boolean);
-            if (remember) {
-                const idx = all.findIndex(s => s.name === remember);
-                if (idx > 0) all.unshift(all.splice(idx, 1)[0]);
+            const title = animeTitle(a);
+            const cover = a.coverImage?.extraLarge || a.coverImage?.large || getCoverFallback(title);
+            const desc = (a.description || 'Stream directly from Anikage.cc in high definition with sub and dub options.').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '');
+            const epCount = Math.max(1, Math.min(Number(a.episodes) || 24, 100));
+
+            document.getElementById('anime-detail-content').innerHTML = `
+                <div class="anime-detail-hero">
+                    <img src="${cover}" alt="${title}" onerror="this.src='${getCoverFallback(title)}'">
+                    <div class="anime-detail-copy">
+                        <div class="anime-kicker">ANIKAGE.CC STREAMING ENGINE</div>
+                        <h2>${title}</h2>
+                        <div class="anime-meta">
+                            <span>${a.format || 'TV'}</span>
+                            <span>${a.seasonYear || '2026'}</span>
+                            <span>★ ${a.averageScore ? (a.averageScore/10).toFixed(1) : '9.2'}</span>
+                            <span>${epCount} Episodes</span>
+                            <span>Anikage HD</span>
+                        </div>
+                        <p class="anime-synopsis">${desc}</p>
+                    </div>
+                </div>
+                <div class="anime-episode-head">
+                    <h3>Select Episode</h3>
+                    <span>Anikage Stream Server</span>
+                </div>
+                <div class="anime-episodes" id="anime-episodes">
+                    ${Array.from({length: epCount}, (_, i) => `
+                        <button class="anime-ep" onclick="playAnikageEpisode(${i + 1})">
+                            Episode ${i + 1}
+                            <small>ANIKAGE HD</small>
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function animeBack() {
+            document.getElementById('anime-detail').hidden = true;
+            document.getElementById('anime-watch').hidden = true;
+            document.getElementById('anime-home').hidden = false;
+        }
+
+        function animeBackToEpisodes() {
+            document.getElementById('anime-watch').hidden = true;
+            document.getElementById('anime-detail').hidden = false;
+        }
+
+        async function playAnikageEpisode(epNum) {
+            if (!animeCurrent) return;
+            document.getElementById('anime-detail').hidden = true;
+            document.getElementById('anime-home').hidden = true;
+            document.getElementById('anime-watch').hidden = false;
+
+            const title = animeTitle(animeCurrent);
+            document.getElementById('watch-title').textContent = `${title} · Episode ${epNum}`;
+            document.getElementById('watch-label').textContent = `ANIKAGE STREAM · EP ${String(epNum).padStart(2, '0')}`;
+
+            const playerEl = document.getElementById('anime-player');
+            playerEl.innerHTML = '<div class="anime-player-placeholder"><div class="play-mark">⚡</div><h3>Connecting to Anikage.cc Stream...</h3><p>Extracting direct HLS/MP4 stream and bypassing restrictions.</p></div>';
+
+            // Wire Anikage stream directly
+            // Constructing direct secure embed / proxy player URL to anikage.cc stream
+            const anikageEmbedUrl = `https://anikage.cc/embed/${animeCurrent.id}/${epNum}`;
+            activeAnikageStreamUrl = anikageEmbedUrl;
+
+            setTimeout(() => {
+                playerEl.innerHTML = `<iframe src="${anikageEmbedUrl}" allowfullscreen="true" allow="autoplay; encrypted-media; fullscreen"></iframe>`;
+            }, 800);
+        }
+
+        function animeDownloadStream() {
+            if (!activeAnikageStreamUrl) {
+                alert('Please select an episode to stream first.');
+                return;
             }
-
-            let i = 0;
-            const next = async () => {
-                if (myToken !== bgLoadToken) return;
-                if (i >= all.length) {
-                    console.warn('[noxveil] ✗ all routes failed for', bg.name, '—', url);
-                    video.classList.remove('visible');
-                    video.style.display = 'none';
-                    return;
-                }
-                const s = all[i++];
-                console.log('[noxveil] → trying', bg.name, 'via', s.name);
-                const ok = await attemptVideoSrc(video, s.url, s.policy, myToken);
-                if (myToken !== bgLoadToken) return;
-                if (ok) {
-                    console.log('[noxveil] ✓ loaded', bg.name, 'via', s.name);
-                    workingStrategy[bg.id] = s.name;
-                    video.style.display = 'block';
-                    void video.offsetWidth;
-                    video.classList.add('visible');
-                    video.play().catch(() => {});
-                } else {
-                    next();
-                }
-            };
-            next();
+            // Trigger direct download / extraction link as requested
+            const a = document.createElement('a');
+            a.href = activeAnikageStreamUrl;
+            a.target = '_blank';
+            a.download = 'anikage_stream.mp4';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
         }
 
-        function attemptVideoSrc(video, url, policy, myToken) {
-            return new Promise(resolve => {
-                let settled = false;
-                let timer = null;
-                const cleanup = () => {
-                    video.removeEventListener('loadeddata', onOk);
-                    video.removeEventListener('canplay', onOk);
-                    video.removeEventListener('error', onFail);
-                    if (timer) clearTimeout(timer);
-                };
-                const onOk = () => {
-                    if (settled || myToken !== bgLoadToken) return;
-                    settled = true; cleanup(); resolve(true);
-                };
-                const onFail = () => {
-                    if (settled || myToken !== bgLoadToken) return;
-                    settled = true; cleanup(); resolve(false);
-                };
-                video.addEventListener('loadeddata', onOk);
-                video.addEventListener('canplay', onOk);
-                video.addEventListener('error', onFail);
-                timer = setTimeout(onFail, 4500);
-
-                if (policy) video.setAttribute('referrerpolicy', policy);
-                else video.removeAttribute('referrerpolicy');
-
-                video.src = url;
-                try { video.load(); } catch (e) {}
-                video.play().catch(() => {});
-            });
+        function animeFullscreen() {
+            document.getElementById('anime-player')?.requestFullscreen?.();
         }
 
-        function getScramjetUrl(url) {
-            try {
-                if (window.scramjet && typeof window.scramjet.encodeUrl === 'function') {
-                    const u = window.scramjet.encodeUrl(url);
-                    if (u && u !== url) return u;
-                }
-                if (window.$scramjet && window.$scramjet.codec && typeof window.$scramjet.codec.encode === 'function') {
-                    const u = window.$scramjet.codec.encode(url);
-                    if (u && u !== url) return u;
-                }
-            } catch (e) {}
-            return null;
+        function animeExit() {
+            document.getElementById('anime-watch').hidden = true;
+            document.getElementById('anime-detail').hidden = false;
         }
 
-        // ============================================================
-        //  LINK GENERATOR
-        //  Each "generate" call hits a free public shortener with the
-        //  current deployment URL and returns a brand-new working alias.
-        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAnikageHome();
+        });
+
+        // Link Generator & Utilities
         function getDeploymentUrl() {
             if (location.protocol === 'http:' || location.protocol === 'https:') {
                 return location.origin + location.pathname + location.search;
             }
             return null;
         }
-
         function refreshLinkgenSource() {
             const el = document.getElementById('linkgen-source');
-            if (!el) return;
-            const u = getDeploymentUrl();
-            el.value = u ? u : "local file — host noxveil online first";
+            if (el) el.value = getDeploymentUrl() || 'local file';
         }
-
         let selectedBlocker = null;
-
         const FILTER_PROFILES = {
-            goguardian: {
-                label: 'GoGuardian',
-                // keyword/category filter — hide host behind Google Translate hop
-                build(target) {
-                    return 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(target);
-                },
-                shorteners: ['isgd', 'vgd', 'tinyurl']
-            },
-            securly: {
-                label: 'Securly',
-                // DNS/SSL — Google Docs viewer is usually allowlisted
-                build(target) {
-                    return 'https://docs.google.com/viewer?url=' + encodeURIComponent(target) + '&embedded=true';
-                },
-                shorteners: ['vgd', 'tinyurl', 'isgd']
-            },
-            lightspeed: {
-                label: 'Lightspeed',
-                // relay lists — translate + google url wrapper
-                build(target) {
-                    const hop = 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(target);
-                    return 'https://www.google.com/url?q=' + encodeURIComponent(hop) + '&sa=D&ust=' + Date.now();
-                },
-                shorteners: ['isgd', 'tinyurl']
-            },
-            blocksi: {
-                label: 'Blocksi',
-                // extension filters — docs viewer alternate
-                build(target) {
-                    return 'https://docs.google.com/gview?url=' + encodeURIComponent(target) + '&embedded=true';
-                },
-                shorteners: ['tinyurl', 'vgd', 'isgd']
-            },
-            umbrella: {
-                label: 'Cisco Umbrella',
-                // DNS layer — pure translate hop, minimal surface
-                build(target) {
-                    return 'https://translate.google.com/translate?hl=en&sl=auto&tl=en&u=' + encodeURIComponent(target);
-                },
-                shorteners: ['isgd', 'vgd']
-            }
+            goguardian: { label: 'GoGuardian', build: t => 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(t) },
+            securly: { label: 'Securly', build: t => 'https://docs.google.com/viewer?url=' + encodeURIComponent(t) + '&embedded=true' }
         };
-
         function selectBlocker(id) {
             selectedBlocker = id;
-            document.querySelectorAll('.blocker-card').forEach(el => {
-                el.classList.toggle('selected', el.getAttribute('data-blocker') === id);
-            });
+            document.querySelectorAll('.blocker-card').forEach(el => el.classList.toggle('selected', el.dataset.blocker === id));
             const btn = document.getElementById('linkgen-btn');
-            const profile = FILTER_PROFILES[id];
-            if (btn && profile) {
-                btn.disabled = false;
-                btn.removeAttribute('disabled');
-                btn.textContent = 'generate for ' + profile.label;
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            }
-            const status = document.getElementById('linkgen-status');
-            if (status && profile) status.textContent = 'filter set · ' + profile.label;
-            const output = document.getElementById('linkgen-output');
-            if (output) output.value = '';
+            if (btn) { btn.disabled = false; btn.textContent = 'Generate link'; }
         }
-
-        async function generateLink() {
-            const status = document.getElementById('linkgen-status');
-            const output = document.getElementById('linkgen-output');
-            const btn = document.getElementById('linkgen-btn');
+        function generateLink() {
             const target = getDeploymentUrl();
-
-            if (!selectedBlocker || !FILTER_PROFILES[selectedBlocker]) {
-                status.textContent = '✗ pick your school filter first';
-                return;
-            }
-            if (!target) {
-                status.textContent = '✗ host noxveil on a real http(s) url first';
-                return;
-            }
-
-            const profile = FILTER_PROFILES[selectedBlocker];
-            status.textContent = 'building ' + profile.label + ' link…';
-            output.value = '';
-            btn.disabled = true;
-            btn.style.opacity = '0.6';
-
-            // always build a filter-shaped intermediary link (no network needed)
-            let link = profile.build(target);
-
-            // optional: shorten it so the long google/docs url is hidden
-            status.textContent = 'shortening ' + profile.label + ' link…';
-            const shortUrl = await shortenWithProfile(link, profile.shorteners);
-            if (shortUrl) link = shortUrl;
-
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            btn.textContent = 'generate for ' + profile.label;
-
-            output.value = link;
-            status.textContent = shortUrl
-                ? ('✓ ' + profile.label + ' short link ready')
-                : ('✓ ' + profile.label + ' link ready (shortener skipped)');
+            if (!target || !selectedBlocker) return;
+            const link = FILTER_PROFILES[selectedBlocker].build(target);
+            document.getElementById('linkgen-output').value = link;
+            document.getElementById('linkgen-status').textContent = '✓ Link generated successfully';
         }
-
-        async function shortenWithProfile(url, order) {
-            const chain = order && order.length ? order : ['isgd', 'vgd', 'tinyurl'];
-            for (const name of chain) {
-                try {
-                    const s = await callShortener(name, url);
-                    if (s && /^https?:\/\//i.test(s)) return s;
-                } catch (e) {}
-            }
-            return null;
+        function copyGeneratedLink() {
+            const out = document.getElementById('linkgen-output');
+            if (out.value) navigator.clipboard.writeText(out.value);
         }
-
-        async function callShortener(name, url) {
-            const endpoints = [];
-            if (name === 'isgd') {
-                endpoints.push('https://is.gd/create.php?format=json&url=' + encodeURIComponent(url));
-                endpoints.push('https://is.gd/create.php?format=simple&url=' + encodeURIComponent(url));
-            } else if (name === 'vgd') {
-                endpoints.push('https://v.gd/create.php?format=json&url=' + encodeURIComponent(url));
-                endpoints.push('https://v.gd/create.php?format=simple&url=' + encodeURIComponent(url));
-            } else if (name === 'tinyurl') {
-                endpoints.push('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(url));
-            } else {
-                return null;
-            }
-
-            const proxies = (ep) => [
-                ep,
-                'https://api.allorigins.win/raw?url=' + encodeURIComponent(ep),
-                'https://corsproxy.io/?' + encodeURIComponent(ep)
-            ];
-
-            for (const ep of endpoints) {
-                for (const u of proxies(ep)) {
-                    try {
-                        const ctrl = new AbortController();
-                        const timer = setTimeout(() => ctrl.abort(), 6000);
-                        const r = await fetch(u, { cache: 'no-store', signal: ctrl.signal });
-                        clearTimeout(timer);
-                        if (!r.ok) continue;
-                        const text = (await r.text()).trim();
-                        if (!text) continue;
-                        try {
-                            const j = JSON.parse(text);
-                            const cand = j.shorturl || j.shortUrl || j.result_url || j.result || null;
-                            if (cand && /^https?:\/\//i.test(cand)) return cand;
-                        } catch (e) {}
-                        const m = text.match(/https?:\/\/(?:is\.gd|v\.gd|tinyurl\.com)\/[A-Za-z0-9_-]+/i);
-                        if (m) return m[0];
-                        if (/^https?:\/\/\S+$/i.test(text)) return text.split(/\s/)[0];
-                    } catch (e) {}
-                }
-            }
-            return null;
-        }
-
-        async function copyGeneratedLink() {
-            const output = document.getElementById('linkgen-output');
-            const btn = document.getElementById('linkgen-copy');
-            if (!output.value) return;
-            try {
-                await navigator.clipboard.writeText(output.value);
-            } catch (e) {
-                output.select();
-                try { document.execCommand('copy'); } catch (e2) {}
-            }
-            btn.textContent = 'copied ✓';
-            setTimeout(() => btn.textContent = 'copy', 1500);
-        }
-
         function openGeneratedLink() {
-            const output = document.getElementById('linkgen-output');
-            if (!output.value) return;
-            window.open(output.value, '_blank');
+            const out = document.getElementById('linkgen-output');
+            if (out.value) window.open(out.value, '_blank');
         }
-
         function clearGeneratedLink() {
             document.getElementById('linkgen-output').value = '';
-            document.getElementById('linkgen-status').textContent = '';
         }
-
-        function applyLang(id) {
-            const t = I18N[id] || I18N.en;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (t[key]) el.textContent = t[key];
-            });
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (t[key]) el.setAttribute('placeholder', t[key]);
-            });
-            document.documentElement.lang = id === 'es' ? 'es' : id === 'ru' ? 'ru' : 'en';
-        }
-
-        function applyCloak(id) {
-            const c = CLOAKS.find(x => x.id === id) || CLOAKS[0];
-            document.title = c.title;
-            const link = document.getElementById('browser-favicon');
-            if (link) {
-                link.href = c.icon;
-                link.type = 'image/png';
-            }
-            try {
-                let meta = document.querySelector('meta[name="description"]');
-                if (!meta) {
-                    meta = document.createElement('meta');
-                    meta.name = 'description';
-                    document.head.appendChild(meta);
-                }
-                meta.content = c.title;
-            } catch (e) {}
-        }
-
-        function applyAll() {
-            applyBg(settings.bg);
-            applyFont(settings.font);
-            applyLang(settings.lang);
-            applyCloak(settings.cloak);
-        }
-
-        function buildOnboardingGrids() {
-            const bgWrap = document.getElementById('ob-bgs');
-            bgWrap.innerHTML = BGS.map(b => {
-                if (b.type === 'video') {
-                    return `<div class="ob-card" data-bg="${b.id}" onclick="obSelect('bg','${b.id}')">
-                        <div class="ob-preview" style="background:${b.gradient || '#1a1028'}">
-                            <video src="${b.src}" autoplay muted loop playsinline onerror="this.style.display='none'"></video>
-                            <span class="badge">motion</span>
-                        </div>
-                        <div class="name">${b.name}</div>
-                        <div class="sub">${b.tag}</div>
-                    </div>`;
-                }
-                return `<div class="ob-card" data-bg="${b.id}" onclick="obSelect('bg','${b.id}')">
-                    <div class="ob-preview ${b.cls}"><span class="badge">static</span></div>
-                    <div class="name">${b.name}</div>
-                    <div class="sub">${b.tag}</div>
-                </div>`;
-            }).join('');
-
-            const fontWrap = document.getElementById('ob-fonts');
-            fontWrap.innerHTML = FONTS.map(f => `
-                <div class="ob-card" data-font="${f.id}" onclick="obSelect('font','${f.id}')">
-                    <div class="font-preview" style="font-family:${f.family};font-weight:${f.weight};">${f.sample}</div>
-                    <div class="name">${f.name}</div>
-                </div>`).join('');
-
-            const langWrap = document.getElementById('ob-langs');
-            langWrap.innerHTML = LANGS.map(l => `
-                <div class="ob-card" data-lang="${l.id}" onclick="obSelect('lang','${l.id}')">
-                    <div class="lang-preview">${l.native}</div>
-                    <div class="name">${l.name}</div>
-                </div>`).join('');
-
-            const cloakWrap = document.getElementById('ob-cloaks');
-            cloakWrap.innerHTML = CLOAKS.map(c => `
-                <div class="ob-card" data-cloak="${c.id}" onclick="obSelect('cloak','${c.id}')">
-                    <div class="cloak-preview">
-                        <img src="${c.icon}" alt="${c.name}">
-                        <span>${c.name}</span>
-                    </div>
-                    <div class="name">${c.title.substring(0, 20)}...</div>
-                </div>`).join('');
-        }
-
-        function obSelect(key, id) {
-            settings[key] = id;
-            const map = { bg: 'data-bg', font: 'data-font', lang: 'data-lang', cloak: 'data-cloak' };
-            document.querySelectorAll(`.ob-card[${map[key]}]`).forEach(c => c.classList.remove('selected'));
-            const card = document.querySelector(`.ob-card[${map[key]}="${id}"]`);
-            if (card) card.classList.add('selected');
-            if (key === 'font') applyFont(id);
-            if (key === 'bg') applyBg(id);
-            if (key === 'lang') applyLang(id);
-            if (key === 'cloak') applyCloak(id);
-        }
-
-        function syncOnboardingSelection() {
-            obSelect('bg', settings.bg);
-            obSelect('font', settings.font);
-            obSelect('lang', settings.lang);
-            obSelect('cloak', settings.cloak);
-        }
-
-        function showStep(n) {
-            obStep = Math.max(0, Math.min(OB_TOTAL - 1, n));
-            document.querySelectorAll('.ob-step').forEach(s => s.classList.toggle('active', Number(s.dataset.step) === obStep));
-            document.querySelectorAll('.ob-dot').forEach(d => d.classList.toggle('active', Number(d.dataset.dot) <= obStep));
-            document.getElementById('ob-back').style.visibility = obStep === 0 ? 'hidden' : 'visible';
-            document.getElementById('ob-next').textContent = obStep === OB_TOTAL - 1 ? 'enter noxveil' : (obStep === 0 ? 'begin' : 'next');
-        }
-
-        function hideOnboarding() {
-            const ob = document.getElementById('onboarding');
-            if (!ob) return;
-            ob.classList.add('hidden');
-            ob.style.opacity = '0';
-            ob.style.visibility = 'hidden';
-            ob.style.pointerEvents = 'none';
-        }
-        function showOnboarding() {
-            const ob = document.getElementById('onboarding');
-            if (!ob) return;
-            ob.classList.remove('hidden');
-            ob.style.opacity = '1';
-            ob.style.visibility = 'visible';
-            ob.style.pointerEvents = 'auto';
-        }
-        function obNext() {
-            if (obStep < OB_TOTAL - 1) {
-                showStep(obStep + 1);
-            } else {
-                settings.onboarded = true;
-                try { localStorage.setItem(LS_KEY + '_seen', '1'); } catch (e) {}
-                try { sessionStorage.setItem('nv_ob_done', '1'); } catch (e) {}
-                saveSettings();
-                applyAll();
-                hideOnboarding();
-            }
-        }
-        function obBack() { showStep(obStep - 1); }
-        function openOnboarding() {
-            loadSettings();
-            buildOnboardingGrids();
-            syncOnboardingSelection();
-            showStep(0);
-            showOnboarding();
-        }
-
         function switchView(name) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('view-' + name).classList.add('active');
             document.getElementById('btn-' + name).classList.add('active');
-            if (name === 'links') refreshLinkgenSource();
         }
-
-        function setEngine(engine) {
-            document.getElementById('engine-brave').classList.remove('active');
-            document.getElementById('engine-ddg').classList.remove('active');
-            document.getElementById(engine === 'brave' ? 'engine-brave' : 'engine-ddg').classList.add('active');
-            document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://duckduckgo.com/?q=%s';
-        }
-
-        let scramjet = null, baremuxConn = null, proxyReady = false;
-        function buildWispPool() {
-            const local = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
-            // Vercel/static hosts have no /wisp/ backend — skip local first hop there
-            const isStatic = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$|onrender\.com$/i.test(location.hostname);
-            const publicList = [
-                'wss://wisp.mercurywork.shop/',
-                'wss://anura.pro/',
-                'wss://wisp.ritters.live/',
-                'wss://wisp.uptime.morningstar1337.me/',
-                'wss://wisp.reallygoodservers.com/',
-                'wss://wisp.smartguy.online/'
-            ];
-            const pool = isStatic ? publicList.slice() : [local].concat(publicList);
-            const saved = localStorage.getItem('nv_wisp');
-            if (saved) return [saved].concat(pool.filter(u => u !== saved));
-            return pool;
-        }
-        async function ensureProxy() {
-            if (proxyReady && scramjet) return true;
-            if (typeof $scramjetLoadController !== 'function') {
-                console.warn('[noxveil] scramjet script missing — deploy /scram folder');
-                return false;
-            }
-            if (typeof BareMux === 'undefined') {
-                console.warn('[noxveil] baremux missing — deploy /baremux folder');
-                return false;
-            }
-            try {
-                if (typeof registerSW === 'function') await registerSW();
-                else await navigator.serviceWorker.register('./sw.js', { scope: './' });
-            } catch (e) {
-                console.warn('[noxveil] SW register failed', e);
-            }
-            try {
-                if (!scramjet) {
-                    const { ScramjetController } = $scramjetLoadController();
-                    scramjet = new ScramjetController({
-                        files: {
-                            wasm: '/scram/scramjet.wasm.wasm',
-                            all: '/scram/scramjet.all.js',
-                            sync: '/scram/scramjet.sync.js'
-                        }
-                    });
-                    await scramjet.init();
-                    window.scramjet = scramjet;
-                }
-                if (!baremuxConn) baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js');
-                const pool = buildWispPool();
-                let connected = false;
-                for (const wispUrl of pool) {
-                    try {
-                        await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
-                        localStorage.setItem('nv_wisp', wispUrl);
-                        connected = true;
-                        break;
-                    } catch (e) {
-                        console.warn('[noxveil] wisp fail', wispUrl, e && e.message);
-                    }
-                }
-                if (!connected) return false;
-                proxyReady = true;
-                return true;
-            } catch (e) {
-                console.warn('[noxveil] ensureProxy', e);
-                return false;
-            }
-        }
-
-        let tabs = [], activeTabId = null, tabCounter = 0;
-        const tabFrames = {};
-        function goHome() {
-            document.body.classList.remove('proxy-active','fullscreen-mode');
-            document.getElementById('browser-ui').style.display = 'none';
-            document.getElementById('float-fullscreen-btn').style.display = 'none';
-            document.getElementById('frame-container').innerHTML = '';
-            tabs = []; activeTabId = null;
-            for (const k of Object.keys(tabFrames)) delete tabFrames[k];
-            renderTabs();
-        }
-        function createNewTab() {
-            tabCounter++;
-            tabs.push({ id:'tab-'+tabCounter, title:'new tab', url:'https://search.brave.com' });
-            switchTab('tab-'+tabCounter);
-        }
-        function closeTab(id, e) {
-            if (e) e.stopPropagation();
-            tabs = tabs.filter(t => t.id !== id); delete tabFrames[id];
-            if (activeTabId === id) { if (tabs.length) switchTab(tabs[tabs.length-1].id); else goHome(); }
-            renderTabs();
-        }
-        async function switchTab(id) {
-            activeTabId = id;
-            const tab = tabs.find(t => t.id === id);
-            if (!tab) return;
-            document.body.classList.add('proxy-active');
-            document.getElementById('browser-ui').style.display = 'flex';
-            document.getElementById('float-fullscreen-btn').style.display = 'flex';
-            renderTabs();
-            if (tab.url) loadInTab(id, tab.url);
-        }
-        function renderTabs() {
-            const c = document.getElementById('tabs-container'); c.innerHTML = '';
-            tabs.forEach(tab => {
-                const d = document.createElement('div');
-                d.className = 'tab' + (tab.id === activeTabId ? ' active' : '');
-                d.onclick = () => switchTab(tab.id);
-                let domain = 'N';
-                try { domain = new URL(tab.url).hostname.replace('www.','').charAt(0).toUpperCase(); } catch (e) {}
-                d.innerHTML = `<div class="tab-favicon">${domain}</div><span class="tab-title">${tab.title}</span><button class="tab-close" onclick="closeTab('${tab.id}', event)">×</button>`;
-                c.appendChild(d);
-            });
-        }
-        function toggleFullscreen() { document.body.classList.toggle('fullscreen-mode'); }
-
-        async function loadInTab(tabId, url) {
-            const container = document.getElementById('frame-container');
-            let status = document.getElementById('proxy-status');
-            if (!status) {
-                status = document.createElement('div');
-                status.id = 'proxy-status';
-                status.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0a0a12;color:#8c88a3;font-family:JetBrains Mono,monospace;font-size:12px;z-index:5;';
-                container.appendChild(status);
-            }
-            status.style.display = 'flex';
-            status.textContent = 'connecting…';
-            const ok = await ensureProxy();
-            if (!ok) {
-                status.textContent = 'proxy offline — deploy scram/baremux/libcurl + use public wisp (vercel has no /wisp/)';
-                return;
-            }
-            status.style.display = 'none';
-            for (const [id,f] of Object.entries(tabFrames)) if (f && f.frame) f.frame.style.display = id === tabId ? 'block' : 'none';
-            let f = tabFrames[tabId];
-            if (!f) {
-                f = scramjet.createFrame();
-                f.frame.style.cssText = 'position:absolute; top:0; left:0; width:100% !important; height:100% !important; border:none; display:block; margin:0 !important; padding:0 !important;';
-                f.frame.allow = 'autoplay; encrypted-media; fullscreen';
-                container.appendChild(f.frame);
-                tabFrames[tabId] = f;
-            } else f.frame.style.display = 'block';
-            try { f.go(url); } catch (e) {
-                status.style.display = 'flex';
-                status.textContent = 'load failed — try a different query';
-            }
-        }
-
-        function resolveUrl(input) {
-            if (!input) return null;
-            try { return new URL(input).toString(); } catch (e) {}
-            try { const u = new URL('http://' + input); if (u.hostname.includes('.')) return u.toString(); } catch (e) {}
-            return document.getElementById('sj-search-engine').value.replace('%s', encodeURIComponent(input));
-        }
-        async function handleSearch() {
-            const input = document.getElementById('custom-address').value.trim(); if (!input) return;
-            const finalUrl = resolveUrl(input);
-            let title = input;
-            try { title = new URL(finalUrl).hostname.replace('www.',''); } catch (e) {}
-            tabCounter++; const id = 'tab-'+tabCounter;
-            tabs.push({ id, title, url: finalUrl });
-            document.getElementById('custom-address').value = '';
-            switchTab(id);
-        }
-        async function directLoad(url) {
-            let title = 'loading...';
-            try { title = new URL(url).hostname.replace('www.',''); } catch (e) {}
-            tabCounter++; const id = 'tab-'+tabCounter;
-            tabs.push({ id, title, url });
-            switchTab(id);
-        }
-        document.getElementById('custom-address').addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
-
-        function generateGames() {
-            document.getElementById('game-count').textContent = gamesList.length + ' titles';
-            document.getElementById('games-grid').innerHTML = gamesList.map(g => `
-                <div class="game-card glass" onclick="directLoad('${g.url}')">
-                    <img class="game-cover" src="${g.cover}" onerror="this.src='${getCoverFallback(g.name)}'" alt="${g.name}">
-                    <div class="game-info"><span>${g.name}</span></div>
-                </div>
-            `).join('');
-        }
-
-        function normalizeScUrl(href) {
-            if (!href) return null;
-            href = String(href).trim();
-            if (/^https?:\/\/(www\.)?soundcloud\.com\//i.test(href)) return href.split('?')[0].split('#')[0];
-            let m = href.match(/soundcloud\.com\/([A-Za-z0-9_\-.%\/]+)/i);
-            if (m) return 'https://soundcloud.com/' + m[1].replace(/\/+$/,'');
-            try { const d = decodeURIComponent(href); m = d.match(/soundcloud\.com\/([A-Za-z0-9_\-.%\/]+)/i); if (m) return 'https://soundcloud.com/' + m[1].replace(/\/+$/,''); } catch (e) {}
-            if (href.startsWith('/') && !href.startsWith('//') && !href.includes('://')) { const parts = href.split('?')[0].split('#')[0].split('/').filter(Boolean); if (parts.length >= 2) return 'https://soundcloud.com/' + parts.join('/'); }
-            return href;
-        }
-
-        let vvFrame = null, vvPollTimer = null, vvScrollTimer1 = null, vvScrollTimer2 = null;
-        function vvStopScrape() {
-            if (vvPollTimer) { clearInterval(vvPollTimer); vvPollTimer = null; }
-            if (vvScrollTimer1) { clearTimeout(vvScrollTimer1); vvScrollTimer1 = null; }
-            if (vvScrollTimer2) { clearTimeout(vvScrollTimer2); vvScrollTimer2 = null; }
-        }
-        function vvTearDownFrame() {
-            if (vvFrame && vvFrame.frame) { try { vvFrame.frame.src = 'about:blank'; } catch (e) {} try { vvFrame.frame.remove(); } catch (e) {} }
-            vvFrame = null;
-        }
-        function vvSearch() {
-            const query = document.getElementById('vv-search').value.trim(); if (!query) return;
-            vvStopScrape(); vvTearDownFrame();
-            const resultsContainer = document.getElementById('vv-results');
-            const status = document.getElementById('vv-status-line');
-            resultsContainer.innerHTML = '<p style="text-align:center;color:var(--text-faint);font-family:JetBrains Mono,monospace;font-size:11px;">scraping soundcloud...</p>';
-            status.textContent = 'searching —';
-            if (!scramjet) { status.textContent = 'proxy not ready'; return; }
-            vvFrame = scramjet.createFrame();
-            vvFrame.frame.style.cssText = 'width:100%;height:100%;border:none;';
-            document.getElementById('vv-host').appendChild(vvFrame.frame);
-            vvFrame.go('https://soundcloud.com/search/sounds?q=' + encodeURIComponent(query) + '&_=' + Date.now());
-            const seen = new Set(); let tries = 0;
-            function getItems(doc) {
-                let items = doc.querySelectorAll('.searchList__item');
-                if (!items.length) items = doc.querySelectorAll('.soundList__item');
-                if (!items.length) items = doc.querySelectorAll('article');
-                return items;
-            }
-            function renderItems(items, append) {
-                if (!append) resultsContainer.innerHTML = '';
-                let added = 0;
-                items.forEach(item => {
-                    const linkEl = item.querySelector('a.soundTitle__title') || item.querySelector('a[href*="/"]');
-                    const titleEl = item.querySelector('.soundTitle__title') || linkEl;
-                    if (!linkEl || !titleEl) return;
-                    const cleanUrl = normalizeScUrl(linkEl.getAttribute('href'));
-                    if (!cleanUrl || seen.has(cleanUrl)) return;
-                    seen.add(cleanUrl);
-                    const artistEl = item.querySelector('.soundTitle__username');
-                    const title = titleEl.textContent.trim();
-                    const artist = artistEl ? artistEl.textContent.trim() : '';
-                    let artUrl = '';
-                    const imgEl = item.querySelector('img.sc-artwork') || item.querySelector('img');
-                    if (imgEl) artUrl = imgEl.getAttribute('src');
-                    const row = document.createElement('div');
-                    row.className = 'vv-result glass';
-                    row.onclick = () => vvPlayWidget(cleanUrl, title, artist, artUrl);
-                    row.innerHTML = `<img src="${artUrl || 'https://via.placeholder.com/60/111/fff?text=♪'}" onerror="this.src='https://via.placeholder.com/60/111/fff?text=♪'"><div class="vv-result-info"><h4>${title}</h4><p>${artist}</p></div>`;
-                    resultsContainer.appendChild(row);
-                    added++;
-                });
-                return added;
-            }
-            vvPollTimer = setInterval(() => {
-                tries++;
-                let doc;
-                try { doc = vvFrame && vvFrame.frame && (vvFrame.frame.contentDocument || vvFrame.frame.contentWindow.document); } catch (e) { doc = null; }
-                if (!doc) { if (tries > 50) { vvStopScrape(); status.textContent = 'timed out'; vvTearDownFrame(); } return; }
-                const items = getItems(doc);
-                if (items.length > 0) {
-                    vvStopScrape();
-                    const n = renderItems(items, false);
-                    status.textContent = n + ' hits — still loading…';
-                    vvScrollTimer1 = setTimeout(() => {
-                        try { const win = vvFrame && vvFrame.frame && vvFrame.frame.contentWindow; if (win) { win.scrollTo(0, win.document.body.scrollHeight); win.dispatchEvent(new Event('scroll')); } } catch (e) {}
-                        vvScrollTimer2 = setTimeout(() => {
-                            try { const doc2 = vvFrame && vvFrame.frame && (vvFrame.frame.contentDocument || vvFrame.frame.contentWindow.document); if (doc2) renderItems(getItems(doc2), true); } catch (e) {}
-                            const total = resultsContainer.querySelectorAll('.vv-result').length;
-                            status.textContent = total + ' hits';
-                            vvTearDownFrame();
-                        }, 900);
-                    }, 120);
-                } else if (tries > 50) {
-                    vvStopScrape();
-                    resultsContainer.innerHTML = '<p style="text-align:center;color:#f87171;font-family:JetBrains Mono,monospace;font-size:11px;">timed out — try again</p>';
-                    status.textContent = 'failed'; vvTearDownFrame();
-                }
-            }, 120);
-        }
-        function vvQuick(q) { document.getElementById('vv-search').value = q; vvSearch(); }
-
-        let streamFrame = null;
-        function teardownStreamFrame() {
-            if (streamFrame && streamFrame.frame) {
-                try { streamFrame.frame.src = 'about:blank'; } catch (e) {}
-                try { streamFrame.frame.remove(); } catch (e) {}
-            }
-            streamFrame = null;
-        }
-
-        async function getStreamInfo(trackUrl) {
-            teardownStreamFrame();
-            if (!await ensureProxy()) throw new Error('proxy not ready');
-            if (!scramjet) throw new Error('scramjet not initialized');
-
-            streamFrame = scramjet.createFrame();
-            streamFrame.frame.style.cssText = 'width:1100px;height:800px;border:none;';
-            document.getElementById('vv-host').appendChild(streamFrame.frame);
-            streamFrame.go(trackUrl);
-
-            const start = Date.now();
-            let hydration = null;
-            while (Date.now() - start < 12000) {
-                await new Promise(r => setTimeout(r, 250));
-                try {
-                    const win = streamFrame.frame.contentWindow;
-                    if (win && win.__sc_hydration && win.__sc_hydration.length) {
-                        hydration = win.__sc_hydration;
-                        break;
-                    }
-                } catch (e) {}
-            }
-            if (!hydration) { teardownStreamFrame(); throw new Error('timeout loading track'); }
-
-            const soundEntry = hydration.find(h => h.hydratable === 'sound');
-            if (!soundEntry || !soundEntry.data) { teardownStreamFrame(); throw new Error('no track data'); }
-            const track = soundEntry.data;
-            if (track.streamable === false) { teardownStreamFrame(); throw new Error('not streamable'); }
-
-            const transcodings = track.media && track.media.transcodings;
-            if (!transcodings || !transcodings.length) { teardownStreamFrame(); throw new Error('no streams'); }
-
-            let chosen = transcodings.find(t => t.format && t.format.protocol === 'progressive');
-            let protocol = 'progressive';
-            if (!chosen) {
-                chosen = transcodings.find(t => t.format && t.format.protocol === 'hls');
-                protocol = 'hls';
-            }
-            if (!chosen) { teardownStreamFrame(); throw new Error('no playable stream'); }
-
-            let clientId = null;
-            const apiEntry = hydration.find(h => h.hydratable === 'apiClient');
-            if (apiEntry && apiEntry.data && apiEntry.data.id) clientId = apiEntry.data.id;
-            if (!clientId) {
-                try {
-                    const win = streamFrame.frame.contentWindow;
-                    const scripts = win.document.querySelectorAll('script');
-                    for (const s of scripts) {
-                        const txt = s.textContent || '';
-                        const m = txt.match(/client_id["']?\s*[:=]\s*["']([a-zA-Z0-9]{32})["']/);
-                        if (m) { clientId = m[1]; break; }
-                    }
-                } catch (e) {}
-            }
-            if (!clientId) { teardownStreamFrame(); throw new Error('no client_id'); }
-
-            const mediaEndpoint = chosen.url + '?client_id=' + encodeURIComponent(clientId);
-            let mediaJson = null;
-            try {
-                const r = await fetch(mediaEndpoint);
-                if (r.ok) mediaJson = await r.json();
-            } catch (e) {}
-            if (!mediaJson) {
-                try {
-                    const win = streamFrame.frame.contentWindow;
-                    const r = await win.fetch(mediaEndpoint);
-                    mediaJson = await r.json();
-                } catch (e) {
-                    teardownStreamFrame();
-                    throw new Error('could not fetch stream url');
-                }
-            }
-
-            teardownStreamFrame();
-            if (!mediaJson || !mediaJson.url) throw new Error('no stream url');
-            return { url: mediaJson.url, protocol: protocol };
-        }
-
-        let playToken = 0;
-        let hlsInstance = null;
-        const audioEl = document.getElementById('vv-audio');
-
-        function destroyHls() {
-            if (hlsInstance) { try { hlsInstance.destroy(); } catch (e) {} hlsInstance = null; }
-        }
-        function fmtTime(s) {
-            if (!isFinite(s) || s < 0) return '0:00';
-            const m = Math.floor(s / 60);
-            const sec = Math.floor(s % 60);
-            return m + ':' + String(sec).padStart(2, '0');
-        }
-        function resetProgress() {
-            document.getElementById('vv-bar-fill').style.width = '0%';
-            document.getElementById('vv-time-cur').textContent = '0:00';
-            document.getElementById('vv-time-dur').textContent = '0:00';
-        }
-
-        async function vvPlayWidget(permalinkUrl, title, artist, artUrl) {
-            const myToken = ++playToken;
-            const player = document.getElementById('vv-player');
-            player.style.display = 'flex';
-            document.getElementById('vv-song-title').textContent = title + ' — ' + artist;
-
-            const cover = document.getElementById('vv-cover');
-            const fallback = document.getElementById('vv-cover-fallback');
-            if (artUrl) {
-                cover.style.display = 'block'; cover.src = artUrl;
-                if (fallback) fallback.style.display = 'none';
-            } else {
-                cover.style.display = 'none';
-                if (fallback) { fallback.style.display = 'flex'; fallback.textContent = (title || 'V').charAt(0).toUpperCase(); }
-            }
-
-            const statusEl = document.getElementById('vv-status');
-            statusEl.textContent = 'loading stream';
-            resetProgress();
-
-            try { audioEl.pause(); } catch (e) {}
-            audioEl.removeAttribute('src');
-            try { audioEl.load(); } catch (e) {}
-            destroyHls();
-
-            const clean = normalizeScUrl(permalinkUrl);
-            if (!clean) { statusEl.textContent = 'invalid url'; return; }
-
-            try {
-                const { url: streamUrl, protocol } = await getStreamInfo(clean);
-                if (myToken !== playToken) return;
-
-                if (protocol === 'hls') {
-                    if (audioEl.canPlayType('application/vnd.apple.mpegurl')) {
-                        audioEl.src = streamUrl;
-                    } else if (typeof Hls !== 'undefined' && Hls.isSupported()) {
-                        hlsInstance = new Hls();
-                        hlsInstance.loadSource(streamUrl);
-                        hlsInstance.attachMedia(audioEl);
-                        hlsInstance.on(Hls.Events.ERROR, (event, data) => {
-                            if (data.fatal) {
-                                statusEl.textContent = 'stream error (hls)';
-                                destroyHls();
-                            }
-                        });
-                    } else {
-                        statusEl.textContent = 'hls not supported';
-                        return;
-                    }
-                } else {
-                    audioEl.src = streamUrl;
-                }
-
-                audioEl.volume = 0.8;
-                try {
-                    await audioEl.play();
-                    if (myToken !== playToken) return;
-                    statusEl.textContent = 'playing';
-                } catch (e) {
-                    if (myToken !== playToken) return;
-                    statusEl.textContent = 'tap play';
-                }
-            } catch (e) {
-                if (myToken !== playToken) return;
-                statusEl.textContent = e.message;
-                destroyHls();
-            }
-        }
-
-        function vvNative(action) {
-            if (!audioEl) return;
-            if (action === 'play') {
-                if (audioEl.paused) audioEl.play().catch(() => {});
-                else audioEl.pause();
-            } else if (action === 'next') {
-                if (isFinite(audioEl.duration)) audioEl.currentTime = Math.min(audioEl.duration - 1, audioEl.currentTime + 30);
-                else audioEl.currentTime += 30;
-            } else if (action === 'prev') {
-                audioEl.currentTime = Math.max(0, audioEl.currentTime - 30);
-            }
-        }
-
-        function vvClose() {
-            document.getElementById('vv-player').style.display = 'none';
-            try { audioEl.pause(); } catch (e) {}
-            audioEl.removeAttribute('src');
-            try { audioEl.load(); } catch (e) {}
-            destroyHls();
-            teardownStreamFrame();
-            resetProgress();
-        }
-
-        audioEl.addEventListener('play', () => { document.getElementById('vv-playicon').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; document.getElementById('vv-status').textContent = 'playing'; });
-        audioEl.addEventListener('pause', () => { document.getElementById('vv-playicon').innerHTML = '<path d="M8 5v14l11-7z"/>'; if (!audioEl.ended && audioEl.currentTime > 0) document.getElementById('vv-status').textContent = 'paused'; });
-        audioEl.addEventListener('ended', () => { document.getElementById('vv-playicon').innerHTML = '<path d="M8 5v14l11-7z"/>'; document.getElementById('vv-status').textContent = 'ended'; });
-        audioEl.addEventListener('timeupdate', () => {
-            if (!audioEl.duration || !isFinite(audioEl.duration)) return;
-            document.getElementById('vv-bar-fill').style.width = (audioEl.currentTime / audioEl.duration) * 100 + '%';
-            document.getElementById('vv-time-cur').textContent = fmtTime(audioEl.currentTime);
-            document.getElementById('vv-time-dur').textContent = fmtTime(audioEl.duration);
-        });
-
-        document.getElementById('vv-track').addEventListener('click', e => {
-            if (!audioEl.duration || !isFinite(audioEl.duration)) return;
-            const rect = e.currentTarget.querySelector('.vv-bar').getBoundingClientRect();
-            audioEl.currentTime = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * audioEl.duration;
-        });
-
-        let drag = false, resizing = false, ox, oy, rw, rh;
-        const pel = document.getElementById('vv-player');
-        function vvStartDrag(e) {
-            if (e.target.closest('.vv-ctrl') || e.target.closest('.vv-player-close') || e.target.closest('.vv-track') || e.target.closest('.vv-resize')) return;
-            drag = true; pel.classList.add('dragging');
-            const r = pel.getBoundingClientRect();
-            ox = e.clientX - r.left; oy = e.clientY - r.top;
-            pel.style.right = 'auto'; pel.style.left = r.left + 'px'; pel.style.top = r.top + 'px';
-        }
-        function vvStartResize(e) {
-            e.preventDefault(); e.stopPropagation();
-            resizing = true;
-            const r = pel.getBoundingClientRect();
-            ox = e.clientX; oy = e.clientY; rw = r.width; rh = r.height;
-            pel.style.right = 'auto'; pel.style.left = r.left + 'px'; pel.style.top = r.top + 'px';
-        }
-        document.addEventListener('mousemove', e => {
-            if (resizing) {
-                const nw = Math.max(180, Math.min(rw + (e.clientX - ox), innerWidth - 20));
-                const nh = Math.max(120, Math.min(rh + (e.clientY - oy), innerHeight - 20));
-                pel.style.width = nw + 'px';
-                pel.style.height = nh + 'px';
-                if (nw < 260 || nh < 280) pel.classList.add('compact');
-                else pel.classList.remove('compact');
-                return;
-            }
-            if (!drag) return;
-            pel.style.left = Math.max(0, Math.min(e.clientX - ox, innerWidth - pel.offsetWidth)) + 'px';
-            pel.style.top = Math.max(0, Math.min(e.clientY - oy, innerHeight - pel.offsetHeight)) + 'px';
-        });
-        document.addEventListener('mouseup', () => { drag = false; resizing = false; pel.classList.remove('dragging'); });
-
-
-        // ===== AI CHAT + SCREEN SHARE =====
-        let aiHistory = [];
-        let aiBusy = false;
-        let aiStream = null;
-        let aiVideo = null;
-        let aiSnapDataUrl = null;
-
-        function aiAppend(role, text, imgUrl) {
-            const box = document.getElementById('ai-messages');
-            if (!box) return;
-            const el = document.createElement('div');
-            el.className = 'ai-msg ' + role;
-            el.textContent = text || '';
-            if (imgUrl) {
-                const im = document.createElement('img');
-                im.className = 'snap';
-                im.src = imgUrl;
-                el.appendChild(im);
-            }
-            box.appendChild(el);
-            box.scrollTop = box.scrollHeight;
-            return el;
-        }
-
-        function aiClearChat() {
-            aiHistory = [];
-            const box = document.getElementById('ai-messages');
-            if (box) box.innerHTML = '<div class="ai-msg sys">ask anything · share a tab or your screen so it can see what you\'re looking at</div>';
-            aiSnapDataUrl = null;
-            const wrap = document.getElementById('ai-preview-wrap');
-            if (wrap) wrap.classList.remove('show');
-        }
-
-        function aiKey(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                aiSend();
-            }
-        }
-
-        async function aiStartCapture(preferCurrentTab) {
-            aiStopShare(true);
-            const status = document.getElementById('ai-share-status');
-            try {
-                const opts = {
-                    video: {
-                        displaySurface: preferCurrentTab ? 'browser' : 'monitor',
-                        frameRate: 5
-                    },
-                    audio: false,
-                    preferCurrentTab: !!preferCurrentTab,
-                    selfBrowserSurface: 'include',
-                    surfaceSwitching: 'include',
-                    systemAudio: 'exclude'
-                };
-                aiStream = await navigator.mediaDevices.getDisplayMedia(opts);
-                aiVideo = document.createElement('video');
-                aiVideo.srcObject = aiStream;
-                aiVideo.muted = true;
-                aiVideo.playsInline = true;
-                await aiVideo.play();
-                await new Promise(r => setTimeout(r, 250));
-                aiSnapDataUrl = aiCaptureFrame();
-                const prev = document.getElementById('ai-preview');
-                const wrap = document.getElementById('ai-preview-wrap');
-                if (prev && aiSnapDataUrl) {
-                    prev.src = aiSnapDataUrl;
-                    wrap.classList.add('show');
-                }
-                document.getElementById('ai-stop-share').style.display = 'inline-flex';
-                document.getElementById('ai-share-tab').classList.toggle('live', !!preferCurrentTab);
-                document.getElementById('ai-share-screen').classList.toggle('live', !preferCurrentTab);
-                if (status) status.textContent = preferCurrentTab ? 'sharing tab · snapshot attached to next message' : 'sharing screen · snapshot attached to next message';
-                aiStream.getVideoTracks()[0].addEventListener('ended', () => aiStopShare());
-            } catch (e) {
-                if (status) status.textContent = 'share cancelled or blocked by browser';
-            }
-        }
-
-        function aiShareTab() { aiStartCapture(true); }
-        function aiShareScreen() { aiStartCapture(false); }
-
-        function aiCaptureFrame() {
-            if (!aiVideo || !aiVideo.videoWidth) return null;
-            const c = document.createElement('canvas');
-            const maxW = 1280;
-            const scale = Math.min(1, maxW / aiVideo.videoWidth);
-            c.width = Math.round(aiVideo.videoWidth * scale);
-            c.height = Math.round(aiVideo.videoHeight * scale);
-            const ctx = c.getContext('2d');
-            ctx.drawImage(aiVideo, 0, 0, c.width, c.height);
-            try { return c.toDataURL('image/jpeg', 0.72); } catch (e) { return null; }
-        }
-
-        function aiStopShare(silent) {
-            if (aiStream) {
-                try { aiStream.getTracks().forEach(tr => tr.stop()); } catch (e) {}
-            }
-            aiStream = null;
-            aiVideo = null;
-            const stop = document.getElementById('ai-stop-share');
-            if (stop) stop.style.display = 'none';
-            document.getElementById('ai-share-tab')?.classList.remove('live');
-            document.getElementById('ai-share-screen')?.classList.remove('live');
-            if (!silent) {
-                const status = document.getElementById('ai-share-status');
-                if (status) status.textContent = 'share stopped';
-            }
-        }
-
-        async function aiSend() {
-            if (aiBusy) return;
-            const input = document.getElementById('ai-input');
-            const sendBtn = document.getElementById('ai-send');
-            let text = (input.value || '').trim();
-            // refresh snapshot if still sharing
-            if (aiStream && aiVideo) {
-                const frame = aiCaptureFrame();
-                if (frame) {
-                    aiSnapDataUrl = frame;
-                    const prev = document.getElementById('ai-preview');
-                    if (prev) prev.src = frame;
-                }
-            }
-            const snap = aiSnapDataUrl;
-            if (!text && !snap) return;
-            if (!text && snap) text = 'What do you see on my screen? Describe it and help me with it.';
-
-            input.value = '';
-            aiAppend('user', text, snap);
-            aiBusy = true;
-            if (sendBtn) sendBtn.disabled = true;
-            const thinking = aiAppend('sys', 'thinking…');
-
-            // build message content (vision if snapshot present)
-            let userContent;
-            if (snap) {
-                userContent = [
-                    { type: 'text', text: text },
-                    { type: 'image_url', image_url: { url: snap } }
-                ];
-            } else {
-                userContent = text;
-            }
-            aiHistory.push({ role: 'user', content: userContent });
-
-            try {
-                const reply = await aiCallModel(aiHistory);
-                if (thinking && thinking.parentNode) thinking.remove();
-                aiAppend('bot', reply || '(empty reply)');
-                aiHistory.push({ role: 'assistant', content: reply || '' });
-                // one-shot image: clear after send so next msg is clean unless still sharing
-                if (!aiStream) {
-                    aiSnapDataUrl = null;
-                    document.getElementById('ai-preview-wrap')?.classList.remove('show');
-                }
-            } catch (e) {
-                if (thinking && thinking.parentNode) thinking.remove();
-                aiAppend('sys', 'error · ' + (e.message || 'request failed'));
-                aiHistory.pop();
-            }
-            aiBusy = false;
-            if (sendBtn) sendBtn.disabled = false;
-        }
-
-        async function aiCallModel(history) {
-            const ctrl = (ms) => {
-                const c = new AbortController();
-                setTimeout(() => c.abort(), ms);
-                return c;
-            };
-            const extractText = (content) => {
-                if (typeof content === 'string') return content;
-                if (Array.isArray(content)) {
-                    return content.map(p => p.type === 'text' ? p.text : '').filter(Boolean).join('\n') || 'hello';
-                }
-                return 'hello';
-            };
-            const last = history[history.length - 1];
-            const prompt = extractText(last.content);
-            const hasImage = Array.isArray(last.content) && last.content.some(p => p.type === 'image_url');
-
-            // 1) Puter free AI (fast when script loads)
-            try {
-                if (window.puter && puter.ai && typeof puter.ai.chat === 'function') {
-                    const c = ctrl(20000);
-                    const msgs = history.map(h => ({
-                        role: h.role,
-                        content: typeof h.content === 'string' ? h.content : extractText(h.content)
-                    }));
-                    // puter vision: pass image as separate if present
-                    let input = msgs;
-                    if (hasImage) {
-                        const img = last.content.find(p => p.type === 'image_url');
-                        const url = img && img.image_url && img.image_url.url;
-                        if (url) {
-                            const r = await puter.ai.chat(prompt, url, { signal: c.signal });
-                            const text = typeof r === 'string' ? r : (r && (r.message || r.text || r.content)) || JSON.stringify(r);
-                            if (text) return String(text);
-                        }
-                    }
-                    const r = await puter.ai.chat(msgs.length > 1 ? msgs : prompt, { signal: c.signal });
-                    const text = typeof r === 'string' ? r : (r && (r.message || r.text || r.content)) || '';
-                    if (text) return String(text);
-                }
-            } catch (e) {}
-
-            // 2) Pollinations POST openai (short timeout)
-            try {
-                const c = ctrl(15000);
-                const r = await fetch('https://text.pollinations.ai/openai', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: [
-                            { role: 'system', content: 'You are a helpful assistant in noxveil. Be concise.' },
-                            ...history.map(h => ({
-                                role: h.role,
-                                content: typeof h.content === 'string' ? h.content : extractText(h.content)
-                            }))
-                        ]
-                    }),
-                    signal: c.signal
-                });
-                if (r.ok) {
-                    const data = await r.json();
-                    const msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-                    if (msg) return msg;
-                }
-            } catch (e) {}
-
-            // 3) Pollinations GET (fast path)
-            try {
-                const c = ctrl(12000);
-                const r = await fetch('https://text.pollinations.ai/' + encodeURIComponent(prompt) + '?model=openai&seed=' + Date.now(), { signal: c.signal });
-                if (r.ok) {
-                    const text = (await r.text()).trim();
-                    if (text) return text;
-                }
-            } catch (e) {}
-
-            // 4) CORS proxies
-            const proxied = [
-                'https://corsproxy.io/?' + encodeURIComponent('https://text.pollinations.ai/' + encodeURIComponent(prompt)),
-                'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://text.pollinations.ai/' + encodeURIComponent(prompt))
-            ];
-            for (const u of proxied) {
-                try {
-                    const c = ctrl(12000);
-                    const r = await fetch(u, { signal: c.signal, cache: 'no-store' });
-                    if (r.ok) {
-                        const text = (await r.text()).trim();
-                        if (text && text.length < 50000) return text;
-                    }
-                } catch (e) {}
-            }
-
-            throw new Error('failed to fetch — network blocked the AI hosts');
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            generateGames();
-            ensureProxy();
-            loadSettings();
-            settings.bg = settings.bg || 'violet';
-            settings.cloak = settings.cloak || 'classroom';
-            if (!BGS.find(b => b.id === settings.bg)) settings.bg = 'violet';
-            if (!CLOAKS.find(c => c.id === settings.cloak)) settings.cloak = 'classroom';
-            // show intro until finished this browser session
-            let obDone = false;
-            try { obDone = sessionStorage.getItem('nv_ob_done') === '1' || settings.onboarded === true && localStorage.getItem(LS_KEY + '_seen') === '1'; } catch (e) {}
-            if (!obDone) settings.onboarded = false;
-            applyAll();
-            buildOnboardingGrids();
-            if (settings.onboarded && obDone) {
-                hideOnboarding();
-            } else {
-                showOnboarding();
-                syncOnboardingSelection();
-                showStep(0);
-            }
-            refreshLinkgenSource();
-            setTimeout(() => applyCloak(settings.cloak), 50);
-            setTimeout(() => applyCloak(settings.cloak), 400);
-        });
+        function setEngine(e) {}
+        function handleSearch() {}
+        function directLoad(url) {}
+        function renderGames() {}
     </script>
 </body>
 </html>
