@@ -172,24 +172,6 @@
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), inset 0 0 0 1px rgba(167,139,250,0.28), 0 6px 20px -8px rgba(167,139,250,0.5);
         }
         .side-btn svg { width: 18px; height: 18px; fill: currentColor; }
-        .side-btn .anime-mark {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            font-family: "Noto Sans JP", "Yu Gothic", sans-serif;
-            font-size: 19px;
-            line-height: 1;
-            font-weight: 700;
-            letter-spacing: 0;
-            text-transform: none;
-        }
-        #view-anime { justify-content: flex-start; padding: 48px 40px 40px 110px; }
-        .anime-search-wrap { width: 100%; max-width: 980px; margin: 4px 0 20px; }
-        .anime-search-wrap .vv-search-row { max-width: 620px; }
-        .anime-intro { width: 100%; max-width: 980px; color: var(--text-dim); font-size: 13px; line-height: 1.6; margin: 0 0 20px; }
-
         .side-divider { height: 1px; background: var(--border); margin: 4px 8px; }
 
         /* ===== MAIN ===== */
@@ -575,10 +557,6 @@
             <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
             <span>arcade</span>
         </button>
-        <button class="side-btn" id="btn-anime" onclick="switchView('anime')" aria-label="Anime">
-            <span class="anime-mark" aria-hidden="true">あ</span>
-            <span>Anime</span>
-        </button>
         <button class="side-btn" id="btn-music" onclick="switchView('music')">
             <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             <span data-i18n="nav_music">music</span>
@@ -666,28 +644,6 @@
                         <div class="arcade-desc">700+ high-quality HTML5 games across every major genre. Built for speed, accessibility, and instant play with zero configuration.</div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="view" id="view-anime">
-            <div class="section-head">
-                <h1 class="section-title">Anime</h1>
-                <span class="section-meta">discover · search · explore</span>
-            </div>
-            <p class="anime-intro">Find anime by title or jump into a popular search. Choose a title below to open its results in the Noxveil browser.</p>
-            <div class="anime-search-wrap">
-                <div class="vv-search-row">
-                    <input type="text" id="anime-search" placeholder="Search anime titles…" autocomplete="off" onkeydown="if(event.key==='Enter') animeSearch()">
-                    <button type="button" onclick="animeSearch()">search</button>
-                </div>
-            </div>
-            <div class="vv-chips">
-                <button type="button" class="vv-chip" onclick="animeSearch('Naruto')">Naruto</button>
-                <button type="button" class="vv-chip" onclick="animeSearch('One Piece')">One Piece</button>
-                <button type="button" class="vv-chip" onclick="animeSearch('Demon Slayer')">Demon Slayer</button>
-                <button type="button" class="vv-chip" onclick="animeSearch('Jujutsu Kaisen')">Jujutsu Kaisen</button>
-                <button type="button" class="vv-chip" onclick="animeSearch('My Hero Academia')">My Hero Academia</button>
-                <button type="button" class="vv-chip" onclick="animeSearch('Studio Ghibli')">Studio Ghibli</button>
             </div>
         </div>
 
@@ -1525,10 +1481,11 @@
         }
 
         let scramjet = null, baremuxConn = null, proxyReady = false;
+let proxyInitPromise = null;
         function buildWispPool() {
             const local = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
-            // Static hosts have no local Wisp backend. Render Web Services do, so keep /wisp/ enabled there.
-            const isStatic = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$/i.test(location.hostname);
+            // Vercel/static hosts have no /wisp/ backend — skip local first hop there
+            const isStatic = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$|onrender\.com$/i.test(location.hostname);
             const publicList = [
                 'wss://wisp.mercurywork.shop/',
                 'wss://anura.pro/',
@@ -1539,88 +1496,72 @@
             ];
             const pool = isStatic ? publicList.slice() : [local].concat(publicList);
             const saved = localStorage.getItem('nv_wisp');
-            // On a server-backed host, always try this site's own /wisp/ before an old saved public endpoint.
-            if (saved && !isStatic) return [local, saved].concat(pool.filter(u => u !== local && u !== saved));
             if (saved) return [saved].concat(pool.filter(u => u !== saved));
             return pool;
         }
-        let proxyInitPromise = null;
-        async function ensureProxy() {
-            if (proxyReady && scramjet && baremuxConn) return true;
-            if (proxyInitPromise) return proxyInitPromise;
-
-            proxyInitPromise = (async () => {
-                if (typeof $scramjetLoadController !== 'function') {
-                    console.warn('[noxveil] scramjet script missing — deploy /scram folder');
-                    return false;
-                }
-                if (typeof BareMux === 'undefined') {
-                    console.warn('[noxveil] baremux missing — deploy /baremux folder');
-                    return false;
-                }
-
-                try {
-                    // Do not initialize Scramjet until the service worker is active.
-                    if (typeof registerSW === 'function') {
-                        await registerSW();
-                    } else {
-                        if (!('serviceWorker' in navigator)) throw new Error('Service workers are unavailable.');
-                        await navigator.serviceWorker.register('./sw.js', { scope: './' });
-                        await navigator.serviceWorker.ready;
-                    }
-
-                    if (!scramjet) {
-                        const { ScramjetController } = $scramjetLoadController();
-                        scramjet = new ScramjetController({
-                            files: {
-                                wasm: '/scram/scramjet.wasm.wasm',
-                                all: '/scram/scramjet.all.js',
-                                sync: '/scram/scramjet.sync.js'
-                            }
-                        });
-                        await scramjet.init();
-                        window.scramjet = scramjet;
-                    }
-
-                    if (!baremuxConn) {
-                        baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js');
-                    }
-
-                    const pool = buildWispPool();
-                    let connected = false;
-                    for (const wispUrl of pool) {
-                        try {
-                            await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
-                            try { localStorage.setItem('nv_wisp', wispUrl); } catch (e) {}
-                            connected = true;
-                            break;
-                        } catch (e) {
-                            console.warn('[noxveil] wisp fail', wispUrl, e && e.message);
-                            try {
-                                if (localStorage.getItem('nv_wisp') === wispUrl) localStorage.removeItem('nv_wisp');
-                            } catch (storageError) {}
-                        }
-                    }
-
-                    if (!connected) {
-                        console.warn('[noxveil] no Wisp transport could be configured');
-                        return false;
-                    }
-                    proxyReady = true;
-                    return true;
-                } catch (e) {
-                    console.warn('[noxveil] ensureProxy', e);
-                    return false;
-                }
-            })();
-
+        async function initializeProxy() {
+            if (proxyReady && scramjet) return true;
+            if (typeof $scramjetLoadController !== 'function') {
+                console.warn('[noxveil] scramjet script missing — deploy /scram folder');
+                return false;
+            }
+            if (typeof BareMux === 'undefined') {
+                console.warn('[noxveil] baremux missing — deploy /baremux folder');
+                return false;
+            }
             try {
-                return await proxyInitPromise;
-            } finally {
-                proxyInitPromise = null;
+                if (typeof registerSW === 'function') await registerSW();
+                else await navigator.serviceWorker.register('./sw.js', { scope: './' });
+            } catch (e) {
+                console.warn('[noxveil] SW register failed', e);
+            }
+            try {
+                if (!scramjet) {
+                    const { ScramjetController } = $scramjetLoadController();
+                    scramjet = new ScramjetController({
+                        files: {
+                            wasm: '/scram/scramjet.wasm.wasm',
+                            all: '/scram/scramjet.all.js',
+                            sync: '/scram/scramjet.sync.js'
+                        }
+                    });
+                    await scramjet.init();
+                    window.scramjet = scramjet;
+                }
+                if (!baremuxConn) baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js');
+                const pool = buildWispPool();
+                let connected = false;
+                for (const wispUrl of pool) {
+                    try {
+                        await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
+                        localStorage.setItem('nv_wisp', wispUrl);
+                        connected = true;
+                        break;
+                    } catch (e) {
+                        console.warn('[noxveil] wisp fail', wispUrl, e && e.message);
+                    }
+                }
+                if (!connected) return false;
+                proxyReady = true;
+                return true;
+            } catch (e) {
+                console.warn('[noxveil] ensureProxy', e);
+                return false;
             }
         }
+function ensureProxy() {
+    if (proxyReady && scramjet) {
+        return Promise.resolve(true);
+    }
 
+    if (!proxyInitPromise) {
+        proxyInitPromise = initializeProxy().finally(() => {
+            proxyInitPromise = null;
+        });
+    }
+
+    return proxyInitPromise;
+}
         let tabs = [], activeTabId = null, tabCounter = 0;
         const tabFrames = {};
         function goHome() {
@@ -1715,17 +1656,6 @@
             document.getElementById('custom-address').value = '';
             switchTab(id);
         }
-        function animeSearch(query) {
-            const field = document.getElementById('anime-search');
-            const term = String(query || (field && field.value) || '').trim();
-            if (!term) {
-                if (field) field.focus();
-                return;
-            }
-            if (field) field.value = term;
-            directLoad('https://anilist.co/search/anime?search=' + encodeURIComponent(term));
-        }
-
         async function directLoad(url) {
             let title = 'loading...';
             try { title = new URL(url).hostname.replace('www.',''); } catch (e) {}
@@ -1766,20 +1696,14 @@
             if (vvFrame && vvFrame.frame) { try { vvFrame.frame.src = 'about:blank'; } catch (e) {} try { vvFrame.frame.remove(); } catch (e) {} }
             vvFrame = null;
         }
-        async function vvSearch() {
+        function vvSearch() {
             const query = document.getElementById('vv-search').value.trim(); if (!query) return;
             vvStopScrape(); vvTearDownFrame();
             const resultsContainer = document.getElementById('vv-results');
             const status = document.getElementById('vv-status-line');
-            resultsContainer.innerHTML = '<p style="text-align:center;color:var(--text-faint);font-family:JetBrains Mono,monospace;font-size:11px;">connecting proxy...</p>';
-            status.textContent = 'connecting —';
-            if (!await ensureProxy()) {
-                status.textContent = 'proxy connection failed';
-                resultsContainer.innerHTML = '<p style="text-align:center;color:#f87171;font-family:JetBrains Mono,monospace;font-size:11px;">proxy unavailable — try again</p>';
-                return;
-            }
             resultsContainer.innerHTML = '<p style="text-align:center;color:var(--text-faint);font-family:JetBrains Mono,monospace;font-size:11px;">scraping soundcloud...</p>';
             status.textContent = 'searching —';
+            if (!scramjet) { status.textContent = 'proxy not ready'; return; }
             vvFrame = scramjet.createFrame();
             vvFrame.frame.style.cssText = 'width:100%;height:100%;border:none;';
             document.getElementById('vv-host').appendChild(vvFrame.frame);
@@ -2362,7 +2286,9 @@
             if (!CLOAKS.find(c => c.id === settings.cloak)) settings.cloak = 'classroom';
             // show intro until finished this browser session
             let obDone = false;
-            try { obDone = sessionStorage.getItem('nv_ob_done') === '1' || settings.onboarded === true && localStorage.getItem(LS_KEY + '_seen') === '1'; } catch (e) {}
+            try {
+    obDone = sessionStorage.getItem('nv_ob_done') === '1';
+} catch (e) {}
             if (!obDone) settings.onboarded = false;
             applyAll();
             buildOnboardingGrids();
