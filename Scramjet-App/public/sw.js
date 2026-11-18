@@ -28,13 +28,22 @@ async function ensureConfig() {
 }
 
 async function handleRequest(event) {
-  if (!scramjet.route(event)) {
+  const url = new URL(event.request.url);
+
+  // Let Scramjet's own assets load without initializing the proxy.
+  if (
+    url.origin === self.location.origin &&
+    (
+      url.pathname.startsWith("/scram/") ||
+      url.pathname.startsWith("/baremux/") ||
+      url.pathname.startsWith("/libcurl/")
+    )
+  ) {
     return fetch(event.request);
   }
 
   try {
     await ensureConfig();
-    return scramjet.fetch(event);
   } catch (error) {
     console.error("Scramjet config initialization failed", error);
     return new Response(
@@ -42,6 +51,9 @@ async function handleRequest(event) {
       { status: 503 }
     );
   }
+
+  if (scramjet.route(event)) return scramjet.fetch(event);
+  return fetch(event.request);
 }
 
 self.addEventListener("install", (event) => event.waitUntil(self.skipWaiting()));
