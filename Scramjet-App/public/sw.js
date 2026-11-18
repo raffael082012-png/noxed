@@ -28,14 +28,20 @@ async function ensureConfig() {
 }
 
 async function handleRequest(event) {
+  if (!scramjet.route(event)) {
+    return fetch(event.request);
+  }
+
   try {
     await ensureConfig();
+    return scramjet.fetch(event);
   } catch (error) {
     console.error("Scramjet config initialization failed", error);
-    return new Response("Scramjet configuration could not be initialized.", { status: 503 });
+    return new Response(
+      "Scramjet configuration could not be initialized.",
+      { status: 503 }
+    );
   }
-  if (scramjet.route(event)) return scramjet.fetch(event);
-  return fetch(event.request);
 }
 
 self.addEventListener("install", (event) => event.waitUntil(self.skipWaiting()));
