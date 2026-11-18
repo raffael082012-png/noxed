@@ -30,14 +30,9 @@ async function ensureConfig() {
 async function handleRequest(event) {
   const url = new URL(event.request.url);
 
-  // Let Scramjet's own assets load without initializing the proxy.
   if (
     url.origin === self.location.origin &&
-    (
-      url.pathname.startsWith("/scram/") ||
-      url.pathname.startsWith("/baremux/") ||
-      url.pathname.startsWith("/libcurl/")
-    )
+    !url.pathname.startsWith("/scramjet/")
   ) {
     return fetch(event.request);
   }
