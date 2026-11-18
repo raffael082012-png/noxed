@@ -16,15 +16,14 @@ self.addEventListener("message", (event) => {
 async function ensureConfig() {
   if (!configLoad) {
     configLoad = (async () => {
-      // Force loadConfig() through its IndexedDB path so Scramjet's URL helpers
-      // receive the config as well as the service worker instance.
-      scramjet.config = undefined;
       await scramjet.loadConfig();
+
       if (!scramjet.config?.prefix) {
         throw new Error("Scramjet configuration is missing from IndexedDB.");
       }
     })();
   }
+
   await configLoad;
 }
 
