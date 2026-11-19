@@ -1332,31 +1332,6 @@
         }
 
         let scramjet = null, baremuxConn = null, proxyReady = false;
-        function checkWisp(wispUrl) {
-            return new Promise((resolve, reject) => {
-                let socket;
-                let settled = false;
-                const timeout = setTimeout(() => finish(new Error('Wisp connection timed out')), 5000);
-                function finish(error) {
-                    if (settled) return;
-                    settled = true;
-                    clearTimeout(timeout);
-                    if (socket) {
-                        socket.onopen = socket.onerror = socket.onclose = null;
-                        try { socket.close(); } catch (e) {}
-                    }
-                    error ? reject(error) : resolve();
-                }
-                try {
-                    socket = new WebSocket(wispUrl);
-                    socket.onopen = () => finish();
-                    socket.onerror = () => finish(new Error('Wisp WebSocket connection failed'));
-                    socket.onclose = () => finish(new Error('Wisp WebSocket closed before connecting'));
-                } catch (e) {
-                    finish(e);
-                }
-            });
-        }
         function buildWispPool() {
             const local = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
             // Vercel/static hosts have no /wisp/ backend — skip local first hop there
@@ -1408,8 +1383,6 @@
                 let connected = false;
                 for (const wispUrl of pool) {
                     try {
-                        // setTransport stores a transport; it does not prove the Wisp socket can connect.
-                        await checkWisp(wispUrl);
                         await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
                         localStorage.setItem('nv_wisp', wispUrl);
                         connected = true;
