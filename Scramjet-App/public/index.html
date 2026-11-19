@@ -1331,7 +1331,7 @@
             document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://duckduckgo.com/?q=%s';
         }
 
-        let scramjet = null, baremuxConn = null, proxyReady = false;
+        let scramjet = null, baremuxConn = null, proxyReady = false, proxyFailure = '';
         async function repairScramjetDatabase() {
             if (typeof indexedDB.databases !== 'function') return;
             const databases = await indexedDB.databases();
@@ -1403,24 +1403,25 @@
                     await scramjet.init();
                     window.scramjet = scramjet;
                 }
-                if (!baremuxConn) baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js');
+                // A versioned URL forces Chrome to start a fresh SharedWorker after
+                // earlier cached/broken BareMux workers have been left behind.
+                if (!baremuxConn) baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js?v=20261118-2');
                 const pool = buildWispPool();
-                let connected = false;
-                for (const wispUrl of pool) {
-                    try {
-                        await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
-                        localStorage.setItem('nv_wisp', wispUrl);
-                        connected = true;
-                        break;
-                    } catch (e) {
-                        console.warn('[noxveil] wisp fail', wispUrl, e && e.message);
-                    }
+                const isStaticHost = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$/i.test(location.hostname);
+                const wispUrl = isStaticHost ? pool[0] : (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
+                try {
+                    await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
+                    localStorage.setItem('nv_wisp', wispUrl);
+                } catch (e) {
+                    proxyFailure = `BareMux worker/transport failed (${wispUrl}): ${e && e.message || e || 'unknown error'}`;
+                    console.warn('[noxveil] BareMux setup failed', proxyFailure);
+                    return false;
                 }
-                if (!connected) return false;
                 proxyReady = true;
                 return true;
             } catch (e) {
                 console.warn('[noxveil] ensureProxy', e);
+                proxyFailure = e && e.message || String(e);
                 return false;
             }
         }
@@ -1484,7 +1485,7 @@
             status.textContent = 'connecting…';
             const ok = await ensureProxy();
             if (!ok) {
-                status.textContent = 'proxy offline — deploy scram/baremux/libcurl + use public wisp (vercel has no /wisp/)';
+                status.textContent = 'proxy setup failed — ' + (proxyFailure || 'service worker or transport startup');
                 return;
             }
             status.style.display = 'none';
