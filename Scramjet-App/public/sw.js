@@ -16,37 +16,29 @@ self.addEventListener("message", (event) => {
 async function ensureConfig() {
   if (!configLoad) {
     configLoad = (async () => {
+      // Force loadConfig() through its IndexedDB path so Scramjet's URL helpers
+      // receive the config as well as the service worker instance.
+      scramjet.config = undefined;
       await scramjet.loadConfig();
-
       if (!scramjet.config?.prefix) {
         throw new Error("Scramjet configuration is missing from IndexedDB.");
       }
-    })();
+    })().catch((error) => {
+      // A temporary IndexedDB startup failure must not poison this worker forever.
+      configLoad = undefined;
+      throw error;
+    });
   }
-
   await configLoad;
 }
 
 async function handleRequest(event) {
-  const url = new URL(event.request.url);
-
-  if (
-    url.origin === self.location.origin &&
-    !url.pathname.startsWith("/scramjet/")
-  ) {
-    return fetch(event.request);
-  }
-
   try {
     await ensureConfig();
   } catch (error) {
     console.error("Scramjet config initialization failed", error);
-    return new Response(
-      "Scramjet configuration could not be initialized.",
-      { status: 503 }
-    );
+    return new Response("Scramjet configuration could not be initialized.", { status: 503 });
   }
-
   if (scramjet.route(event)) return scramjet.fetch(event);
   return fetch(event.request);
 }
