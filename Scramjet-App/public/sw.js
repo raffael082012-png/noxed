@@ -3,12 +3,14 @@ importScripts("/scram/scramjet.all.js");
 const { ScramjetServiceWorker } = $scramjetLoadWorker();
 const scramjet = new ScramjetServiceWorker();
 let configLoad;
+let controllerConfigured = false;
 
 // In Scramjet v1, a loadConfig message sets config but skips the initialization
 // performed by loadConfig() when it reads the saved config from IndexedDB.
 self.addEventListener("message", (event) => {
   const data = event.data;
   if (data && typeof data === "object" && data["scramjet$type"] === "loadConfig") {
+    controllerConfigured = true;
     configLoad = undefined;
   }
 });
@@ -33,10 +35,18 @@ async function ensureConfig() {
 }
 
 async function handleRequest(event) {
+  const url = new URL(event.request.url);
+  const isScramjetRequest =
+    url.origin === self.location.origin &&
+    (url.pathname.startsWith("/scramjet/") ||
+      url.pathname.startsWith("/scram/scramjet.wasm.wasm"));
+
+  // Don't open Scramjet's IndexedDB while the ordinary app shell is still loading.
+  if (!isScramjetRequest || !controllerConfigured) return fetch(event.request);
+
   try {
     await ensureConfig();
   } catch {
-    // Let the app shell and its Scramjet assets load before controller config is ready.
     return fetch(event.request);
   }
   if (scramjet.route(event)) return scramjet.fetch(event);

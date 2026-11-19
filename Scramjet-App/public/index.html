@@ -1332,6 +1332,27 @@
         }
 
         let scramjet = null, baremuxConn = null, proxyReady = false;
+        async function repairScramjetDatabase() {
+            if (typeof indexedDB.databases !== 'function') return;
+            const databases = await indexedDB.databases();
+            if (!databases.some(db => db.name === '$scramjet')) return;
+
+            const db = await new Promise((resolve, reject) => {
+                const request = indexedDB.open('$scramjet');
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+            const missingConfigStore = !db.objectStoreNames.contains('config');
+            db.close();
+            if (!missingConfigStore) return;
+
+            await new Promise((resolve, reject) => {
+                const request = indexedDB.deleteDatabase('$scramjet');
+                request.onsuccess = resolve;
+                request.onerror = () => reject(request.error);
+                request.onblocked = () => reject(new Error('Close other Noxveil tabs, then reload.'));
+            });
+        }
         function buildWispPool() {
             const local = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
             // Vercel/static hosts have no /wisp/ backend — skip local first hop there
@@ -1362,8 +1383,12 @@
             try {
                 if (typeof registerSW === 'function') await registerSW();
                 else await navigator.serviceWorker.register('./sw.js', { scope: './' });
+                await repairScramjetDatabase();
             } catch (e) {
                 console.warn('[noxveil] SW register failed', e);
+                const status = document.getElementById('proxy-status');
+                if (status) status.textContent = 'proxy startup failed — ' + (e && e.message || 'service worker setup');
+                return false;
             }
             try {
                 if (!scramjet) {
