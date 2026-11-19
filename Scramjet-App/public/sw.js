@@ -35,9 +35,9 @@ async function ensureConfig() {
 async function handleRequest(event) {
   try {
     await ensureConfig();
-  } catch (error) {
-    console.error("Scramjet config initialization failed", error);
-    return new Response("Scramjet configuration could not be initialized.", { status: 503 });
+  } catch {
+    // Let the app shell and its Scramjet assets load before controller config is ready.
+    return fetch(event.request);
   }
   if (scramjet.route(event)) return scramjet.fetch(event);
   return fetch(event.request);
