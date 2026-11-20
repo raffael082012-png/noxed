@@ -5,7 +5,6 @@ const { ScramjetServiceWorker } = $scramjetLoadWorker();
 // constructor opens $scramjet before ScramjetController.init() creates stores.
 let scramjet;
 let configLoad;
-let controllerConfigured = false;
 
 // In Scramjet v1, a loadConfig message sets config but skips the initialization
 // performed by loadConfig() when it reads the saved config from IndexedDB.
@@ -14,7 +13,6 @@ self.addEventListener("message", (event) => {
   if (data && typeof data === "object" && data["scramjet$type"] === "loadConfig") {
     if (!scramjet) scramjet = new ScramjetServiceWorker();
     scramjet.config = data.config;
-    controllerConfigured = true;
     configLoad = Promise.resolve();
     event.source?.postMessage({
       type: "noxveil:scramjet-ready",
@@ -24,7 +22,10 @@ self.addEventListener("message", (event) => {
 });
 
 async function ensureConfig() {
-  if (!scramjet) throw new Error("Scramjet has not received controller configuration.");
+  // Service workers are restarted at any time. Recreate the service-worker
+  // object and load the persisted controller config instead of relying on an
+  // in-memory flag/message from a previous worker lifetime.
+  if (!scramjet) scramjet = new ScramjetServiceWorker();
   if (scramjet.config?.prefix) return;
   if (!configLoad) {
     configLoad = (async () => {
@@ -49,7 +50,7 @@ async function handleRequest(event) {
       url.pathname.startsWith("/scram/scramjet.wasm.wasm"));
 
   // Don't open Scramjet's IndexedDB while the ordinary app shell is still loading.
-  if (!isScramjetRequest || !controllerConfigured) return fetch(event.request);
+  if (!isScramjetRequest) return fetch(event.request);
 
   try {
     await ensureConfig();
