@@ -9,7 +9,6 @@ async function registerSW() {
     scope: "/",
     updateViaCache: "none",
   });
-  await registration.update().catch(() => {});
   await navigator.serviceWorker.ready;
 
   const installing = registration.installing || registration.waiting;
@@ -31,17 +30,17 @@ async function registerSW() {
     });
   }
 
-  if (
-    !navigator.serviceWorker.controller ||
-    (registration.active && navigator.serviceWorker.controller !== registration.active)
-  ) {
+  // A page may still be controlled by the previous active worker while an
+  // update activates. Any controller for this root scope can serve Scramjet;
+  // requiring object identity with registration.active can time out in Chrome.
+  if (!navigator.serviceWorker.controller) {
     await new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
         reject(new Error("Service worker did not take control."));
       }, 10000);
       function onControllerChange() {
-        if (!registration.active || navigator.serviceWorker.controller === registration.active) {
+        if (navigator.serviceWorker.controller) {
           clearTimeout(timeout);
           navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
           resolve();
