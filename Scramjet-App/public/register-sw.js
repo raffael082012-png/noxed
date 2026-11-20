@@ -8,7 +8,7 @@ async function registerSW() {
   // Change the script URL when shipping a worker fix so browsers with a stale
   // active worker install this build instead of continuing to control with it.
   const registration = await navigator.serviceWorker.register(
-    "/sw.js?v=noxveil-claim-20261119-2",
+        "/sw.js?v=noxveil-route-20261119-3",
     {
     scope: "/",
     updateViaCache: "none",
