@@ -34,19 +34,27 @@ async function registerSW() {
   // update activates. Any controller for this root scope can serve Scramjet;
   // requiring object identity with registration.active can time out in Chrome.
   if (!navigator.serviceWorker.controller) {
+    // On a first visit, activation can finish before this document is claimed.
+    // Ask the active worker to claim again instead of only waiting for an event
+    // that may already have fired.
+    registration.active?.postMessage({ type: "noxveil:claim-client" });
     await new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
+        clearInterval(poll);
         navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
         reject(new Error("Service worker did not take control."));
       }, 10000);
+      let poll;
       function onControllerChange() {
         if (navigator.serviceWorker.controller) {
           clearTimeout(timeout);
+          clearInterval(poll);
           navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
           resolve();
         }
       }
       navigator.serviceWorker.addEventListener("controllerchange", onControllerChange);
+      poll = setInterval(onControllerChange, 100);
       onControllerChange();
     });
   }

@@ -10,6 +10,10 @@ let configLoad;
 // performed by loadConfig() when it reads the saved config from IndexedDB.
 self.addEventListener("message", (event) => {
   const data = event.data;
+  if (data?.type === "noxveil:claim-client") {
+    event.waitUntil(self.clients.claim());
+    return;
+  }
   if (data && typeof data === "object" && data["scramjet$type"] === "loadConfig") {
     if (!scramjet) scramjet = new ScramjetServiceWorker();
     scramjet.config = data.config;
