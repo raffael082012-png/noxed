@@ -1430,7 +1430,7 @@
                         });
                         // Install the acknowledgement listener before init() sends
                         // its loadConfig message, so a quick SW response isn't missed.
-                        const workerReady = waitForScramjetWorkerConfig(controller.config.prefix);
+                        const workerReady = waitForScramjetWorkerConfig('/scramjet/');
                         workerReady.catch(() => {});
                         // Publish the controller only after init succeeds. A failed
                         // attempt must not leave a half-initialized object cached.
