@@ -5,10 +5,16 @@ async function registerSW() {
     throw new Error("This browser does not support service workers.");
   }
 
-  const registration = await navigator.serviceWorker.register("/sw.js", {
+  // Change the script URL when shipping a worker fix so browsers with a stale
+  // active worker install this build instead of continuing to control with it.
+  const registration = await navigator.serviceWorker.register(
+    "/sw.js?v=noxveil-claim-20261119-2",
+    {
     scope: "/",
     updateViaCache: "none",
-  });
+    },
+  );
+  await registration.update().catch(() => {});
   await navigator.serviceWorker.ready;
 
   const installing = registration.installing || registration.waiting;
