@@ -601,7 +601,7 @@
                 </div>
             </div>
             <div class="shortcuts">
-                <div onclick="setEngine('ddg'); directLoad('https://duckduckgo.com')" class="icon-item glass">
+                <div onclick="setEngine('ddg'); directLoad('https://html.duckduckgo.com/html/')" class="icon-item glass">
                     <div class="icon-circle">
                         <svg viewBox="0 0 24 24"><path fill="#de5833" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     </div>
@@ -1328,7 +1328,7 @@
             document.getElementById('engine-brave').classList.remove('active');
             document.getElementById('engine-ddg').classList.remove('active');
             document.getElementById(engine === 'brave' ? 'engine-brave' : 'engine-ddg').classList.add('active');
-            document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://duckduckgo.com/?q=%s';
+            document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://html.duckduckgo.com/html/?q=%s';
         }
 
         let scramjet = null, baremuxConn = null, proxyReady = false, proxyFailure = '', proxyInit = null;
