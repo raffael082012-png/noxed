@@ -1331,7 +1331,7 @@
             document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://duckduckgo.com/?q=%s';
         }
 
-        let scramjet = null, baremuxConn = null, proxyReady = false, proxyFailure = '';
+        let scramjet = null, baremuxConn = null, proxyReady = false, proxyFailure = '', proxyInit = null;
         async function repairScramjetDatabase() {
             if (typeof indexedDB.databases !== 'function') return;
             const databases = await indexedDB.databases();
@@ -1372,6 +1372,15 @@
         }
         async function ensureProxy() {
             if (proxyReady && scramjet) return true;
+            if (proxyInit) return proxyInit;
+            proxyInit = initializeProxy();
+            try {
+                return await proxyInit;
+            } finally {
+                proxyInit = null;
+            }
+        }
+        async function initializeProxy() {
             if (typeof $scramjetLoadController !== 'function') {
                 console.warn('[noxveil] scramjet script missing — deploy /scram folder');
                 return false;
@@ -1409,14 +1418,25 @@
                 const pool = buildWispPool();
                 const isStaticHost = /vercel\.app$|netlify\.app$|pages\.dev$|github\.io$/i.test(location.hostname);
                 const wispUrl = isStaticHost ? pool[0] : (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
-                try {
-                    await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
-                    localStorage.setItem('nv_wisp', wispUrl);
-                } catch (e) {
-                    proxyFailure = `BareMux worker/transport failed (${wispUrl}): ${e && e.message || e || 'unknown error'}`;
-                    console.warn('[noxveil] BareMux setup failed', proxyFailure);
-                    return false;
+                let transportReady = false;
+                for (let attempt = 1; attempt <= 3; attempt++) {
+                    try {
+                        await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
+                        try { localStorage.setItem('nv_wisp', wispUrl); } catch (e) {}
+                        transportReady = true;
+                        break;
+                    } catch (e) {
+                        proxyFailure = `BareMux worker/transport failed (${wispUrl}): ${e && e.message || e || 'unknown error'}`;
+                        console.warn(`[noxveil] BareMux setup attempt ${attempt}/3 failed`, e);
+                        if (attempt < 3) {
+                            const status = document.getElementById('proxy-status');
+                            if (status) status.textContent = `starting proxy… retry ${attempt + 1}/3`;
+                            await new Promise(resolve => setTimeout(resolve, 500 * attempt));
+                            baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js?v=20261118-2');
+                        }
+                    }
                 }
+                if (!transportReady) return false;
                 proxyReady = true;
                 return true;
             } catch (e) {
@@ -1428,7 +1448,11 @@
 
         let tabs = [], activeTabId = null, tabCounter = 0;
         const tabFrames = {};
+        let navigationGeneration = 0;
         function goHome() {
+            // Invalidate any search still waiting for proxy startup before clearing its tab.
+            navigationGeneration++;
+            proxyReady = false;
             document.body.classList.remove('proxy-active','fullscreen-mode');
             document.getElementById('browser-ui').style.display = 'none';
             document.getElementById('float-fullscreen-btn').style.display = 'none';
@@ -1473,6 +1497,7 @@
         function toggleFullscreen() { document.body.classList.toggle('fullscreen-mode'); }
 
         async function loadInTab(tabId, url) {
+            const thisNavigation = navigationGeneration;
             const container = document.getElementById('frame-container');
             let status = document.getElementById('proxy-status');
             if (!status) {
@@ -1488,6 +1513,8 @@
                 status.textContent = 'proxy setup failed — ' + (proxyFailure || 'service worker or transport startup');
                 return;
             }
+            // Home or a newer tab may have been selected while startup was retrying.
+            if (thisNavigation !== navigationGeneration || activeTabId !== tabId || !tabs.some(tab => tab.id === tabId)) return;
             status.style.display = 'none';
             for (const [id,f] of Object.entries(tabFrames)) if (f && f.frame) f.frame.style.display = id === tabId ? 'block' : 'none';
             let f = tabFrames[tabId];
