@@ -54,11 +54,32 @@ async function handleRequest(event) {
 
   try {
     await ensureConfig();
-  } catch {
-    return fetch(event.request);
+  } catch (error) {
+    // Never let a proxy navigation fall through to the site's static 404 page;
+    // that hides the actual service-worker/configuration failure.
+    return new Response(`Scramjet proxy setup failed: ${error?.message || error}`, {
+      status: 503,
+      headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
+    });
   }
-  if (scramjet.route(event)) return scramjet.fetch(event);
-  return fetch(event.request);
+
+  // The app's only proxy prefix is /scramjet/. Older saved configs can retain
+  // another prefix and make route() return false, which otherwise becomes a
+  // misleading server-side 404. Keep the route in sync with this worker's URL.
+  if (url.pathname.startsWith("/scramjet/")) {
+    scramjet.config.prefix = "/scramjet/";
+  }
+
+  try {
+    // This request was already positively identified as a Scramjet URL above.
+    // Dispatch it directly so a stale route() check cannot send it to static hosting.
+    return await scramjet.fetch(event);
+  } catch (error) {
+    return new Response(`Scramjet proxy request failed: ${error?.message || error}`, {
+      status: 502,
+      headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
+    });
+  }
 }
 
 self.addEventListener("install", (event) => event.waitUntil(self.skipWaiting()));
