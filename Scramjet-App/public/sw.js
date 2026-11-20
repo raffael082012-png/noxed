@@ -68,15 +68,17 @@ async function handleRequest(event) {
   }
 
   // The app's only proxy prefix is /scramjet/. Older saved configs can retain
-  // another prefix and make route() return false, which otherwise becomes a
-  // misleading server-side 404. Keep the route in sync with this worker's URL.
+  // another prefix, so synchronize it before asking Scramjet whether it owns
+  // this request.
   if (url.pathname.startsWith("/scramjet/")) {
     scramjet.config.prefix = "/scramjet/";
   }
 
   try {
-    // This request was already positively identified as a Scramjet URL above.
-    // Dispatch it directly so a stale route() check cannot send it to static hosting.
+    // Scramjet v1 expects route() to validate and prepare the request before
+    // fetch() handles it. Bypassing route() can leave proxy navigations as a
+    // browser-level chrome-error page instead of a Scramjet response.
+    if (!scramjet.route(event)) return fetch(event.request);
     return await scramjet.fetch(event);
   } catch (error) {
     return new Response(`Scramjet proxy request failed: ${error?.message || error}`, {
