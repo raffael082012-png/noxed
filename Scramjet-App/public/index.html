@@ -1428,12 +1428,16 @@
                                 sync: '/scram/scramjet.sync.js'
                             }
                         });
+                        // Install the acknowledgement listener before init() sends
+                        // its loadConfig message, so a quick SW response isn't missed.
+                        const workerReady = waitForScramjetWorkerConfig(controller.config.prefix);
+                        workerReady.catch(() => {});
                         // Publish the controller only after init succeeds. A failed
                         // attempt must not leave a half-initialized object cached.
                         await controller.init();
                         // Do not navigate until the active service worker has stored
                         // this controller's route config and acknowledged it.
-                        await waitForScramjetWorkerConfig(controller.config.prefix);
+                        await workerReady;
                         scramjet = controller;
                         window.scramjet = controller;
                     }
