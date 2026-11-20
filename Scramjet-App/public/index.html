@@ -7,7 +7,7 @@
     <link rel="icon" href="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://classroom.google.com&size=128" type="image/png" id="browser-favicon">
     
     <script src="/scram/scramjet.all.js"></script>
-    <script src="/baremux/index.js"></script>
+    <script src="/baremux/index.js?v=noxveil-chrome-port-2"></script>
     <link rel="stylesheet" href="index.css" />
     <script src="register-sw.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
@@ -1413,7 +1413,7 @@
             // Scramjet service worker starts requesting MessagePorts.
             for (let attempt = 1; attempt <= 3; attempt++) {
                 try {
-                    if (!baremuxConn) baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js');
+                    if (!baremuxConn) baremuxConn = new BareMux.BareMuxConnection('/baremux/worker.js?v=noxveil-chrome-port-2');
                     await baremuxConn.setTransport('/libcurl/index.mjs', [{ websocket: wispUrl }]);
                     try { localStorage.setItem('nv_wisp', wispUrl); } catch (e) {}
                     break;
