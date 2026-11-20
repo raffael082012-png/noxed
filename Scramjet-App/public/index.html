@@ -601,7 +601,7 @@
                 </div>
             </div>
             <div class="shortcuts">
-                <div onclick="setEngine('ddg'); document.getElementById('custom-address').focus()" class="icon-item glass">
+                <div onclick="setEngine('ddg'); directLoad('https://duckduckgo.com/')" class="icon-item glass">
                     <div class="icon-circle">
                         <svg viewBox="0 0 24 24"><path fill="#de5833" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     </div>
@@ -1430,7 +1430,10 @@
                     console.warn(`[noxveil] proxy setup attempt ${attempt}/3 failed`, e);
                     // A failed controller or BareMux connection is discarded before
                     // retrying so the next search starts from a clean setup state.
-                    baremuxConn = null;
+                    // Preserve the same BareMux connection across transport retries.
+                    // Recreating it adds more service-worker listeners and can make
+                    // subsequent proxied navigations pick up a stale port.
+                    if (!scramjet) baremuxConn = null;
                     proxyReady = false;
                     if (attempt < 3) {
                         const status = document.getElementById('proxy-status');
