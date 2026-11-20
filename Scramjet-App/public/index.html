@@ -1482,7 +1482,22 @@
         }
         // Warm the service worker, Scramjet, and BareMux while the home page is
         // open so the first submitted search does not pay the startup delay.
-        setTimeout(() => { ensureProxy().catch(e => console.warn('[noxveil] proxy prewarm failed', e)); }, 0);
+        setTimeout(async () => {
+            try {
+                const ok = await ensureProxy();
+                const didReload = sessionStorage.getItem('noxveil:sw-did-reload') === '1';
+                const pendingSearch = didReload ? sessionStorage.getItem('noxveil:pending-search') : null;
+                if (ok && pendingSearch) {
+                    sessionStorage.removeItem('noxveil:pending-search');
+                    sessionStorage.removeItem('noxveil:sw-did-reload');
+                    sessionStorage.removeItem('noxveil:sw-control-reload');
+                    directLoad(pendingSearch);
+                } else if (ok && didReload) {
+                    sessionStorage.removeItem('noxveil:sw-did-reload');
+                    sessionStorage.removeItem('noxveil:sw-control-reload');
+                }
+            } catch (e) { console.warn('[noxveil] proxy prewarm failed', e); }
+        }, 0);
 
         let tabs = [], activeTabId = null, tabCounter = 0;
         const tabFrames = {};
@@ -1554,6 +1569,7 @@
                 status.textContent = 'proxy setup failed — ' + (proxyFailure || 'service worker or transport startup');
                 return;
             }
+            try { if (sessionStorage.getItem('noxveil:pending-search') === url) sessionStorage.removeItem('noxveil:pending-search'); } catch (e) {}
             // Home or a newer tab may have been selected while startup was retrying.
             if (thisNavigation !== navigationGeneration || activeTabId !== tabId || !tabs.some(tab => tab.id === tabId)) return;
             for (const [id,f] of Object.entries(tabFrames)) if (f && f.frame) f.frame.style.display = id === tabId ? 'block' : 'none';
@@ -1619,6 +1635,7 @@
         async function handleSearch() {
             const input = document.getElementById('custom-address').value.trim(); if (!input) return;
             const finalUrl = resolveUrl(input);
+            try { if (!navigator.serviceWorker.controller) sessionStorage.setItem('noxveil:pending-search', finalUrl); } catch (e) {}
             let title = input;
             try { title = new URL(finalUrl).hostname.replace('www.',''); } catch (e) {}
             tabCounter++; const id = 'tab-'+tabCounter;

@@ -48,7 +48,18 @@ async function registerSW() {
       const timeout = setTimeout(() => {
         clearInterval(poll);
         navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
-        reject(new Error("Service worker did not take control."));
+        // First-load control can be missed on some browser profiles. Reload once
+        // so the now-active worker controls the next document navigation.
+        try {
+          const key = "noxveil:sw-control-reload";
+          if (sessionStorage.getItem(key) !== "1") {
+            sessionStorage.setItem(key, "1");
+            sessionStorage.setItem("noxveil:sw-did-reload", "1");
+            location.reload();
+            return;
+          }
+        } catch {}
+        reject(new Error("Service worker did not take control after recovery reload."));
       }, 10000);
       let poll;
       function onControllerChange() {
