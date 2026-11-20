@@ -1,7 +1,9 @@
 importScripts("/scram/scramjet.all.js");
 
 const { ScramjetServiceWorker } = $scramjetLoadWorker();
-const scramjet = new ScramjetServiceWorker();
+// Do not construct ScramjetServiceWorker at worker startup. In v1 its
+// constructor opens $scramjet before ScramjetController.init() creates stores.
+let scramjet;
 let configLoad;
 let controllerConfigured = false;
 
@@ -10,17 +12,22 @@ let controllerConfigured = false;
 self.addEventListener("message", (event) => {
   const data = event.data;
   if (data && typeof data === "object" && data["scramjet$type"] === "loadConfig") {
+    if (!scramjet) scramjet = new ScramjetServiceWorker();
+    scramjet.config = data.config;
     controllerConfigured = true;
-    configLoad = undefined;
+    configLoad = Promise.resolve();
+    event.source?.postMessage({
+      type: "noxveil:scramjet-ready",
+      prefix: data.config?.prefix,
+    });
   }
 });
 
 async function ensureConfig() {
+  if (!scramjet) throw new Error("Scramjet has not received controller configuration.");
+  if (scramjet.config?.prefix) return;
   if (!configLoad) {
     configLoad = (async () => {
-      // Force loadConfig() through its IndexedDB path so Scramjet's URL helpers
-      // receive the config as well as the service worker instance.
-      scramjet.config = undefined;
       await scramjet.loadConfig();
       if (!scramjet.config?.prefix) {
         throw new Error("Scramjet configuration is missing from IndexedDB.");

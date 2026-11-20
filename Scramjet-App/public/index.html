@@ -1353,6 +1353,22 @@
                 request.onblocked = () => reject(new Error('Close other Noxveil tabs, then reload.'));
             });
         }
+        function waitForScramjetWorkerConfig(prefix) {
+            return new Promise((resolve, reject) => {
+                const timeout = setTimeout(() => {
+                    navigator.serviceWorker.removeEventListener('message', onMessage);
+                    reject(new Error('service worker did not confirm Scramjet routing is ready'));
+                }, 8000);
+                function onMessage(event) {
+                    const data = event.data;
+                    if (data?.type !== 'noxveil:scramjet-ready' || data.prefix !== prefix) return;
+                    clearTimeout(timeout);
+                    navigator.serviceWorker.removeEventListener('message', onMessage);
+                    resolve();
+                }
+                navigator.serviceWorker.addEventListener('message', onMessage);
+            });
+        }
         function buildWispPool() {
             const local = (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host + '/wisp/';
             // Vercel/static hosts have no /wisp/ backend — skip local first hop there
@@ -1415,6 +1431,9 @@
                         // Publish the controller only after init succeeds. A failed
                         // attempt must not leave a half-initialized object cached.
                         await controller.init();
+                        // Do not navigate until the active service worker has stored
+                        // this controller's route config and acknowledged it.
+                        await waitForScramjetWorkerConfig(controller.config.prefix);
                         scramjet = controller;
                         window.scramjet = controller;
                     }
