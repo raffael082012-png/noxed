@@ -601,7 +601,7 @@
                 </div>
             </div>
             <div class="shortcuts">
-                <div onclick="setEngine('ddg'); directLoad('https://html.duckduckgo.com/html/')" class="icon-item glass">
+                <div onclick="setEngine('ddg'); directLoad('https://duckduckgo.com/')" class="icon-item glass">
                     <div class="icon-circle">
                         <svg viewBox="0 0 24 24"><path fill="#de5833" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     </div>
@@ -1328,7 +1328,7 @@
             document.getElementById('engine-brave').classList.remove('active');
             document.getElementById('engine-ddg').classList.remove('active');
             document.getElementById(engine === 'brave' ? 'engine-brave' : 'engine-ddg').classList.add('active');
-            document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://html.duckduckgo.com/html/?q=%s';
+            document.getElementById('sj-search-engine').value = engine === 'brave' ? 'https://search.brave.com/search?q=%s' : 'https://duckduckgo.com/?q=%s';
         }
 
         let scramjet = null, baremuxConn = null, proxyReady = false, proxyFailure = '', proxyInit = null;
@@ -1528,28 +1528,47 @@
             } else f.frame.style.display = 'block';
             const thisFrameLoad = ++frameLoadGeneration;
             clearTimeout(frameLoadTimer);
-            status.style.display = 'flex';
-            status.textContent = 'loading search…';
-            const onFrameLoad = () => {
+            let navigationAttempt = 0;
+            const navigate = () => {
                 if (thisFrameLoad !== frameLoadGeneration || activeTabId !== tabId) return;
-                clearTimeout(frameLoadTimer);
-                status.style.display = 'none';
-            };
-            f.frame.addEventListener('load', onFrameLoad, { once: true });
-            frameLoadTimer = setTimeout(() => {
-                if (thisFrameLoad !== frameLoadGeneration || activeTabId !== tabId) return;
-                f.frame.removeEventListener('load', onFrameLoad);
-                status.textContent = 'search is taking longer than usual…';
-                setTimeout(() => {
-                    if (thisFrameLoad === frameLoadGeneration && activeTabId === tabId) status.style.display = 'none';
-                }, 2500);
-            }, 15000);
-            try { f.go(url); } catch (e) {
-                clearTimeout(frameLoadTimer);
-                f.frame.removeEventListener('load', onFrameLoad);
+                navigationAttempt++;
                 status.style.display = 'flex';
-                status.textContent = 'load failed — try a different query';
-            }
+                status.textContent = navigationAttempt === 1 ? 'loading search…' : 'retrying search…';
+                const onFrameLoad = () => {
+                    if (thisFrameLoad !== frameLoadGeneration || activeTabId !== tabId) return;
+                    let isScramjetError = false;
+                    try {
+                        const text = f.frame.contentDocument?.body?.innerText || '';
+                        isScramjetError = /Scramjet\s*\|\s*Error|server could not route your request/i.test(text);
+                    } catch (e) {}
+                    clearTimeout(frameLoadTimer);
+                    if (isScramjetError && navigationAttempt < 2) {
+                        setTimeout(navigate, 300);
+                    } else if (isScramjetError) {
+                        status.textContent = 'proxy could not route this page — try again';
+                    } else {
+                        status.style.display = 'none';
+                    }
+                };
+                f.frame.addEventListener('load', onFrameLoad, { once: true });
+                frameLoadTimer = setTimeout(() => {
+                    if (thisFrameLoad !== frameLoadGeneration || activeTabId !== tabId) return;
+                    f.frame.removeEventListener('load', onFrameLoad);
+                    if (navigationAttempt < 2) {
+                        status.textContent = 'retrying search…';
+                        navigate();
+                    } else {
+                        status.textContent = 'search is still loading — try again';
+                    }
+                }, 12000);
+                try { f.go(url); } catch (e) {
+                    clearTimeout(frameLoadTimer);
+                    f.frame.removeEventListener('load', onFrameLoad);
+                    if (navigationAttempt < 2) navigate();
+                    else status.textContent = 'load failed — try again';
+                }
+            };
+            navigate();
         }
 
         function resolveUrl(input) {
